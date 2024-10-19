@@ -1,14 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     {% block meta %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% endblock %}
 
-    {% block extra meta %}
+    {% block extra_meta %}
     {% endblock %}
     
     {% block corecss %}
@@ -18,70 +18,24 @@
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
-    
-    {% block extra_head %}
-    {% endblock %}
 
     <title>{% block title %}Really Deep Photography{% endblock %}</title>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'home' %}">Really Deep Photography</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'gallery' %}">Gallery</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cart' %}">Cart</a>
-                    </li>
-                    {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'orders' %}">My Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <header class="container-fluid fixed-top"></header>
 
-    <!-- Content Area -->
-    <div class="container my-4">
-        {% block content %}
-        <!-- Page-specific content will go here -->
-        {% endblock %}
-    </div>
+    {% if messages %}
+        <div class="message-container"></div>
+    {% endif %}
 
-    <!-- Footer -->
-    <footer class="bg-light text-center text-lg-start">
-        <div class="text-center p-3">
-            © 2024 Really Deep Photography
-            <a class="text-dark" href="#">Privacy Policy</a>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS and dependencies (Popper.js and jQuery) -->
-    {% block corejs %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-whatever" crossorigin="anonymous"></script>
+    {% block page_header %}
     {% endblock %}
 
-    {% block extra_js %}
+    {% block content %}
     {% endblock %}
 
-</body>
+    {% block postloadjs %}
+    {% endblock %}
+
+  </body>
 </html>
