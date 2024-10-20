@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Contact Us</h1>
+    <p>We'd love to hear from you! Whether you have questions, want to discuss a project, or simply want to say hello, feel free to reach out.</p>
+
+    <h2>Contact Information</h2>
+    <p><strong>Email:</strong> <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+    <p><strong>Phone:</strong> +1 (123) 456-7890</p>
+    
+    <h2>Send Us a Message</h2>
+    <form action="{% url 'contact' %}" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}
