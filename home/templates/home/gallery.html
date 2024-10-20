@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">Gallery</h1>
+    <p>Explore our collection of beautiful deep photography.</p>
+
+    <div class="row">
+        <!-- Photo Item 1 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'images/photo1.jpg' %}" class="card-img-top" alt="Photo 1">
+                <div class="card-body">
+                    <h5 class="card-title">Photo Title 1</h5>
+                    <p class="card-text">Description of Photo 1.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Item 2 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'images/photo2.jpg' %}" class="card-img-top" alt="Photo 2">
+                <div class="card-body">
+                    <h5 class="card-title">Photo Title 2</h5>
+                    <p class="card-text">Description of Photo 2.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Item 3 -->
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{% static 'images/photo3.jpg' %}" class="card-img-top" alt="Photo 3">
+                <div class="card-body">
+                    <h5 class="card-title">Photo Title 3</h5>
+                    <p class="card-text">Description of Photo 3.</p>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more photo items as needed -->
+
+    </div>
+</div>
+{% endblock %}

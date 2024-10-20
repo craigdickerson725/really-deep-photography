@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5">About Us</h1>
+    <p>Welcome to Really Deep Photography! We specialize in capturing stunning images that tell a story. Our passion for photography drives us to explore the world and share its beauty through our lens.</p>
+
+    <h2>Our Mission</h2>
+    <p>At Really Deep Photography, our mission is to provide high-quality prints that not only beautify your space but also evoke emotions and memories. We believe that a great photograph can make a lasting impression.</p>
+
+    <h2>Our Journey</h2>
+    <p>Founded by [Your Name], Really Deep Photography has grown from a hobby into a thriving business. With years of experience and a keen eye for detail, we strive to offer unique perspectives in every shot we take.</p>
+
+    <h2>Meet the Photographer</h2>
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <img src="{% static 'images/photographer.jpg' %}" class="img-fluid rounded-circle" alt="Photographer">
+        </div>
+        <div class="col-md-8">
+            <h3>[Your Name]</h3>
+            <p>[Your Name] is a passionate photographer with a love for [describe your style or areas of focus]. With a background in [mention any relevant experience or education], [he/she/they] brings creativity and professionalism to every project.</p>
+        </div>
+    </div>
+
+    <h2>Get in Touch</h2>
+    <p>If you have any questions or would like to collaborate, feel free to <a href="{% url 'contact' %}">contact us</a>!</p>
+</div>
+{% endblock %}
