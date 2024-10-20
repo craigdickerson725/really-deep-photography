@@ -1,12 +1,10 @@
-from django.contrib import admin
 from django.urls import path
-from .views import index, GalleryView, AboutView, ContactView
-from allauth.account.views import LoginView
+from .views import index, GalleryView, AboutView, ContactView, search
 
 urlpatterns = [
-    path('', index, name='home'),
-    path('gallery/', GalleryView.as_view(), name='gallery'),
-    path('about/', AboutView.as_view(), name='about'),
-    path('contact/', ContactView.as_view(), name='contact'),
-    path('login/', LoginView.as_view(), name='account_login'),  # Use Allauth's login view
+    path('', index, name='home'),  # Home page
+    path('gallery/', GalleryView.as_view(), name='gallery'),  # Gallery page
+    path('about/', AboutView.as_view(), name='about'),  # About page
+    path('contact/', ContactView.as_view(), name='contact'),  # Contact page
+    path('search/', search, name='search'),  # Search functionality
 ]

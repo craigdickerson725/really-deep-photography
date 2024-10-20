@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #1f1f1f; /* Dark gray background */
+    color: #f0f0f0; /* Light gray text for readability */
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #2e2e2e; /* Darker gray for navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #f0f0f0; /* Light gray for brand text */
+}
+
+.navbar-nav .nav-link {
+    color: #d0d0d0; /* Light gray for links */
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffffff; /* White on hover for better contrast */
+}
+
+/* Header Styles */
+.header {
+    padding: 50px 0;
+    text-align: center;
+    background-color: #000000; /* Black background */
+    color: #f0f0f0; /* Light gray text */
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.header p {
+    font-size: 1.2rem;
+}
+
+/* Container and Form Styles */
+.container {
+    background-color: #2b2b2b; /* Darker gray background */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Darker shadow */
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #444444; /* Medium gray */
+    border-color: #444444;
+    color: #f0f0f0; /* Light text on button */
+}
+
+.btn-primary:hover {
+    background-color: #000000; /* Darker on hover */
+    border-color: #000000;
+}
+
+/* Gallery Styles */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.gallery img {
+    width: 300px;
+    height: auto;
+    margin: 10px;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    border: 2px solid #f0f0f0; /* Add light border on hover */
+}
+
+/* About and Contact Styles */
+.about, .contact {
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: auto;
+    background-color: #333333; /* Dark gray background */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+}
+
+.about h2, .contact h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #f0f0f0; /* Light gray for headings */
+}
+
+.about p, .contact p {
+    line-height: 1.6;
+    color: #d0d0d0; /* Lighter text for paragraphs */
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1b1b1b; /* Darker gray */
+    color: #f0f0f0; /* Light gray text */
+}
+
+.footer p {
+    margin: 0;
+}

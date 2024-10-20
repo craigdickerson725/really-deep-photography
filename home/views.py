@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
 # Home view
 def index(request):
@@ -15,3 +16,9 @@ class AboutView(TemplateView):
 # Contact view
 class ContactView(TemplateView):
     template_name = 'home/contact.html'
+
+# Search view
+def search(request):
+    query = request.GET.get('q')
+    # Search logic
+    return render(request, 'home/search_results.html', {'query': query})
