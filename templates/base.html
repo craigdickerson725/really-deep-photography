@@ -14,7 +14,10 @@
     {% block corecss %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-whatever" crossorigin="anonymous">
     {% endblock %}
-    
+
+    <!-- Google Fonts for the classy, artsy look -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@1,400;1,700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
@@ -22,20 +25,65 @@
     <title>{% block title %}Really Deep Photography{% endblock %}</title>
 </head>
 <body>
-    <header class="container-fluid fixed-top"></header>
+    <header class="container-fluid fixed-top">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">Really Deep Photography</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'gallery' %}">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
-    {% if messages %}
-        <div class="message-container"></div>
-    {% endif %}
+        <!-- Hero Section -->
+        {% block page_header %}
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content text-center">
+                <h1 class="display-4 text-light">Welcome to Really Deep Photography</h1>
+                <p class="lead text-light">Capturing moments that last forever</p>
+                <a href="{% url 'gallery' %}" class="btn btn-primary btn-lg">Browse Gallery</a>
+            </div>
+        </section>
+        {% endblock %}
+    </header>
 
-    {% block page_header %}
-    {% endblock %}
+    <!-- Main Content -->
+    <main>
+        <div class="container mt-5 pt-5">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 
-    {% block content %}
-    {% endblock %}
+    <!-- Optional Footer (if needed) -->
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3">
+            © 2024 Really Deep Photography
+        </div>
+    </footer>
 
     {% block postloadjs %}
+    <!-- Bootstrap 5 JS (optional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-whatever" crossorigin="anonymous"></script>
     {% endblock %}
 
-  </body>
+</body>
 </html>
