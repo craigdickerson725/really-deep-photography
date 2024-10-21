@@ -12,17 +12,18 @@
                 <div class="alert alert-danger">{{ form.non_field_errors }}</div>
             {% endif %}
 
-            <form method="post" action="{% url 'account_login' %}">
+            <!-- Temporarily replace the crispy form with manual Bootstrap classes -->
+            <form method="post" class="form-group" action="{% url 'account_login' %}">
                 {% csrf_token %}
                 
                 <div class="mb-3">
                     <label for="id_login" class="form-label">Email</label>
-                    {{ form.email|add_class:"form-control"|attr:"placeholder:Enter your email" }}
+                    {{ form.email|add_class:"form-control" }}
                 </div>
 
                 <div class="mb-3">
                     <label for="id_password" class="form-label">Password</label>
-                    {{ form.password|add_class:"form-control"|attr:"placeholder:Enter your password" }}
+                    {{ form.password|add_class:"form-control" }}
                 </div>
 
                 <div class="mb-3 form-check">

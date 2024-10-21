@@ -1,24 +1,10 @@
 /* General Styles */
-html {
-    height: 100%;
-}
-
 body {
-    background-size: cover;
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #1f1f1f; /* Dark gray background */
     color: #f0f0f0; /* Light gray text for readability */
-}
-
-/* from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
 }
 
 /* Navbar Styles */
@@ -156,11 +142,11 @@ form {
 }
 
 a {
-    color: black !important;
+    color: #0069d9;
 }
 
 a:hover {
-    color: darkgray !important;
+    color: #004085;
     text-decoration: underline;
 }
 
