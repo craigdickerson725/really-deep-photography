@@ -19,6 +19,14 @@
 
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: white; /* Set the main background to white */
+        }
+        .hero-section {
+            background-color: black; /* Keep the hero section dark for contrast */
+        }
+    </style>
     {% endblock %}
 
     <title>{% block title %}Really Deep Photography{% endblock %}</title>

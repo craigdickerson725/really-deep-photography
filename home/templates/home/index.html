@@ -4,15 +4,16 @@
 {% block title %}Home | Really Deep Photography{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-1">
     <section class="home-welcome">
-        <h2 class="text-center">Featured Collections</h2>
+        <h2 class="text-center text-white">Featured Collections</h2>
         <p class="lead text-center">Explore our exclusive photo collections from renowned photographers.</p>
-        <!-- Add more home-specific content here, like featured photos or categories -->
+        
+        <!-- Featured Photos Section -->
         <div class="row mt-4">
-            <!-- Example featured photos section -->
+            <!-- Featured Photo 1 -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mb-4">
                     <img src="{% static 'images/featured1.jpg' %}" class="card-img-top" alt="Featured Photo 1">
                     <div class="card-body">
                         <h5 class="card-title">Deep Nature</h5>
@@ -21,8 +22,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Featured Photo 2 -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mb-4">
                     <img src="{% static 'images/featured2.jpg' %}" class="card-img-top" alt="Featured Photo 2">
                     <div class="card-body">
                         <h5 class="card-title">Urban Life</h5>
@@ -31,8 +34,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Featured Photo 3 -->
             <div class="col-md-4">
-                <div class="card">
+                <div class="card mb-4">
                     <img src="{% static 'images/featured3.jpg' %}" class="card-img-top" alt="Featured Photo 3">
                     <div class="card-body">
                         <h5 class="card-title">Abstract Art</h5>

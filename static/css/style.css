@@ -1,177 +1,134 @@
 /* General Styles */
-html {
-    height: 100%;
-}
-
-body {
-    background-size: cover;
-    font-family: 'Arial', sans-serif;
+html, body {
     margin: 0;
     padding: 0;
-    background-color: #1f1f1f; /* Dark gray background */
-    color: #f0f0f0; /* Light gray text for readability */
+    font-family: 'Arial', sans-serif;
+    background-color: white; /* Main background */
+    color: #333; /* Default text color */
+    height: 100%;
+    box-sizing: border-box;
 }
 
-/* from Bulma */
-.icon {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
 }
 
-/* Navbar Styles */
+/* Navbar */
 .navbar {
-    background-color: #2e2e2e; /* Darker gray for navbar */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Slightly darker shadow */
+    background-color: #f8f9fa; /* Light background for navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #f0f0f0; /* Light gray for brand text */
-}
-
-.navbar-nav .nav-link {
-    color: #d0d0d0; /* Light gray for links */
-    transition: color 0.3s ease;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #ffffff; /* White on hover for better contrast */
-}
-
-/* Header Styles */
-.header {
-    padding: 50px 0;
-    text-align: center;
-    background-color: #000000; /* Black background */
-    color: #f0f0f0; /* Light gray text */
-}
-
-.header h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
-
-.header p {
-    font-size: 1.2rem;
-}
-
-/* Container and Form Styles */
-.container {
-    background-color: #2b2b2b; /* Darker gray background */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Darker shadow */
-}
-
-/* Button Styles */
-.btn-primary {
-    background-color: #444444; /* Medium gray */
-    border-color: #444444;
-    color: #f0f0f0; /* Light text on button */
-}
-
-.btn-primary:hover {
-    background-color: #000000; /* Darker on hover */
-    border-color: #000000;
-}
-
-/* Gallery Styles */
-.gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
-}
-
-.gallery img {
-    width: 300px;
-    height: auto;
-    margin: 10px;
-    border-radius: 5px;
-    transition: transform 0.3s ease;
-}
-
-.gallery img:hover {
-    transform: scale(1.05);
-    border: 2px solid #f0f0f0; /* Add light border on hover */
-}
-
-/* About and Contact Styles */
-.about, .contact {
-    padding: 40px 20px;
-    max-width: 800px;
-    margin: auto;
-    background-color: #333333; /* Dark gray background */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-}
-
-.about h2, .contact h2 {
-    margin-bottom: 20px;
-    font-size: 2rem;
-    color: #f0f0f0; /* Light gray for headings */
-}
-
-.about p, .contact p {
-    line-height: 1.6;
-    color: #d0d0d0; /* Lighter text for paragraphs */
-}
-
-/* Center the login form and apply custom styles */
-.container {
-    max-width: 600px;
-    margin-top: 100px;
-}
-
-h2 {
-    font-family: 'Arial', sans-serif;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
 }
 
-form {
-    background-color: #f8f9fa; /* Light background for the form */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow */
+.nav-link {
+    color: #333;
+    padding: 0.5rem 1rem;
 }
 
-.form-control {
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 10px;
+.nav-link:hover {
+    color: #000; /* Slightly darker on hover */
 }
 
-.btn-primary {
-    background-color: #333; /* Dark gray button */
-    border-color: #333;
+/* Main Content */
+
+main {
+    flex-grow: 1; /* This will push the footer to the bottom */
 }
 
-.btn-primary:hover {
-    background-color: #555; /* Lighter gray on hover */
+.container {
+    width: 100%;
+    padding: 1rem;
+    margin: 0 auto;
 }
 
-a {
-    color: black !important;
-}
-
-a:hover {
-    color: darkgray !important;
-    text-decoration: underline;
-}
-
-/* Footer Styles */
-.footer {
+.hero-section {
+    background-color: black;
+    color: white;
     text-align: center;
-    padding: 20px;
-    background-color: #1b1b1b; /* Darker gray */
-    color: #f0f0f0; /* Light gray text */
+    padding: 3rem 1rem;
 }
 
-.footer p {
-    margin: 0;
+.hero-section h1 {
+    font-size: 2rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+}
+
+.hero-section a {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    color: black;
+    background-color: white;
+    border: none;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.hero-section a:hover {
+    background-color: #eaeaea;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    margin-top: auto;
+}
+
+/* Mobile-first approach */
+.container {
+    padding: 1rem;
+}
+
+/* Media Queries for larger screens */
+@media (min-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-section p {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        max-width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+
+    .hero-section p {
+        font-size: 1.75rem;
+    }
+
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .hero-section h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-section p {
+        font-size: 2rem;
+    }
+
+    .container {
+        max-width: 1140px;
+    }
 }
