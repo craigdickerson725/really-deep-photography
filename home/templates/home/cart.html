@@ -1,27 +1,73 @@
 {% extends 'base.html' %}
 
-{% block content %}
-<h1>Your Cart</h1>
+{% load custom_filters %}
 
-{% if items %}
-    <ul>
-        {% for item in items %}
-            <li>
-                {{ item.photo.title }} - {{ item.quantity }} x {{ item.photo.price_display }}
-                <form action="{% url 'update_cart' item.id %}" method="post">
-                    {% csrf_token %}
-                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                    <button type="submit">Update</button>
-                </form>
-                <form action="{% url 'remove_from_cart' item.id %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Remove</button>
-                </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>Total: {{ total|currency }}</h2>
-{% else %}
-    <p>Your cart is empty.</p>
-{% endif %}
+{% block title %}Shopping Cart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Shopping Cart</h1>
+
+    <!-- Check if there are items in the cart -->
+    {% if items %}
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.photo.title }}</td>
+                        <td>
+                            <!-- Form to update quantity -->
+                            <form action="{% url 'update_cart' item.photo.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control w-25">
+                                <button type="submit" class="btn btn-primary mt-1">Update</button>
+                            </form>
+                        </td>
+                        <td>{{ item.photo.price|currency }}</td>
+                        <td>{{ item.total|currency }}</td> <!-- Subtotal is already calculated in the view -->
+                        <td>
+                            <!-- Form to remove item -->
+                            <form action="{% url 'remove_from_cart' item.photo.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="row my-4">
+        <div class="col-12 text-end">
+            <h3>Total: {{ total|currency }}</h3>
+            <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    {% else %}
+    <div class="alert alert-warning" role="alert">
+        Your cart is empty. <a href="{% url 'gallery' %}" class="alert-link">Go to the gallery</a> to add some photos.
+    </div>
+    {% endif %}
+
+    <!-- Navigation Links -->
+    <div class="mt-4">
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+        <a href="{% url 'gallery' %}" class="btn btn-secondary">View Gallery</a>
+    </div>
+</div>
 {% endblock %}
