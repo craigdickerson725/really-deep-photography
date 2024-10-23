@@ -14,7 +14,10 @@ SECRET_KEY = 'django-insecure-i$w(x94^&6j^_%zz2i(fsg)m21d3m0(&aln#dccyjyzb85@%p8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net','really-deep-photography.herokuapp.com']
+ALLOWED_HOSTS = [
+    '8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net',
+    '.herokuapp.com'
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net',
