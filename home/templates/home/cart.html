@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if items %}
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.photo.title }} - {{ item.quantity }} x {{ item.photo.price_display }}
+                <form action="{% url 'update_cart' item.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                    <button type="submit">Update</button>
+                </form>
+                <form action="{% url 'remove_from_cart' item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Remove</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Total: {{ total|currency }}</h2>
+{% else %}
+    <p>Your cart is empty.</p>
+{% endif %}
+{% endblock %}

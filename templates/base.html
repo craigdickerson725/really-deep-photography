@@ -54,6 +54,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'view_cart' %}">Cart (
+                                {% if user.is_authenticated %}
+                                    {% with request.user.cart.items.count as cart_count %}
+                                        {{ cart_count }}
+                                    {% endwith %}
+                                {% else %}
+                                    0
+                                {% endif %}
+                            )</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
