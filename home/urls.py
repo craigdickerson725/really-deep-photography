@@ -1,10 +1,17 @@
 from django.urls import path
-from .views import index, GalleryView, AboutView, ContactView, search
+from .views import index, GalleryView, AboutView, ContactView, search, photo_detail
 
 urlpatterns = [
-    path('', index, name='home'),  # Home page
-    path('gallery/', GalleryView.as_view(), name='gallery'),  # Gallery page
-    path('about/', AboutView.as_view(), name='about'),  # About page
-    path('contact/', ContactView.as_view(), name='contact'),  # Contact page
-    path('search/', search, name='search'),  # Search functionality
+    # Home page
+    path('', index, name='home'),
+    # Gallery page
+    path('gallery/', GalleryView.as_view(), name='gallery'),
+    # About page
+    path('about/', AboutView.as_view(), name='about'),
+    # Contact page
+    path('contact/', ContactView.as_view(), name='contact'),
+    # Search functionality
+    path('search/', search, name='search'),
+    # Photo details page
+    path('photo/<int:photo_id>/', photo_detail, name='photo_detail'),
 ]

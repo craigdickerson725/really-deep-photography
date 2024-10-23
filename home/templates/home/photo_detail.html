@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ photo.title }}</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ photo.image.url }}" class="img-fluid" alt="{{ photo.title }}">
+        </div>
+        <div class="col-md-6">
+            <h4>Description</h4>
+            <p>{{ photo.description }}</p>
+            <h4>Size</h4>
+            <p>{{ photo.size }}</p>
+            <h4>Price</h4>
+            <p>{{ photo.price_display }}</p>
+            <a href="{% url 'gallery' %}" class="btn btn-primary">Back to Gallery</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i$w(x94^&6j^_%zz2i(fsg)m21d3m0(&aln#dccyjyzb85@%p8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = ['8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net','really-deep-photography.herokuapp.com']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-craigdicker-reallydeepp-lvdcmwz1rbr.ws.codeinstitute-ide.net',
@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'really_deep_photography.urls'
@@ -156,3 +157,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')

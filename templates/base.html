@@ -76,10 +76,10 @@
 
         <!-- Hero Section -->
         {% block page_header %}
-        <section class="hero-section bg-black text-white text-center py-5">
+        <section class="hero-section bg-black text-white text-center py-3">
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1 class="display-4">Welcome to Really Deep Photography</h1>
+                <h1 class="display-3">Welcome to Really Deep Photography</h1>
                 <p class="lead">Capturing moments that last forever</p>
                 <a href="{% url 'gallery' %}" class="btn btn-lg btn-light">Browse Gallery</a>
             </div>
@@ -89,7 +89,7 @@
 
     <!-- Main Content -->
     <main>
-        <div class="container mt-5 pt-5">
+        <div class="container mt-4"> <!-- Reduced margin-top for main content -->
             {% block content %}
             {% endblock %}
         </div>
