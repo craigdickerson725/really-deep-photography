@@ -25,6 +25,15 @@
         }
         .hero-section {
             background-color: black; /* Keep the hero section dark for contrast */
+            position: relative; /* Allows absolute positioning of content */
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
         }
     </style>
     {% endblock %}
@@ -57,13 +66,13 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'view_cart' %}">Cart (
                                 {% if user.is_authenticated %}
-                                    {% with cart=user.cart.items.count %}
-                                        {{ cart }}
+                                    {% with cart=user.cart.items.count %} 
+                                        {{ cart }} 
                                     {% endwith %}
                                 {% else %}
                                     0
-                                {% endif %}
-                            )</a>
+                                {% endif %})
+                            </a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -87,7 +96,7 @@
 
         <!-- Hero Section -->
         {% block page_header %}
-        <section class="hero-section bg-black text-white text-center py-3">
+        <section class="hero-section text-white text-center py-3">
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <h1 class="display-3">Welcome to Really Deep Photography</h1>

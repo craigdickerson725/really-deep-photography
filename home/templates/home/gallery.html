@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}  <!-- Load the custom filter -->
 
 {% block content %}
 <div class="container">
@@ -26,7 +27,8 @@
             {% for photo in photos %}
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="{{ photo.image.url }}" class="card-img-top" alt="{{ photo.title }}">
+                    <!-- Cloudinary image with optimization -->
+                    <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ photo.title }}</h5>
                         <p class="card-text">{{ photo.description }}</p>

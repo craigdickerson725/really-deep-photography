@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}  <!-- Load the custom filter -->
 
 {% block title %}Home | Really Deep Photography{% endblock %}
 
@@ -11,41 +12,19 @@
         
         <!-- Featured Photos Section -->
         <div class="row mt-4">
-            <!-- Featured Photo 1 -->
+            {% for photo in featured_photos %}
             <div class="col-md-4">
                 <div class="card mb-4">
-                    <img src="{% static 'images/featured1.jpg' %}" class="card-img-top" alt="Featured Photo 1">
+                    <!-- Cloudinary image with optimization -->
+                    <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
                     <div class="card-body">
-                        <h5 class="card-title">Deep Nature</h5>
-                        <p class="card-text">Discover stunning photos of nature at its finest.</p>
-                        <a href="#" class="btn btn-primary">View Collection</a>
+                        <h5 class="card-title">{{ photo.title }}</h5>
+                        <p class="card-text">{{ photo.description }}</p>
+                        <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary">View Collection</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Featured Photo 2 -->
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{% static 'images/featured2.jpg' %}" class="card-img-top" alt="Featured Photo 2">
-                    <div class="card-body">
-                        <h5 class="card-title">Urban Life</h5>
-                        <p class="card-text">See the beauty of cities through a creative lens.</p>
-                        <a href="#" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Featured Photo 3 -->
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <img src="{% static 'images/featured3.jpg' %}" class="card-img-top" alt="Featured Photo 3">
-                    <div class="card-body">
-                        <h5 class="card-title">Abstract Art</h5>
-                        <p class="card-text">Abstract photography that challenges perception.</p>
-                        <a href="#" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </section>
 </div>

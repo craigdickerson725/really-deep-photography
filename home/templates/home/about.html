@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}  <!-- Load the custom filter -->
 
 {% block content %}
 <div class="container">
@@ -15,7 +16,8 @@
     <h2>Meet the Photographer</h2>
     <div class="row mb-4">
         <div class="col-md-4">
-            <img src="{% static 'images/photographer.jpg' %}" class="img-fluid rounded-circle" alt="Photographer">
+            <!-- Cloudinary image with optimization -->
+            <img src="{{ 'images/photographer.jpg'|cloudinary_optimized }}" class="img-fluid rounded-circle" alt="Photographer">
         </div>
         <div class="col-md-8">
             <h3>Robert Craig Dickerson</h3>

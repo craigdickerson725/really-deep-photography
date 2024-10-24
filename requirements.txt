@@ -1,12 +1,15 @@
 asgiref==3.8.1
+cloudinary==1.36.0
 crispy-bootstrap5==2024.10
 dj-database-url==2.3.0
+dj3-cloudinary-storage==0.0.6
 Django==5.1.2
 django-allauth==65.0.2
 django-crispy-forms==2.3
 gunicorn==23.0.0
 pillow==11.0.0
 pytz==2024.2
-setuptools==58.0.0
+setuptools==75.2.0
 sqlparse==0.5.1
+urllib3==1.26.20
 whitenoise==6.7.0

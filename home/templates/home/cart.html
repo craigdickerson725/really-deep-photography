@@ -25,7 +25,10 @@
                 <tbody>
                     {% for item in items %}
                     <tr>
-                        <td>{{ item.photo.title }}</td>
+                        <td>
+                            <img src="{{ item.photo.image.url|cloudinary_optimized }}" alt="{{ item.photo.title }}" class="img-thumbnail" style="width: 50px; height: auto;"> <!-- Added Cloudinary optimization -->
+                            {{ item.photo.title }}
+                        </td>
                         <td>
                             <!-- Form to update quantity -->
                             <form action="{% url 'update_cart' item.photo.id %}" method="post">
