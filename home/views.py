@@ -99,3 +99,4 @@ def update_cart(request, cart_item_id):
 def checkout(request):
     """ Render the checkout page. """
     return render(request, 'home/checkout.html')
+    
