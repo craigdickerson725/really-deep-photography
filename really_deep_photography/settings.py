@@ -72,6 +72,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',  # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # to display cart items on all pages
+                'home.context_processors.cart_items_count',
             ],
         },
     },

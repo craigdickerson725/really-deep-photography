@@ -77,6 +77,12 @@ main {
     background-color: #eaeaea;
 }
 
+/* Text inputs */
+input[type="text"]:focus {
+    box-shadow: none;
+    border-color: gray;
+}
+
 /* Footer */
 footer {
     background-color: #333;

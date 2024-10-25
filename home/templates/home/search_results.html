@@ -1,9 +1,31 @@
-<!-- home/templates/home/search_results.html -->
 {% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}  <!-- Load the custom filter -->
 
 {% block content %}
-  <h2>Search Results for "{{ query }}"</h2>
-  <!-- Display your search results here -->
-  <!-- Example: You could loop through photo results -->
-  <p>No results found.</p> <!-- Placeholder -->
+<div class="container">
+    <h1 class="mt-1">Search Results</h1>
+    <p>You searched for: <strong>{{ query }}</strong></p>
+
+    <!-- Search Results Content -->
+    <div class="row">
+        {% if photos %}
+            {% for photo in photos %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <!-- Cloudinary image with optimization -->
+                    <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ photo.title }}</h5>
+                        <!-- <p class="card-text">{{ photo.description }}</p> -->
+                        <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>No photos found matching your search criteria.</p>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

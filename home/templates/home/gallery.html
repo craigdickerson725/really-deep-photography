@@ -4,6 +4,14 @@
 
 {% block content %}
 <div class="container">
+    {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <h1 class="mt-1">Gallery</h1>
     <p>Explore our collection of beautiful deep photography.</p>
 
@@ -23,12 +31,23 @@
     </div>
 
     <!-- Search Bar -->
-    <form method="GET" action="{% url 'search' %}" class="mb-4">
-        <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
-            <button class="btn btn-primary" type="submit">Search</button>
-        </div>
-    </form>
+<form method="GET" action="{% url 'search' %}" class="mb-4" onsubmit="return validateSearch()">
+    <div class="input-group">
+        <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<script>
+    function validateSearch() {
+        const searchInput = document.querySelector('input[name="q"]');
+        if (searchInput.value.trim() === "") {
+            alert("Please enter a search item.");
+            return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+    }
+</script>
 
     <!-- Gallery content -->
     <div class="row">
@@ -40,14 +59,14 @@
                     <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ photo.title }}</h5>
-                        <p class="card-text">{{ photo.description }}</p>
+                        <!-- <p class="card-text">{{ photo.description }}</p> -->
                         <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         {% else %}
-            <p>No photos available in the gallery yet.</p>
+            <p>No photos found matching your search criteria.</p>
         {% endif %}
     </div>
 </div>

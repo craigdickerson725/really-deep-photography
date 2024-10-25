@@ -1,31 +1,38 @@
+<!-- home/templates/home/index.html -->
+
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_filters %}  <!-- Load the custom filter -->
-
-{% block title %}Home | Really Deep Photography{% endblock %}
+{% load custom_filters %}
 
 {% block content %}
-<div class="container mt-1">
-    <section class="home-welcome">
-        <h2 class="text-center text-white">Featured Collections</h2>
-        <p class="lead text-center">Explore our exclusive photo collections from renowned photographers.</p>
-        
-        <!-- Featured Photos Section -->
-        <div class="row mt-4">
-            {% for photo in featured_photos %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <!-- Cloudinary image with optimization -->
-                    <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ photo.title }}</h5>
-                        <p class="card-text">{{ photo.description }}</p>
-                        <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary">View Collection</a>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+    <h1 class="mt-1">Welcome to Really Deep Photography</h1>
+    <p>Explore our collection of beautiful deep photography.</p>
+
+    <!-- Display Messages -->
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+                <p>{{ message }}</p>
             {% endfor %}
         </div>
-    </section>
+    {% endif %}
+
+    <!-- Featured Photos Section -->
+    <h2>Featured Photos</h2>
+    <div class="row">
+        {% for photo in featured_photos %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ photo.title }}</h5>
+                    <p class="card-text">{{ photo.description }}</p>
+                    <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
 from .models import Photo, Cart, CartItem
+from django.contrib import messages
 
 # Home view
 def index(request):
@@ -30,7 +31,13 @@ class ContactView(TemplateView):
 def search(request):
     """Handle search queries and render results."""
     query = request.GET.get('q')
-    photos = Photo.objects.filter(title__icontains=query) if query else []
+    
+    if query:  # Check if the query is not empty
+        photos = Photo.objects.filter(title__icontains=query) | Photo.objects.filter(description__icontains=query)
+    else:
+        photos = []  # If the query is empty, set photos to an empty list
+        messages.warning(request, "Please enter a search term.")  # Add a warning message
+
     return render(request, 'home/search_results.html', {
         'query': query,
         'photos': photos
@@ -64,21 +71,17 @@ def view_cart(request):
     cart = get_object_or_404(Cart, user=request.user)
     items = cart.items.all()  # Fetch items associated with the user's cart
 
-    # Debugging: Print details about cart items
-    print("Cart Items:", items)
+    # Calculate total quantity of items
+    total_quantity = sum(item.quantity for item in items)
 
-    total = sum(item.subtotal for item in items)  # Calculate total using subtotal property
-
-    for item in items:
-        print(f"Photo: {item.photo.title}, Price: {item.photo.price}, Quantity: {item.quantity}")
-        print(f"Subtotal for {item.photo.title}: {item.subtotal}")
-
-    print("Total Price:", total)
+    # Calculate total price
+    total_price = sum(item.subtotal for item in items)  # Calculate total using subtotal property
 
     return render(request, 'home/cart.html', {
         'cart': cart,
         'items': items,
-        'total': total,
+        'total_quantity': total_quantity,  # Pass total quantity to the template
+        'total_price': total_price,  # Pass total price to the template
     })
 
 # Remove from cart
