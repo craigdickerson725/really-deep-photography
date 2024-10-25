@@ -1,76 +1,65 @@
-{% extends 'base.html' %}
-
-{% load custom_filters %}
-
-{% block title %}Shopping Cart{% endblock %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-<div class="container">
-    <h1 class="my-4">Shopping Cart</h1>
+<div class="container my-5">
+    <h1 class="text-center mb-4">Your Shopping Cart</h1>
 
-    <!-- Check if there are items in the cart -->
     {% if items %}
-    <div class="row">
-        <div class="col-12">
-            <table class="table table-bordered">
-                <thead>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th class="text-center font-weight-bold">Product</th>
+                    <th class="text-center font-weight-bold">Price</th>
+                    <th class="text-center font-weight-bold">Quantity</th>
+                    <th class="text-right font-weight-bold">Subtotal</th>
+                    <th class="text-center font-weight-bold">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
                     <tr>
-                        <th>Item</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Subtotal</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in items %}
-                    <tr>
-                        <td>
-                            <img src="{{ item.photo.image.url|cloudinary_optimized }}" alt="{{ item.photo.title }}" class="img-thumbnail" style="width: 50px; height: auto;"> <!-- Added Cloudinary optimization -->
-                            {{ item.photo.title }}
+                        <td class="text-center">
+                            <div class="d-flex align-items-center">
+                                <img src="{{ item.photo.image.url }}" alt="{{ item.photo.title }}" class="img-thumbnail mr-3" style="width: 80px; height: auto;">
+                                <span>{{ item.photo.title }}</span>
+                            </div>
                         </td>
-                        <td>
-                            <!-- Form to update quantity -->
-                            <form action="{% url 'update_cart' item.photo.id %}" method="post">
+                        <td class="text-right">${{ item.photo.price }}</td>
+                        <td class="text-center">
+                            <form action="{% url 'update_cart' item.id %}" method="POST" class="form-inline justify-content-center">
                                 {% csrf_token %}
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control w-25">
-                                <button type="submit" class="btn btn-primary mt-1">Update</button>
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm mx-2" style="width: 60px;">
+                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
                             </form>
                         </td>
-                        <td>{{ item.photo.price|currency }}</td>
-                        <td>{{ item.total|currency }}</td> <!-- Subtotal is already calculated in the view -->
-                        <td>
-                            <!-- Form to remove item -->
-                            <form action="{% url 'remove_from_cart' item.photo.id %}" method="post">
+                        <td class="text-right">${{ item.subtotal }}</td>
+                        <td class="text-center">
+                            <form action="{% url 'remove_from_cart' item.id %}" method="POST">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-danger">Remove</button>
+                                <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                             </form>
                         </td>
                     </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Cart Summary -->
-    <div class="row my-4">
-        <div class="col-12 text-end">
-            <h3>Total: {{ total|currency }}</h3>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right font-weight-bold">Total:</td>
+                    <td class="text-right font-weight-bold text-success">${{ total }}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+        
+        <div class="text-center mt-4">
             <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Proceed to Checkout</a>
+            <a href="{% url 'gallery' %}" class="btn btn-secondary btn-lg">Continue Shopping</a>
         </div>
-    </div>
-
     {% else %}
-    <div class="alert alert-warning" role="alert">
-        Your cart is empty. <a href="{% url 'gallery' %}" class="alert-link">Go to the gallery</a> to add some photos.
-    </div>
+        <div class="alert alert-warning text-center" role="alert">
+            Your cart is empty. <a href="{% url 'gallery' %}" class="alert-link">Browse the gallery</a> to add items to your cart.
+        </div>
     {% endif %}
-
-    <!-- Navigation Links -->
-    <div class="mt-4">
-        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
-        <a href="{% url 'gallery' %}" class="btn btn-secondary">View Gallery</a>
-    </div>
 </div>
 {% endblock %}

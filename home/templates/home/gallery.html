@@ -22,6 +22,15 @@
         </a>
     </div>
 
+    <!-- Search Bar -->
+    <form method="GET" action="{% url 'search' %}" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <!-- Gallery content -->
     <div class="row">
         {% if photos %}
             {% for photo in photos %}

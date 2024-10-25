@@ -14,6 +14,7 @@ class Photo(models.Model):
 
     @property
     def price_display(self):
+        """Display the price formatted as a string."""
         return f"${self.price:.2f}"
 
     def __str__(self):
@@ -32,8 +33,9 @@ class CartItem(models.Model):
     photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
 
-    def get_total_price(self):
-        """Calculate the total price of this cart item."""
+    @property
+    def subtotal(self):
+        """Calculate the subtotal for this cart item."""
         return self.photo.price * self.quantity
 
     def __str__(self):
