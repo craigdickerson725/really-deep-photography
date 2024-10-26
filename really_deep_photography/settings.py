@@ -134,6 +134,10 @@ CLOUDINARY_STORAGE = {
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
+# Stripe API keys
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51Q8hwsBSNaxkmRJDu7vfXog0zunL0hI4SxO9nRU0W6cBFq9JZsnD8aXqMGQALZy27kyNmFojQFOXstP26DGKxpyH001kTfKqHc'
+STRIPE_SECRET_KEY = 'sk_test_51Q8hwsBSNaxkmRJDOnYr63OwmfohbhLYPtcEjPDcgTsnOp7msR0NPX0gKkXMnQrSlOhYyohsrY1h3977va9d3gwZ00q8Gk6YNe'
+
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

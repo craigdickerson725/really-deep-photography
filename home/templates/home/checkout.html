@@ -1,2 +1,60 @@
-<h1>Checkout</h1>
-<p>This will hopefully be a working checkout page in the near future.</p>
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4">Checkout</h2>
+    
+    <!-- Main card container for order summary and payment details -->
+    <div class="card p-4 shadow-sm">
+        
+        <!-- Order Summary Section -->
+        <h5 class="mb-3">Order Summary</h5>
+        <ul class="list-group mb-3">
+            {% for item in cart_items %}
+                <!-- Display each cart item with title and price -->
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ item.title }}
+                    <span>${{ item.price }}</span>
+                </li>
+            {% endfor %}
+            <!-- Display total amount of all cart items -->
+            <li class="list-group-item d-flex justify-content-between">
+                <strong>Total:</strong>
+                <strong>${{ total_amount }}</strong>
+            </li>
+        </ul>
+        
+        <!-- Payment Details Section -->
+        <h5 class="mb-3">Payment Details</h5>
+        
+        <!-- Payment form with Crispy styling for consistent design -->
+        <form id="payment-form" class="form-group" method="post">
+            {% csrf_token %}
+            {% crispy form %}
+            
+            <!-- Stripe Checkout Button that triggers the Stripe payment process -->
+            <button
+                id="checkout-button"
+                class="btn btn-primary w-100 mt-3"
+                type="button"
+            >
+                Proceed to Payment
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Include Stripe's JavaScript library for handling payments -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- Pass the CSRF token as a JavaScript variable -->
+<script type="text/javascript">
+    const csrfToken = "{{ csrf_token }}";
+</script>
+
+<!-- Link to the external JavaScript file -->
+<script src="{% static 'js/checkout.js' %}"></script>
+{% endblock %}

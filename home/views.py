@@ -3,6 +3,8 @@ from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
 from .models import Photo, Cart, CartItem
 from django.contrib import messages
+import stripe
+from django.conf import settings
 
 # Home view
 def index(request):
@@ -107,6 +109,14 @@ def update_cart(request, cart_item_id):
     return redirect('view_cart')
 
 # Checkout view
-def checkout(request):
-    """Render the checkout page."""
-    return render(request, 'home/checkout.html')
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def checkout_view(request):
+    cart_items = ...  # Retrieve items from the shopping cart
+    total_amount = ...  # Calculate total price for all items
+
+    context = {
+        'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
+        'total_amount': total_amount
+    }
+    return render(request, 'checkout.html', context)

@@ -19,28 +19,6 @@
 
     {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <style>
-        body {
-            background-color: white;
-        }
-        .hero-section {
-            background-color: black;
-            position: relative;
-            color: white; /* Ensures hero text is white */
-        }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .hero-content {
-            position: relative;
-            color: white; /* Reinforces white text color */
-        }
-    </style>
     {% endblock %}
 
     <title>{% block title %}Really Deep Photography{% endblock %}</title>
