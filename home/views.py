@@ -1,10 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
-from .models import Photo, Cart, CartItem
-from django.contrib import messages
-import stripe
 from django.conf import settings
+from .models import Photo, Cart, CartItem, Order, OrderItem
+from .forms import CheckoutForm
+from django.contrib import messages
+from django.http import JsonResponse
+import stripe
+import json
+
+# Initialize Stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 # Home view
 def index(request):
@@ -33,21 +39,19 @@ class ContactView(TemplateView):
 def search(request):
     """Handle search queries and render results."""
     query = request.GET.get('q')
-    
-    if query:  # Check if the query is not empty
+    if query:
         photos = Photo.objects.filter(title__icontains=query) | Photo.objects.filter(description__icontains=query)
     else:
-        photos = []  # If the query is empty, set photos to an empty list
-        messages.warning(request, "Please enter a search term.")  # Add a warning message
-
+        photos = []
+        messages.warning(request, "Please enter a search term.")
     return render(request, 'home/search_results.html', {
         'query': query,
         'photos': photos
     })
 
-# Photo details view
+# Photo detail view
 def photo_detail(request, photo_id):
-    """Display detailed view of a specific photo."""
+    """Display the details of a single photo."""
     photo = get_object_or_404(Photo, id=photo_id)
     return render(request, 'home/photo_detail.html', {'photo': photo})
 
@@ -57,33 +61,25 @@ def add_to_cart(request, photo_id):
     """Add a photo to the shopping cart."""
     photo = get_object_or_404(Photo, id=photo_id)
     cart, created = Cart.objects.get_or_create(user=request.user)
-
-    # Check if the photo is already in the cart
     cart_item, created = CartItem.objects.get_or_create(cart=cart, photo=photo)
     if not created:
-        cart_item.quantity += 1  # Increment quantity if item already exists
+        cart_item.quantity += 1
     cart_item.save()
-
-    return redirect('view_cart')  # Redirect to view_cart
+    return redirect('view_cart')
 
 # View cart
 @login_required
 def view_cart(request):
     """Display the current items in the cart and total price."""
     cart = get_object_or_404(Cart, user=request.user)
-    items = cart.items.all()  # Fetch items associated with the user's cart
-
-    # Calculate total quantity of items
+    items = cart.items.all()
     total_quantity = sum(item.quantity for item in items)
-
-    # Calculate total price
-    total_price = sum(item.subtotal for item in items)  # Calculate total using subtotal property
-
+    total_price = sum(item.subtotal for item in items)
     return render(request, 'home/cart.html', {
         'cart': cart,
         'items': items,
-        'total_quantity': total_quantity,  # Pass total quantity to the template
-        'total_price': total_price,  # Pass total price to the template
+        'total_quantity': total_quantity,
+        'total_price': total_price,
     })
 
 # Remove from cart
@@ -103,20 +99,98 @@ def update_cart(request, cart_item_id):
         quantity = request.POST.get('quantity')
         if quantity.isdigit() and int(quantity) > 0:
             cart_item.quantity = int(quantity)
-            cart_item.save()  # Save updated quantity
+            cart_item.save()
         else:
-            cart_item.delete()  # Remove item if quantity is invalid
+            cart_item.delete()
     return redirect('view_cart')
 
 # Checkout view
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
+@login_required
 def checkout_view(request):
-    cart_items = ...  # Retrieve items from the shopping cart
-    total_amount = ...  # Calculate total price for all items
+    """Render the checkout page with the form and total amount."""
+    cart = get_object_or_404(Cart, user=request.user)
+    cart_items = cart.items.all()
+    total_amount = sum(item.subtotal for item in cart_items)
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            # If you want to process the payment here, you can
+            return redirect('checkout')  # This could be where you process payments
+    else:
+        form = CheckoutForm()
 
     context = {
+        'form': form,
         'stripe_publishable_key': settings.STRIPE_PUBLISHABLE_KEY,
-        'total_amount': total_amount
+        'cart_items': cart_items,
+        'total_amount': total_amount,
     }
-    return render(request, 'checkout.html', context)
+    return render(request, 'home/checkout.html', context)
+
+# Create Payment Intent for Stripe
+@login_required
+def create_payment_intent(request):
+    """Create a Stripe Payment Intent for the cart total."""
+    if request.method == 'POST':
+        try:
+            cart = get_object_or_404(Cart, user=request.user)
+            total_amount = sum(item.subtotal for item in cart.items.all()) * 100  # Stripe uses cents
+
+            # Create the payment intent
+            intent = stripe.PaymentIntent.create(
+                amount=int(total_amount),
+                currency="usd",
+                payment_method_types=["card"],
+                metadata={'user_id': request.user.id},
+            )
+            return JsonResponse({'clientSecret': intent['client_secret']})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
+# Confirm order after successful payment
+@login_required
+def confirm_order(request):
+    """Save order details after payment is confirmed."""
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        cart = get_object_or_404(Cart, user=request.user)
+
+        # Create the Order
+        order = Order.objects.create(
+            user=request.user,
+            billing_name=data['billing_name'],
+            billing_address_1=data['billing_address_1'],
+            billing_city=data['billing_city'],
+            billing_state=data['billing_state'],
+            billing_zip_code=data['billing_zip_code'],
+            billing_country=data['billing_country'],
+            total_amount=sum(item.subtotal for item in cart.items.all()),
+            shipping_address_1=data.get('shipping_address_1') if not data.get('shipping_address_same') else None,
+            shipping_city=data.get('shipping_city') if not data.get('shipping_address_same') else None,
+            shipping_state=data.get('shipping_state') if not data.get('shipping_address_same') else None,
+            shipping_zip_code=data.get('shipping_zip_code') if not data.get('shipping_address_same') else None,
+            shipping_country=data.get('shipping_country') if not data.get('shipping_address_same') else None,
+        )
+
+        # Create OrderItems from cart items
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order=order,
+                photo=item.photo,
+                quantity=item.quantity,
+                subtotal=item.subtotal
+            )
+
+        # Clear the cart after creating the order
+        cart.items.all().delete()
+
+        return JsonResponse({'order_id': order.id})
+
+# Order confirmation view
+@login_required
+def order_confirmation(request, order_id):
+    """Display the order confirmation page with order details."""
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    return render(request, 'home/confirmation.html', {'order': order})

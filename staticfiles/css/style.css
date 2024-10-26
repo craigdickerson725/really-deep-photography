@@ -48,11 +48,27 @@ main {
     margin: 0 auto;
 }
 
+/* Hero Section */
 .hero-section {
     background-color: black;
+    position: relative;
     color: white;
     text-align: center;
     padding: 3rem 1rem;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    color: white;
 }
 
 .hero-section h1 {
@@ -75,6 +91,12 @@ main {
 
 .hero-section a:hover {
     background-color: #eaeaea;
+}
+
+/* Text inputs */
+input[type="text"]:focus {
+    box-shadow: none;
+    border-color: gray;
 }
 
 /* Footer */

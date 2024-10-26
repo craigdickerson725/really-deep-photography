@@ -7,54 +7,81 @@
 <div class="container my-5">
     <h2 class="text-center mb-4">Checkout</h2>
     
-    <!-- Main card container for order summary and payment details -->
-    <div class="card p-4 shadow-sm">
+    <div class="card p-4 shadow-sm bg-dark text-white">
         
-        <!-- Order Summary Section -->
         <h5 class="mb-3">Order Summary</h5>
         <ul class="list-group mb-3">
             {% for item in cart_items %}
-                <!-- Display each cart item with title and price -->
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ item.title }}
-                    <span>${{ item.price }}</span>
+                    {{ item.photo.title }} 
+                    <span>${{ item.subtotal|floatformat:2 }}</span>
                 </li>
             {% endfor %}
-            <!-- Display total amount of all cart items -->
             <li class="list-group-item d-flex justify-content-between">
                 <strong>Total:</strong>
-                <strong>${{ total_amount }}</strong>
+                <strong>${{ total_amount|floatformat:2 }}</strong>
             </li>
         </ul>
         
-        <!-- Payment Details Section -->
         <h5 class="mb-3">Payment Details</h5>
         
-        <!-- Payment form with Crispy styling for consistent design -->
         <form id="payment-form" class="form-group" method="post">
             {% csrf_token %}
-            {% crispy form %}
-            
-            <!-- Stripe Checkout Button that triggers the Stripe payment process -->
-            <button
-                id="checkout-button"
-                class="btn btn-primary w-100 mt-3"
-                type="button"
-            >
+            {% crispy form %}  <!-- This should include your form fields -->
+
+            <div id="card-element" class="form-control mb-3"></div>
+            <div id="card-errors" role="alert" class="text-danger"></div>
+
+            <button id="checkout-button" class="btn btn-primary w-100 mt-3" type="button">
                 Proceed to Payment
             </button>
         </form>
     </div>
 </div>
 
-<!-- Include Stripe's JavaScript library for handling payments -->
 <script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ stripe_publishable_key }}');
+    const elements = stripe.elements();
+    
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
 
-<!-- Pass the CSRF token as a JavaScript variable -->
-<script type="text/javascript">
-    const csrfToken = "{{ csrf_token }}";
+    const form = document.getElementById('payment-form');
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        // Check if billing_name exists
+        const billingNameField = form.billing_name;
+        if (!billingNameField) {
+            console.error("Billing name field not found!");
+            document.getElementById('card-errors').textContent = "Billing name field is required.";
+            return; // Exit if field is not found
+        }
+        
+        const { paymentIntent, error } = await stripe.confirmCardPayment('{{ clientSecret }}', {
+            payment_method: {
+                card: cardElement,
+                billing_details: {
+                    name: billingNameField.value, // Safely access the field
+                },
+            },
+        });
+
+        if (error) {
+            document.getElementById('card-errors').textContent = error.message;
+        } else {
+            if (paymentIntent.status === 'succeeded') {
+                // Payment was successful
+                // Redirect to the order confirmation page
+                window.location.href = '/order-confirmation/' + paymentIntent.id; // Update as necessary
+            }
+        }
+    });
+
+    document.getElementById('checkout-button').addEventListener('click', () => {
+        form.requestSubmit(); // This submits the form and triggers the event listener
+    });
 </script>
-
-<!-- Link to the external JavaScript file -->
-<script src="{% static 'js/checkout.js' %}"></script>
 {% endblock %}

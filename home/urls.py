@@ -1,30 +1,36 @@
 from django.urls import path
 from .views import (
     index, GalleryView, AboutView, ContactView, search, photo_detail, 
-    add_to_cart, view_cart, remove_from_cart, update_cart, checkout
+    add_to_cart, view_cart, remove_from_cart, update_cart, checkout_view,
+    create_payment_intent, confirm_order, order_confirmation  # Import the confirm_order and order_confirmation views
 )
 
 urlpatterns = [
     # Home page
     path('', index, name='home'),
-    # Gallery page
+    
+    # Static pages
     path('gallery/', GalleryView.as_view(), name='gallery'),
-    # About page
     path('about/', AboutView.as_view(), name='about'),
-    # Contact page
     path('contact/', ContactView.as_view(), name='contact'),
+
     # Search functionality
     path('search/', search, name='search'),
-    # Photo details page
+    
+    # Photo details
     path('photo/<int:photo_id>/', photo_detail, name='photo_detail'),
-    # Add to cart
+
+    # Cart operations
     path('add-to-cart/<int:photo_id>/', add_to_cart, name='add_to_cart'),
-    # View cart
     path('view-cart/', view_cart, name='view_cart'),
-    # Remove from cart
     path('remove-from-cart/<int:cart_item_id>/', remove_from_cart, name='remove_from_cart'),
-    # Update cart
     path('update-cart/<int:cart_item_id>/', update_cart, name='update_cart'),
-    # Checkout page
-    path('checkout/', checkout, name='checkout'),
+
+    # Checkout and payment
+    path('checkout/', checkout_view, name='checkout'),
+    path('create-payment-intent/', create_payment_intent, name='create_payment_intent'),
+    path('confirm-order/', confirm_order, name='confirm_order'),
+
+    # Order confirmation
+    path('confirmation/<int:order_id>/', order_confirmation, name='order_confirmation'),
 ]
