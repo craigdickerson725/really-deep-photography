@@ -115,8 +115,8 @@ def checkout_view(request):
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         if form.is_valid():
-            # If you want to process the payment here, you can
-            return redirect('checkout')  # This could be where you process payments
+            # Process payment intent creation here
+            return redirect('create_payment_intent')  # Redirect to create payment intent
     else:
         form = CheckoutForm()
 
@@ -160,7 +160,7 @@ def confirm_order(request):
         # Create the Order
         order = Order.objects.create(
             user=request.user,
-            billing_name=data['billing_name'],
+            billing_name=data['billing_name'],  # Use the data from the request
             billing_address_1=data['billing_address_1'],
             billing_city=data['billing_city'],
             billing_state=data['billing_state'],
@@ -193,4 +193,4 @@ def confirm_order(request):
 def order_confirmation(request, order_id):
     """Display the order confirmation page with order details."""
     order = get_object_or_404(Order, id=order_id, user=request.user)
-    return render(request, 'home/confirmation.html', {'order': order})
+    return render(request, 'home/order_confirmation.html', {'order': order})

@@ -24,6 +24,6 @@ class CheckoutForm(forms.Form):
     shipping_zip_code = forms.CharField(max_length=10, required=False, label='Shipping Zip Code')
     shipping_country = forms.CharField(max_length=50, required=False, label='Shipping Country')
 
-    # Additional method to get full billing name
+    # Method to get full billing name
     def get_billing_name(self):
         return f"{self.cleaned_data['first_name']} {self.cleaned_data['last_name']}"

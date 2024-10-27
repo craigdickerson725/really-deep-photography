@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     const stripe = Stripe('{{ stripe_publishable_key }}'); // Initialize Stripe with your publishable key
+    const elements = stripe.elements(); // Initialize Stripe Elements
     const checkoutButton = document.getElementById('checkout-button');
     const form = document.getElementById('payment-form');
 
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             shipping_address_same: shippingCheckbox.checked,
         };
 
+        // Collect shipping address data if the checkbox is unchecked
         if (!formData.shipping_address_same) {
             formData.shipping_address_1 = form.shipping_address_1.value;
             formData.shipping_address_2 = form.shipping_address_2.value; // Include optional shipping field
@@ -52,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRFToken': form.elements.csrfmiddlewaretoken.value, // Include CSRF token
+                    'X-CSRFToken': getCookie('csrftoken'), // Get CSRF token using the helper function
                 },
                 body: JSON.stringify(formData),
             });
@@ -63,9 +65,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const { clientSecret } = await response.json();
 
-            // Use Stripe.js to handle payment confirmation
+            // Create a Card Element and mount it to the DOM
             const cardElement = elements.create('card');
-            cardElement.mount('#card-element'); // Mount card element
+            cardElement.mount('#card-element');
+
+            // Use Stripe.js to handle payment confirmation
             const { error } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
@@ -84,4 +88,20 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('An error occurred. Please try again.');
         }
     });
+
+    // Helper function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
 });

@@ -26,9 +26,9 @@
         <h5 class="mb-3">Payment Details</h5>
         
         <form id="payment-form" class="form-group" method="post">
-            {% csrf_token %}
+            {% csrf_token %}  <!-- This includes the CSRF token in your form -->
             {% crispy form %}  <!-- This should include your form fields -->
-
+            
             <div id="card-element" class="form-control mb-3"></div>
             <div id="card-errors" role="alert" class="text-danger"></div>
 
@@ -52,19 +52,44 @@
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        // Check if billing_name exists
-        const billingNameField = form.billing_name;
-        if (!billingNameField) {
-            console.error("Billing name field not found!");
-            document.getElementById('card-errors').textContent = "Billing name field is required.";
-            return; // Exit if field is not found
+        // Safely access first name and last name
+        const firstName = form.querySelector('input[name="first_name"]');
+        const lastName = form.querySelector('input[name="last_name"]');
+
+        // Check if firstName and lastName exist
+        if (!firstName || !lastName) {
+            console.error("First name or last name field not found!");
+            document.getElementById('card-errors').textContent = "First name and last name are required.";
+            return; // Exit if fields are not found
         }
-        
-        const { paymentIntent, error } = await stripe.confirmCardPayment('{{ clientSecret }}', {
+
+        const billingName = `${firstName.value} ${lastName.value}`; // Combine first and last name
+
+        // Get CSRF token from the form
+        const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const response = await fetch('/create-payment-intent/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken, // Include CSRF token
+            },
+            body: JSON.stringify({ billing_name: billingName }),
+        });
+
+        if (!response.ok) {
+            console.error("Failed to create payment intent");
+            document.getElementById('card-errors').textContent = "Failed to create payment intent.";
+            return;
+        }
+
+        const { clientSecret } = await response.json();
+
+        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: cardElement,
                 billing_details: {
-                    name: billingNameField.value, // Safely access the field
+                    name: billingName, // Use combined name
                 },
             },
         });
