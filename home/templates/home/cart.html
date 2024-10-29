@@ -30,7 +30,7 @@
                             <form action="{% url 'update_cart' item.id %}" method="POST" class="form-inline justify-content-center">
                                 {% csrf_token %}
                                 <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm mx-2" style="width: 60px;">
-                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                <button type="submit" class="btn btn-primary btn-sm mt-3">Update</button>
                             </form>
                         </td>
                         <td class="text-right">${{ item.subtotal }}</td>

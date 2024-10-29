@@ -3,6 +3,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const elements = stripe.elements(); // Initialize Stripe Elements
     const checkoutButton = document.getElementById('checkout-button');
     const form = document.getElementById('payment-form');
+    
+    // Create a Card Element and mount it to the DOM
+    const cardElement = elements.create('card');
+    cardElement.mount('#card-element');
 
     // Function to toggle the visibility of shipping address fields based on the checkbox state
     function toggleShippingAddress() {
@@ -49,12 +53,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         try {
-            // Make a request to create a payment intent
-            const response = await fetch('/create-payment-intent/', {
+            // First, send request to cache checkout data
+            const cacheResponse = await fetch('/cache-checkout-data/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': getCookie('csrftoken'), // Get CSRF token using the helper function
+                },
+                body: JSON.stringify({ client_secret: stripe.clientSecret })
+            });
+
+            if (!cacheResponse.ok) {
+                throw new Error('Failed to cache checkout data');
+            }
+
+            // Then create a payment intent
+            const response = await fetch('/create-payment-intent/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
                 },
                 body: JSON.stringify(formData),
             });
@@ -65,23 +83,31 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const { clientSecret } = await response.json();
 
-            // Create a Card Element and mount it to the DOM
-            const cardElement = elements.create('card');
-            cardElement.mount('#card-element');
-
             // Use Stripe.js to handle payment confirmation
             const { error } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
-                },
+                    billing_details: {
+                        name: formData.billing_name,
+                        address: {
+                            line1: formData.billing_address_1,
+                            line2: formData.billing_address_2,
+                            city: formData.billing_city,
+                            state: formData.billing_state,
+                            postal_code: formData.billing_zip_code,
+                            country: formData.billing_country,
+                        }
+                    }
+                }
             });
 
             if (error) {
                 console.error('Payment failed:', error.message);
                 alert('Payment failed. Please try again.');
             } else {
+                // Redirect to checkout success URL on success
                 alert('Payment succeeded! Redirecting to confirmation page...');
-                window.location.href = '/confirmation/'; // Adjust this to your actual confirmation URL
+                window.location.href = '/checkout-success/';
             }
         } catch (error) {
             console.error('Error:', error.message);

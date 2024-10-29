@@ -60,6 +60,7 @@ class Order(models.Model):
     shipping_zip_code = models.CharField(max_length=20, blank=True, null=True)
     shipping_country = models.CharField(max_length=100, blank=True, null=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    payment_intent_id = models.CharField(max_length=255, blank=True, null=True)
 
     def calculate_total(self):
         """Calculate and save the total amount based on OrderItems."""

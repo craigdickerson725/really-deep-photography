@@ -1,8 +1,9 @@
 from django.urls import path
+from . import webhooks
 from .views import (
     index, GalleryView, AboutView, ContactView, search, photo_detail, 
     add_to_cart, view_cart, remove_from_cart, update_cart, checkout_view,
-    create_payment_intent, confirm_order, order_confirmation
+    create_payment_intent, checkout_success, order_confirmation, cache_checkout_data
 )
 
 urlpatterns = [
@@ -29,8 +30,12 @@ urlpatterns = [
     # Checkout and payment
     path('checkout/', checkout_view, name='checkout'),
     path('create-payment-intent/', create_payment_intent, name='create_payment_intent'),
-    path('confirm-order/', confirm_order, name='confirm_order'),
+    path('cache-checkout-data/', cache_checkout_data, name='cache_checkout_data'),
+    path('checkout-success/', checkout_success, name='checkout_success'),
 
     # Order confirmation
-    path('confirmation/<int:order_id>/', order_confirmation, name='order_confirmation'),
+    path('order-confirmation/<str:payment_intent_id>/', order_confirmation, name='order_confirmation'),
+
+    # Webhook for Stripe
+    path('webhook/', webhooks.stripe_webhook, name='stripe_webhook'),  
 ]

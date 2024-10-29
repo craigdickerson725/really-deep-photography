@@ -2,12 +2,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import TemplateView, ListView
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
+import json
+import stripe
 from .models import Photo, Cart, CartItem, Order, OrderItem
 from .forms import CheckoutForm
-from django.contrib import messages
-from django.http import JsonResponse
-import stripe
-import json
 
 # Initialize Stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -128,6 +128,21 @@ def checkout_view(request):
     }
     return render(request, 'home/checkout.html', context)
 
+# Cache Checkout Data view
+@login_required
+def cache_checkout_data(request):
+    """Cache checkout data temporarily in the PaymentIntent's metadata."""
+    if request.method == 'POST':
+        try:
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            stripe.PaymentIntent.modify(pid, metadata={
+                'user_id': request.user.id,
+                'cart_id': request.user.cart.id,
+            })
+            return HttpResponse(status=200)
+        except Exception as e:
+            return HttpResponse(content=e, status=400)
+
 # Create Payment Intent for Stripe
 @login_required
 def create_payment_intent(request):
@@ -149,48 +164,71 @@ def create_payment_intent(request):
             return JsonResponse({'error': str(e)}, status=400)
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-# Confirm order after successful payment
+# Checkout success view
 @login_required
-def confirm_order(request):
-    """Save order details after payment is confirmed."""
+def checkout_success(request):
+    """Save order details after payment is confirmed and redirect to order confirmation."""
     if request.method == 'POST':
-        data = json.loads(request.body)
-        cart = get_object_or_404(Cart, user=request.user)
+        try:
+            # Load the data from the request body
+            data = json.loads(request.body)
 
-        # Create the Order
-        order = Order.objects.create(
-            user=request.user,
-            billing_name=data['billing_name'],  # Use the data from the request
-            billing_address_1=data['billing_address_1'],
-            billing_city=data['billing_city'],
-            billing_state=data['billing_state'],
-            billing_zip_code=data['billing_zip_code'],
-            billing_country=data['billing_country'],
-            total_amount=sum(item.subtotal for item in cart.items.all()),
-            shipping_address_1=data.get('shipping_address_1') if not data.get('shipping_address_same') else None,
-            shipping_city=data.get('shipping_city') if not data.get('shipping_address_same') else None,
-            shipping_state=data.get('shipping_state') if not data.get('shipping_address_same') else None,
-            shipping_zip_code=data.get('shipping_zip_code') if not data.get('shipping_address_same') else None,
-            shipping_country=data.get('shipping_country') if not data.get('shipping_address_same') else None,
-        )
+            # Print data for debugging
+            print(f"Checkout data received: {data}")
 
-        # Create OrderItems from cart items
-        for item in cart.items.all():
-            OrderItem.objects.create(
-                order=order,
-                photo=item.photo,
-                quantity=item.quantity,
-                subtotal=item.subtotal
+            # Get the user's cart
+            cart = get_object_or_404(Cart, user=request.user)
+
+            # Create the Order
+            order = Order.objects.create(
+                user=request.user,
+                billing_name=data['billing_name'],
+                billing_address_1=data['billing_address_1'],
+                billing_city=data['billing_city'],
+                billing_state=data['billing_state'],
+                billing_zip_code=data['billing_zip_code'],
+                billing_country=data['billing_country'],
+                total_amount=sum(item.subtotal for item in cart.items.all()),
+                shipping_address_1=data.get('shipping_address_1') if not data.get('shipping_address_same') else None,
+                shipping_city=data.get('shipping_city') if not data.get('shipping_address_same') else None,
+                shipping_state=data.get('shipping_state') if not data.get('shipping_address_same') else None,
+                shipping_zip_code=data.get('shipping_zip_code') if not data.get('shipping_address_same') else None,
+                shipping_country=data.get('shipping_country') if not data.get('shipping_address_same') else None,
+                payment_intent_id=data['payment_intent_id'],
             )
 
-        # Clear the cart after creating the order
-        cart.items.all().delete()
+            print(f"Order created: {order}")
 
-        return JsonResponse({'order_id': order.id})
+            # Create OrderItems from cart items
+            for item in cart.items.all():
+                OrderItem.objects.create(
+                    order=order,
+                    photo=item.photo,
+                    quantity=item.quantity,
+                    subtotal=item.subtotal
+                )
+
+            # Clear the cart after creating the order
+            cart.items.all().delete()
+
+            # Redirect to order confirmation page
+            return redirect('order_confirmation', payment_intent_id=order.payment_intent_id)
+
+        except json.JSONDecodeError:
+            return redirect('home')
+
+        except Exception as e:
+            print(f"Error processing checkout: {e}")
+            return redirect('home')
+
+    return redirect('home')
 
 # Order confirmation view
 @login_required
-def order_confirmation(request, order_id):
-    """Display the order confirmation page with order details."""
-    order = get_object_or_404(Order, id=order_id, user=request.user)
-    return render(request, 'home/order_confirmation.html', {'order': order})
+def order_confirmation(request, payment_intent_id):
+    # Attempt to retrieve the order based on the payment_intent_id
+    order = get_object_or_404(Order, payment_intent_id=payment_intent_id)
+    context = {
+        'order': order,
+    }
+    return render(request, 'home/order_confirmation.html', context)
