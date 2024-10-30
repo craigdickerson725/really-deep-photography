@@ -32,3 +32,10 @@ def cloudinary_optimized(image_url, params="w=400&h=300&c=fill&q=auto"):
     if image_url:
         return f"{image_url}?{params}"
     return image_url
+
+@register.filter(name='is_in_group')
+def is_in_group(user, group_name):
+    """
+    Check if a user is in a specific group by name.
+    """
+    return user.groups.filter(name=group_name).exists()

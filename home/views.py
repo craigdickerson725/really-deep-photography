@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, ListView
-from django.contrib.auth.decorators import login_required
-from django.conf import settings
+from django.views.generic import TemplateView, ListView, View
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.conf import settings
 from django.http import JsonResponse, HttpResponse
+from django.urls import reverse_lazy
 import json
 import stripe
 from .models import Photo, Cart, CartItem, Order, OrderItem
-from .forms import CheckoutForm
+from .forms import CheckoutForm, PhotoForm
 
 # Initialize Stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -54,6 +56,57 @@ def photo_detail(request, photo_id):
     """Display the details of a single photo."""
     photo = get_object_or_404(Photo, id=photo_id)
     return render(request, 'home/photo_detail.html', {'photo': photo})
+
+# Admin panel 
+class AdminPanelView(UserPassesTestMixin, View):
+    template_name = 'admin_panel.html'
+    login_url = reverse_lazy('account_login')  # Redirect to the login page if not logged in
+
+    def test_func(self):
+        # Check if user is authenticated and belongs to the 'Site Admin' group
+        return self.request.user.is_authenticated and self.request.user.groups.filter(name='Site Admin').exists()
+
+    def handle_no_permission(self):
+        # Redirect unauthorized users to a 'no permission' page
+        return redirect('no_permission')
+
+    def get(self, request):
+        photos = Photo.objects.all()
+        form = PhotoForm()  # Display a blank form on the get request
+        return render(request, self.template_name, {'photos': photos, 'form': form})
+
+    def post(self, request):
+        form = PhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_panel')  # Redirect back to the admin panel on successful save
+        photos = Photo.objects.all()
+        return render(request, self.template_name, {'photos': photos, 'form': form})
+
+class NoPermissionView(TemplateView):
+    template_name = "no_permission.html"
+
+class EditPhotoView(View):
+    template_name = 'edit_photo.html'  # Create this template
+
+    def get(self, request, photo_id):
+        photo = get_object_or_404(Photo, id=photo_id)
+        form = PhotoForm(instance=photo)
+        return render(request, self.template_name, {'form': form, 'photo': photo})
+
+    def post(self, request, photo_id):
+        photo = get_object_or_404(Photo, id=photo_id)
+        form = PhotoForm(request.POST, request.FILES, instance=photo)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_panel')
+        return render(request, self.template_name, {'form': form, 'photo': photo})
+
+class DeletePhotoView(View):
+    def post(self, request, photo_id):
+        photo = get_object_or_404(Photo, id=photo_id)
+        photo.delete()
+        return redirect('admin_panel')
 
 # Add to cart
 @login_required
@@ -138,6 +191,7 @@ def cache_checkout_data(request):
             stripe.PaymentIntent.modify(pid, metadata={
                 'user_id': request.user.id,
                 'cart_id': request.user.cart.id,
+                'billing_name': request.POST.get('billing_name'),
             })
             return HttpResponse(status=200)
         except Exception as e:

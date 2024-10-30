@@ -4,7 +4,7 @@ import json
 import stripe
 from django.conf import settings
 from django.http import HttpResponse
-from .models import Order, User
+from .models import Order, User, OrderItem, Cart
 
 class WebhookHandler:
     """Class to handle Stripe webhooks."""
@@ -22,10 +22,13 @@ class WebhookHandler:
         print(f"Payment succeeded for intent: {payment_intent_id}")
 
         user_id = metadata.get('user_id')
+        cart_id = metadata.get('cart_id')
 
         try:
             # Retrieve user
             user = User.objects.get(id=user_id)
+            # Retrieve cart
+            cart = Cart.objects.get(id=cart_id, user=user)
 
             # Create an order
             order = Order.objects.create(
@@ -40,7 +43,19 @@ class WebhookHandler:
                 billing_country=metadata.get('billing_country', ''),
             )
 
-            print(f"Order {order.id} created successfully.")
+            # Create OrderItems from CartItems
+            for cart_item in cart.items.all():
+                OrderItem.objects.create(
+                    order=order,
+                    photo=cart_item.photo,
+                    quantity=cart_item.quantity,
+                    subtotal=cart_item.subtotal
+                )
+            
+            # Clear cart after creating the order
+            cart.items.all().delete()
+            print(f"Order {order.id} and associated items created successfully.")
+            
             return HttpResponse(status=200)
 
         except User.DoesNotExist:

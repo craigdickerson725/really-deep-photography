@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Admin Panel</h1>
+
+<h2>Add Photo</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Photo</button>
+</form>
+
+<h2>Manage Photos</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Size</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for photo in photos %}
+        <tr>
+            <td>{{ photo.title }}</td>
+            <td>{{ photo.description }}</td>
+            <td><img src="{{ photo.image.url }}" alt="{{ photo.title }}" width="100"></td>
+            <td>{{ photo.size }}</td>
+            <td>{{ photo.price_display }}</td>
+            <td>
+                <a href="{% url 'edit_photo' photo.id %}">Edit</a>
+                <form action="{% url 'delete_photo' photo.id %}" method="POST" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

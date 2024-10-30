@@ -3,7 +3,9 @@ from . import webhooks
 from .views import (
     index, GalleryView, AboutView, ContactView, search, photo_detail, 
     add_to_cart, view_cart, remove_from_cart, update_cart, checkout_view,
-    create_payment_intent, checkout_success, order_confirmation, cache_checkout_data
+    create_payment_intent, checkout_success, order_confirmation,
+    cache_checkout_data, AdminPanelView, NoPermissionView,
+    EditPhotoView, DeletePhotoView,
 )
 
 urlpatterns = [
@@ -21,6 +23,12 @@ urlpatterns = [
     # Photo details
     path('photo/<int:photo_id>/', photo_detail, name='photo_detail'),
 
+    # Admin panel for site owner
+    path('admin_panel/', AdminPanelView.as_view(), name='admin_panel'),
+    path('admin_panel/edit/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),
+    path('admin_panel/delete/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),
+    path('no_permission/', NoPermissionView.as_view(), name='no_permission'),
+
     # Cart operations
     path('add-to-cart/<int:photo_id>/', add_to_cart, name='add_to_cart'),
     path('view-cart/', view_cart, name='view_cart'),
@@ -37,5 +45,5 @@ urlpatterns = [
     path('order-confirmation/<str:payment_intent_id>/', order_confirmation, name='order_confirmation'),
 
     # Webhook for Stripe
-    path('webhook/', webhooks.stripe_webhook, name='stripe_webhook'),  
+    path('webhook/', webhooks.stripe_webhook, name='stripe_webhook'),
 ]
