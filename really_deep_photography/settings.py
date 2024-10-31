@@ -111,10 +111,6 @@ WSGI_APPLICATION = 'really_deep_photography.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
-
 if "DATABASE_URL" in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -128,33 +124,33 @@ else:
     }
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dzx1hyh89',
-    'API_KEY': '643342393861233',
-    'API_SECRET': 'NXUsUv8guPRMEtKQ2UDkHQAofo0',
+    'CLOUD_NAME': os.environ.get("CLOUDINARY_NAME"),
+    'API_KEY': os.environ.get("CLOUDINARY_API_KEY"),
+    'API_SECRET': os.environ.get("CLOUDINARY_API_SECRET"),
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Stripe API keys
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51Q8hwsBSNaxkmRJDu7vfXog0zunL0hI4SxO9nRU0W6cBFq9JZsnD8aXqMGQALZy27kyNmFojQFOXstP26DGKxpyH001kTfKqHc'
-STRIPE_SECRET_KEY = 'sk_test_51Q8hwsBSNaxkmRJDOnYr63OwmfohbhLYPtcEjPDcgTsnOp7msR0NPX0gKkXMnQrSlOhYyohsrY1h3977va9d3gwZ00q8Gk6YNe'
-STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WEBHOOK_SECRET', 'whsec_OYwJZbRn1o3oYMlJfniy0cDQNcwPdlNl')
+STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PK')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SK')
+STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WH')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',  # noqa
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',  # noqa
     },
 ]
 
