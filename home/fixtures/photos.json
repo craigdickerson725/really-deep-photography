@@ -1,0 +1,50 @@
+[
+    {
+        "model": "home.photo",
+        "pk": 1,
+        "fields": {
+            "title": "Though it Seems Quite Fine",
+            "description": "What is 'Autumn'? you may ask, though the answer will leave you in tatters. For autumn is nature's own call to prepare itself for death and burial. Deep stuff.",
+            "image": "image/upload/v1730197151/n9pryepyr09htw3kq4rc.jpg",
+            "size": "8x10 inches",
+            "price": "499.99",
+            "is_featured": true
+        }
+    },
+    {
+        "model": "home.photo",
+        "pk": 2,
+        "fields": {
+            "title": "The Soul Ages Relentlessly",
+            "description": "Sad as it seems, the autumn reminds us that we are aging, and treading the path that leads us to the ultimate nowhere. See how much emotional depth I have?",
+            "image": "image/upload/v1730197199/ath41qynnro9lyldkszc.jpg",
+            "size": "11 x 15 inches",
+            "price": "1299.99",
+            "is_featured": false
+        }
+    },
+    {
+        "model": "home.photo",
+        "pk": 3,
+        "fields": {
+            "title": "All Paths Lead to Winter",
+            "description": "And each path, no matter where you begin...will end somewhere.  In nature, winter is always approaching.  Grim, deep, stuff.",
+            "image": "image/upload/v1730376046/x1fvioq8iulw8mgmsvqa.jpg",
+            "size": "13 x 18 inches",
+            "price": "1499.99",
+            "is_featured": false
+        }
+    },
+    {
+        "model": "home.photo",
+        "pk": 4,
+        "fields": {
+            "title": "If a Tree Falls in the Forest",
+            "description": "We all know the ancient question...but the truth is still unknown.  Like most truths in our so-called lives.  Grim, weighty stuff.",
+            "image": "image/upload/v1730381662/hbbmqqx9ht4ye4h8myix.jpg",
+            "size": "9 x 13 inches",
+            "price": "799.99",
+            "is_featured": false
+        }
+    }
+]
