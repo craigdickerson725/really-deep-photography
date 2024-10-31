@@ -59,12 +59,12 @@ def photo_detail(request, photo_id):
 
 # Admin panel 
 class AdminPanelView(UserPassesTestMixin, View):
-    template_name = 'admin_panel.html'
+    template_name = 'home/admin_panel.html'  # Update to the full path
     login_url = reverse_lazy('account_login')  # Redirect to the login page if not logged in
 
     def test_func(self):
-        # Check if user is authenticated and belongs to the 'Site Admin' group
-        return self.request.user.is_authenticated and self.request.user.groups.filter(name='Site Admin').exists()
+        # Check if user is authenticated and either a superuser or belongs to the 'Site Admin' group
+        return self.request.user.is_authenticated and (self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists())
 
     def handle_no_permission(self):
         # Redirect unauthorized users to a 'no permission' page
@@ -84,7 +84,7 @@ class AdminPanelView(UserPassesTestMixin, View):
         return render(request, self.template_name, {'photos': photos, 'form': form})
 
 class NoPermissionView(TemplateView):
-    template_name = "no_permission.html"
+    template_name = "home/no_permission.html"  # Updated path to include 'home'
 
 class EditPhotoView(View):
     template_name = 'edit_photo.html'  # Create this template
@@ -107,6 +107,7 @@ class DeletePhotoView(View):
         photo = get_object_or_404(Photo, id=photo_id)
         photo.delete()
         return redirect('admin_panel')
+
 
 # Add to cart
 @login_required

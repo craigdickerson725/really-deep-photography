@@ -1,68 +1,47 @@
-{% extends "account/base_manage_email.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load allauth %}
+{% load allauth account %}
 {% block head_title %}
     {% trans "Email Address" %}
 {% endblock head_title %}
+
 {% block content %}
-    {% element h1 %}
-        {% trans "Email Address" %}
-    {% endelement %}
-    {% if not emailaddresses %}
-        {% include "account/snippets/warn_no_email.html" %}
-    {% endif %}
-    {% url 'account_email' as action_url %}
-    {% element form method="post" action=action_url %}
-        {% slot body %}
-            {% csrf_token %}
-            {% if current_emailaddress %}
-                {% element field id="current_email" disabled=True type="email" value=current_emailaddress.email %}
-                    {% slot label %}
-                        {% translate "Current email" %}:
-                    {% endslot %}
-                {% endelement %}
-            {% endif %}
-            {% if new_emailaddress %}
-                {% element field id="new_email" value=new_emailaddress.email disabled=True type="email" %}
-                    {% slot label %}
-                        {% if not current_emailaddress %}
-                            {% translate "Current email" %}:
-                        {% else %}
-                            {% translate "Changing to" %}:
-                        {% endif %}
-                    {% endslot %}
-                    {% slot help_text %}
-                        {% blocktranslate %}Your email address is still pending verification.{% endblocktranslate %}
-                        {% element button form="pending-email" type="submit" name="action_send" tags="minor,secondary" %}
-                            {% trans 'Re-send Verification' %}
-                        {% endelement %}
+<div class="container my-5 py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h1 class="display-6 mb-4 text-center" style="font-family: 'Playfair Display', serif;">
+                        {% trans "Email Address" %}
+                    </h1>
+                    {% if not emailaddresses %}
+                        {% include "account/snippets/warn_no_email.html" %}
+                    {% endif %}
+                    
+                    <form method="post" action="{% url 'account_email' %}" class="needs-validation">
+                        {% csrf_token %}
                         {% if current_emailaddress %}
-                            {% element button form="pending-email" type="submit" name="action_remove" tags="danger,minor" %}
-                                {% trans 'Cancel Change' %}
-                            {% endelement %}
+                            <div class="mb-3">
+                                <label for="current_email" class="form-label">
+                                    {% translate "Current email" %}:
+                                </label>
+                                <input type="email" id="current_email" class="form-control" value="{{ current_emailaddress.email }}" disabled>
+                            </div>
                         {% endif %}
-                    {% endslot %}
-                {% endelement %}
-            {% endif %}
-            {% element field id=form.email.auto_id name="email" value=form.email.value errors=form.email.errors type="email" %}
-                {% slot label %}
-                    {% translate "Change to" %}:
-                {% endslot %}
-            {% endelement %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button name="action_add" type="submit" %}
-                {% trans "Change Email" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% if new_emailaddress %}
-        <form style="display: none"
-              id="pending-email"
-              method="post"
-              action="{% url 'account_email' %}">
-            {% csrf_token %}
-            <input type="hidden" name="email" value="{{ new_emailaddress.email }}">
-        </form>
-    {% endif %}
-{% endblock content %}
+                        
+                        {% if new_emailaddress %}
+                            <div class="mb-3">
+                                <label for="new_email" class="form-label">
+                                    {% if not current_emailaddress %}
+                                        {% translate "Current email" %}:
+                                    {% else %}
+                                        {% translate "Changing to" %}:
+                                    {% endif %}
+                                </label>
+                                <input type="email" id="new_email" class="form-control" value="{{ new_emailaddress.email }}" disabled>
+                                <div class="form-text">
+                                    {% blocktranslate %}Your email address is still pending verification.{% endblocktranslate %}
+                                </div>
+                                <button type="submit" form="pending-email" name="action_send" class="btn btn-secondary btn-sm mt-2">
+                                    {% trans 'Re-send Verification' %}
+      
