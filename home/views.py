@@ -28,6 +28,9 @@ class GalleryView(ListView):
     context_object_name = 'photos'
     paginate_by = 3  # Show 3 photos per page
 
+    def get_queryset(self):
+        return Photo.objects.all().order_by("id")
+
 # About view
 class AboutView(TemplateView):
     """Render the about page."""
