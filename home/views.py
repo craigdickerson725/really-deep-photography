@@ -26,6 +26,7 @@ class GalleryView(ListView):
     model = Photo
     template_name = 'home/gallery.html'
     context_object_name = 'photos'
+    paginate_by = 3  # Show 3 photos per page
 
 # About view
 class AboutView(TemplateView):

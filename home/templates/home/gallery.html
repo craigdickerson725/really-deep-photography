@@ -31,43 +31,61 @@
     </div>
 
     <!-- Search Bar -->
-<form method="GET" action="{% url 'search' %}" class="mb-4" onsubmit="return validateSearch()">
-    <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
-        <button class="btn btn-primary" type="submit">Search</button>
-    </div>
-</form>
+    <form method="GET" action="{% url 'search' %}" class="mb-4" onsubmit="return validateSearch()">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
 
-<script>
-    function validateSearch() {
-        const searchInput = document.querySelector('input[name="q"]');
-        if (searchInput.value.trim() === "") {
-            alert("Please enter a search item.");
-            return false; // Prevent form submission
+    <script>
+        function validateSearch() {
+            const searchInput = document.querySelector('input[name="q"]');
+            if (searchInput.value.trim() === "") {
+                alert("Please enter a search item.");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
         }
-        return true; // Allow form submission
-    }
-</script>
+    </script>
 
     <!-- Gallery content -->
     <div class="row">
         {% if photos %}
-            {% for photo in photos %}
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <!-- Cloudinary image with optimization -->
-                    <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ photo.title }}</h5>
-                        <!-- <p class="card-text">{{ photo.description }}</p> -->
-                        <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
+            {% for photo in page_obj.object_list %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <!-- Cloudinary image with optimization -->
+                        <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ photo.title }}</h5>
+                            <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
         {% else %}
             <p>No photos found matching your search criteria.</p>
         {% endif %}
+    </div>
+
+    <!-- Pagination controls -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1&{{ request.GET.urlencode }}">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}&{{ request.GET.urlencode }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}&{{ request.GET.urlencode }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}&{{ request.GET.urlencode }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
 </div>
 {% endblock %}
