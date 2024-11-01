@@ -216,7 +216,7 @@ def create_payment_intent(request):
                 amount=int(total_amount),
                 currency="usd",
                 payment_method_types=["card"],
-                metadata={'user_id': request.user.id},
+                metadata={'user_id': request.user.id, "cart_id": cart.id},
             )
             return JsonResponse({'clientSecret': intent['client_secret']})
         except Exception as e:
@@ -226,7 +226,7 @@ def create_payment_intent(request):
 # Checkout success view
 @login_required
 def checkout_success(request):
-    """Save order details after payment is confirmed and redirect to order confirmation."""
+    """Save order details after payment is confirmed and render the success page."""
     if request.method == 'POST':
         try:
             # Load the data from the request body
@@ -238,21 +238,10 @@ def checkout_success(request):
             # Get the user's cart
             cart = get_object_or_404(Cart, user=request.user)
 
-            # Create the Order
+            # Create the Order without billing and shipping info
             order = Order.objects.create(
                 user=request.user,
-                billing_name=data['billing_name'],
-                billing_address_1=data['billing_address_1'],
-                billing_city=data['billing_city'],
-                billing_state=data['billing_state'],
-                billing_zip_code=data['billing_zip_code'],
-                billing_country=data['billing_country'],
                 total_amount=sum(item.subtotal for item in cart.items.all()),
-                shipping_address_1=data.get('shipping_address_1') if not data.get('shipping_address_same') else None,
-                shipping_city=data.get('shipping_city') if not data.get('shipping_address_same') else None,
-                shipping_state=data.get('shipping_state') if not data.get('shipping_address_same') else None,
-                shipping_zip_code=data.get('shipping_zip_code') if not data.get('shipping_address_same') else None,
-                shipping_country=data.get('shipping_country') if not data.get('shipping_address_same') else None,
                 payment_intent_id=data['payment_intent_id'],
             )
 
@@ -270,8 +259,11 @@ def checkout_success(request):
             # Clear the cart after creating the order
             cart.items.all().delete()
 
-            # Redirect to order confirmation page
-            return redirect('order_confirmation', payment_intent_id=order.payment_intent_id)
+            # Render success page with order details
+            context = {
+                'order': order,
+            }
+            return render(request, 'home/checkout_success.html', context)
 
         except json.JSONDecodeError:
             return redirect('home')
@@ -281,13 +273,3 @@ def checkout_success(request):
             return redirect('home')
 
     return redirect('home')
-
-# Order confirmation view
-@login_required
-def order_confirmation(request, payment_intent_id):
-    # Attempt to retrieve the order based on the payment_intent_id
-    order = get_object_or_404(Order, payment_intent_id=payment_intent_id)
-    context = {
-        'order': order,
-    }
-    return render(request, 'home/order_confirmation.html', context)

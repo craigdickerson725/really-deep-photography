@@ -3,9 +3,9 @@ from . import webhooks
 from .views import (
     index, GalleryView, AboutView, ContactView, search, photo_detail, 
     add_to_cart, view_cart, remove_from_cart, update_cart, checkout_view,
-    create_payment_intent, checkout_success, order_confirmation,
+    create_payment_intent, checkout_success, DeletePhotoView,
     cache_checkout_data, AdminPanelView, NoPermissionView,
-    EditPhotoView, DeletePhotoView,
+    EditPhotoView,
 )
 
 urlpatterns = [
@@ -42,7 +42,7 @@ urlpatterns = [
     path('checkout-success/', checkout_success, name='checkout_success'),
 
     # Order confirmation
-    path('order-confirmation/<str:payment_intent_id>/', order_confirmation, name='order_confirmation'),
+    # path('order-confirmation/<str:payment_intent_id>/', order_confirmation, name='order_confirmation'),
 
     # Webhook for Stripe
     path('webhook/', webhooks.stripe_webhook, name='stripe_webhook'),

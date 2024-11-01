@@ -14,10 +14,9 @@
     <p>Founded by Robert Craig Dickerson, Really Deep Photography has grown from a hobby into a thriving business. With years of experience and a keen eye for detail, he strives to offer unique perspectives in every shot he takes.</p>
 
     <h2>Meet the Photographer</h2>
-    <div class="row mb-4">
+    <div class="row mb-4 align-items-center">  <!-- Added align-items-center for vertical alignment -->
         <div class="col-md-4">
-            <!-- Cloudinary image with optimization -->
-            <img src="{{ 'images/photographer.jpg'|cloudinary_optimized }}" class="img-fluid rounded-circle" alt="Photographer">
+            <img src="{% static 'images/about_photo.jpg' %}" class="img-fluid rounded-square" alt="Photographer">
         </div>
         <div class="col-md-8">
             <h3>Robert Craig Dickerson</h3>

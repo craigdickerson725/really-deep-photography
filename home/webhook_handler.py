@@ -27,6 +27,7 @@ class WebhookHandler:
         try:
             # Retrieve user
             user = User.objects.get(id=user_id)
+        
             # Retrieve cart
             cart = Cart.objects.get(id=cart_id, user=user)
 
@@ -60,6 +61,9 @@ class WebhookHandler:
 
         except User.DoesNotExist:
             print(f"No user found with id {user_id}")
+            return HttpResponse(status=404)
+        except Cart.DoesNotExist:
+            print(f"No cart found with id {cart_id} for user {user_id}")
             return HttpResponse(status=404)
         except Exception as e:
             print(f"Error creating order: {str(e)}")

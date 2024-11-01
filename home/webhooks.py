@@ -18,7 +18,7 @@ def stripe_webhook(request):
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
 
     # Log the incoming payload for debugging
-    print("Received webhook payload:", payload)
+    print("Received webhook payload:", payload.decode('utf-8'))
 
     try:
         event = stripe.Webhook.construct_event(

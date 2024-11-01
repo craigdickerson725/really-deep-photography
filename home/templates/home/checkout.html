@@ -99,8 +99,8 @@
         } else {
             if (paymentIntent.status === 'succeeded') {
                 // Payment was successful
-                // Redirect to the order confirmation page
-                window.location.href = '/order-confirmation/' + paymentIntent.id; // Update as necessary
+                // Redirect to the checkout success page
+                window.location.href = '/checkout-success/'; // Update as necessary
             }
         }
     });
