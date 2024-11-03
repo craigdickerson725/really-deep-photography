@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="container">
+    {% if messages %}
+        <div class="alert alert-warning" role="alert">
+            {% for message in messages %}
+                {{ message }}<br>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <h1 class="mt-1">Gallery</h1>
+    <p>Explore our collection of beautiful deep photography.</p>
+
+    <!-- Cart Link -->
+    <div class="mb-3">
+        <a href="{% url 'cart:view_cart' %}" class="btn btn-outline-info">
+            View Cart (
+            {% if user.is_authenticated %}
+                {% with request.user.cart.items.count as cart_count %}
+                    {{ cart_count }}
+                {% endwith %}
+            {% else %}
+                0
+            {% endif %}
+            )
+        </a>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="GET" action="{% url 'search' %}" class="mb-4" onsubmit="return validateSearch()">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search photos..." value="{{ request.GET.q|default_if_none:'' }}">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <script>
+        function validateSearch() {
+            const searchInput = document.querySelector('input[name="q"]');
+            if (searchInput.value.trim() === "") {
+                alert("Please enter a search item.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+
+    <!-- Gallery content -->
+    <div class="row">
+        {% if photos %}
+            {% for photo in photos %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ photo.title }}</h5>
+                            <a href="{% url 'photo_detail' photo.id %}" class="btn btn-primary text-white">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No photos found matching your search criteria.</p>
+        {% endif %}
+    </div>
+
+    <!-- Pagination -->
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center">
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First page">&laquo; First</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">&laquo; First</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Previous</span>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next page">Next</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last page">Last &raquo;</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">Next</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">Last &raquo;</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

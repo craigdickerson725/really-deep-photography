@@ -1,10 +1,11 @@
-# webhook_handler.py
-
-import json
 import stripe
 from django.conf import settings
 from django.http import HttpResponse
-from .models import Order, User, OrderItem, Cart
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from .models import Order, User, OrderItem
+from cart.models import Cart
 
 class WebhookHandler:
     """Class to handle Stripe webhooks."""
@@ -56,6 +57,25 @@ class WebhookHandler:
             # Clear cart after creating the order
             cart.items.all().delete()
             print(f"Order {order.id} and associated items created successfully.")
+
+            # Prepare and send the order confirmation email
+            subject = f"Order Confirmation - {order.id}"
+            # Use the adjusted template path here
+            html_message = render_to_string('home/order_confirmation_email.html', {'order': order})
+            plain_message = strip_tags(html_message)
+            from_email = settings.DEFAULT_FROM_EMAIL
+            recipient_list = [user.email]
+
+            # Send email (printed to terminal in local testing)
+            send_mail(
+                subject,
+                plain_message,
+                from_email,
+                recipient_list,
+                html_message=html_message,
+                fail_silently=False,
+            )
+            print(f"Confirmation email for order {order.id} sent to {user.email}.")
             
             return HttpResponse(status=200)
 

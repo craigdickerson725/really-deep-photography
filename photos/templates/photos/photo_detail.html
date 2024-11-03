@@ -8,7 +8,7 @@
 
     <!-- Cart Link -->
     <div class="mb-3">
-        <a href="{% url 'view_cart' %}" class="btn btn-outline-info">
+        <a href="{% url 'cart:view_cart' %}" class="btn btn-outline-info">
             View Cart (
             {% if user.is_authenticated %}
                 {% with request.user.cart.items.count as cart_count %}
@@ -35,7 +35,7 @@
             <p>{{ photo.price_display }}</p>
             <a href="{% url 'gallery' %}" class="btn btn-primary">Back to Gallery</a>
             <!-- Add an option to add to cart -->
-            <a href="{% url 'add_to_cart' photo.id %}" class="btn btn-success">Add to Cart</a>
+            <a href="{% url 'cart:add_to_cart' photo.id %}" class="btn btn-success">Add to Cart</a>
         </div>
     </div>
 </div>

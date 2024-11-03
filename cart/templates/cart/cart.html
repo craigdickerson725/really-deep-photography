@@ -27,7 +27,7 @@
                         </td>
                         <td class="text-right">${{ item.photo.price }}</td>
                         <td class="text-center">
-                            <form action="{% url 'update_cart' item.id %}" method="POST" class="form-inline justify-content-center">
+                            <form action="{% url 'cart:update_cart' item.id %}" method="POST" class="form-inline justify-content-center">
                                 {% csrf_token %}
                                 <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm mx-2" style="width: 60px;">
                                 <button type="submit" class="btn btn-primary btn-sm mt-3">Update</button>
@@ -35,7 +35,7 @@
                         </td>
                         <td class="text-right">${{ item.subtotal }}</td>
                         <td class="text-center">
-                            <form action="{% url 'remove_from_cart' item.id %}" method="POST">
+                            <form action="{% url 'cart:remove_from_cart' item.id %}" method="POST">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger btn-sm">Remove</button>
                             </form>

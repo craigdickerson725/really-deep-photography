@@ -51,13 +51,12 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'view_cart' %}">
+                            <a class="nav-link" href="{% url 'cart:view_cart' %}">
                                 Cart
                                 {% if user.is_authenticated and cart_items_count > 0 %}
                                     ({{ cart_items_count }})
                                 {% endif %}
                             </a>
-                        </li>
                         </li>
                     </ul>
                     <ul class="navbar-nav">
@@ -67,7 +66,7 @@
                             </li>
                             {% if user|is_in_group:"Real Administrators" %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'admin_panel' %}">Admin Panel</a>
+                                    <a class="nav-link" href="{% url 'admin_panel' %}">Admin</a>
                                 </li>
                             {% endif %}
                         {% else %}

@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'cloudinary',
-    'home'
+    'home',
+    'photos',
+    'cart'
 ]
 
 MIDDLEWARE = [
@@ -74,7 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # to display cart items on all pages
-                'home.context_processors.cart_items_count',
+                'cart.context_processors.cart_items_count',
             ],
         },
     },

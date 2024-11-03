@@ -1,11 +1,7 @@
-# webhooks.py
-
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.conf import settings
 import stripe
-import json
-from .models import Order
 from .webhook_handler import WebhookHandler
 
 # Initialize Stripe with your secret key

@@ -1,5 +1,4 @@
 from django import forms
-from .models import Photo
 
 class CheckoutForm(forms.Form):
     # Personal Information
@@ -28,8 +27,3 @@ class CheckoutForm(forms.Form):
     # Method to get full billing name
     def get_billing_name(self):
         return f"{self.cleaned_data['first_name']} {self.cleaned_data['last_name']}"
-
-class PhotoForm(forms.ModelForm):
-    class Meta:
-        model = Photo
-        fields = ['title', 'description', 'image', 'size', 'price', 'is_featured']
