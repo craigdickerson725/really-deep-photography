@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import add_to_cart, view_cart, remove_from_cart, update_cart, create_payment_intent
+from .views import add_to_cart, view_cart, remove_from_cart, update_cart
 
 app_name = 'cart'
 
@@ -8,5 +8,4 @@ urlpatterns = [
     path('view-cart/', view_cart, name='view_cart'),
     path('remove-from-cart/<int:cart_item_id>/', remove_from_cart, name='remove_from_cart'),
     path('update-cart/<int:cart_item_id>/', update_cart, name='update_cart'),
-    path('create-payment-intent/', create_payment_intent, name='create_payment_intent'),
 ]
