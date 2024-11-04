@@ -19,6 +19,7 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     order_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
+    grand_total = models.DecimalField(max_digits=10, decimal_places=2, null=False, default=0)
 
     def _generate_order_number(self):
         """
@@ -26,53 +27,40 @@ class Order(models.Model):
         """
         return uuid.uuid4().hex.upper()
 
+    def update_total(self):
+        """
+        Update the total each time a line item is added. 
+        Since there's no delivery, the order_total equals grand_total.
+        """
+        self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        self.grand_total = self.order_total
+        self.save()
+
     def save(self, *args, **kwargs):
         """
-        Override the original save method to set the order number
-        if it hasn't been set already.
+        Override the save method to set the order number if not set.
         """
         if not self.order_number:
             self.order_number = self._generate_order_number()
         super().save(*args, **kwargs)
 
-    def calculate_order_total(self):
-        """
-        Calculates the total amount by summing all OrderItems' total prices.
-        """
-        self.order_total = self.items.aggregate(
-            total=Sum(F('quantity') * F('price'))
-        )['total'] or 0
-        self.save()
-
     def __str__(self):
         return self.order_number
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
-    photo = models.ForeignKey(Photo, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.quantity} of {self.photo.title} in Order {self.order.order_number}"
-
-    def get_total_price(self):
-        """
-        Calculate the total price for this item (quantity * price).
-        """
-        return self.quantity * self.price
+class OrderLineItem(models.Model):
+    order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
+    photo = models.ForeignKey(Photo, null=False, blank=False, on_delete=models.CASCADE)
+    quantity = models.IntegerField(null=False, blank=False, default=1)
+    lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
 
     def save(self, *args, **kwargs):
         """
-        Override the save method to ensure the price is set correctly
-        and the order total is updated when an OrderItem is saved.
+        Override the original save method to set the lineitem total
+        and update the order total.
         """
-        # Optionally, set price from the current photo price if it's not already set
-        if not self.price:
-            self.price = self.photo.price  # Assuming `photo.price` exists
-
-        # Save the OrderItem instance
+        self.lineitem_total = self.photo.price * self.quantity
         super().save(*args, **kwargs)
+        self.order.update_total()  # Ensure the order total is updated when this item is saved
 
-        # Update the order total
-        self.order.calculate_order_total()
+    def __str__(self):
+        return f"{self.quantity} of {self.photo.title} in Order {self.order.order_number}"

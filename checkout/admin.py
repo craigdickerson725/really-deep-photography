@@ -1,27 +1,24 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import Order, OrderLineItem
 
-class OrderItemAdminInline(admin.TabularInline):
-    model = OrderItem
-    readonly_fields = ('photo', 'quantity', 'price', 'get_total_price')
-    extra = 0  # Prevents extra empty rows from appearing
-
-    def get_total_price(self, obj):
-        return obj.get_total_price()
-    get_total_price.short_description = 'Total Price'
+class OrderLineItemAdminInline(admin.TabularInline):
+    model = OrderLineItem
+    readonly_fields = ('lineitem_total',)
 
 class OrderAdmin(admin.ModelAdmin):
-    inlines = (OrderItemAdminInline,)
+    inlines = (OrderLineItemAdminInline,)
 
-    readonly_fields = ('order_number', 'date', 'order_total')
+    readonly_fields = ('order_number', 'date',
+		       'order_total', 'grand_total',)
 
     fields = ('order_number', 'date', 'full_name',
               'email', 'phone_number', 'country',
               'postcode', 'town_or_city', 'street_address1',
-              'street_address2', 'county', 'order_total',)
+              'street_address2', 'county', 'order_total', 
+	      'grand_total',)
 
     list_display = ('order_number', 'date', 'full_name',
-                    'order_total',)
+                    'order_total', 'grand_total',)
 
     ordering = ('-date',)
 
