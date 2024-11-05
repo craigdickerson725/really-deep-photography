@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'django.contrib.sites',
+    'django_countries',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -77,7 +78,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # to display cart items on all pages
-                'cart.context_processors.cart_items_count',
+                'cart.contexts.cart_contents',
             ],
         },
     },
