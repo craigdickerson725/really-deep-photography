@@ -99,6 +99,20 @@ input[type="text"]:focus {
     border-color: gray;
 }
 
+/* Buttons */
+.btt-button {
+	height: 42px;
+	width: 42px;
+	position: fixed;
+	bottom: 10px;
+	right: 10px;
+}
+
+.btt-link,
+.update-link {
+	cursor: pointer;
+}
+
 /* Footer */
 footer {
     background-color: #333;

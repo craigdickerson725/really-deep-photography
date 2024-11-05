@@ -1,5 +1,5 @@
 {% load static %}
-{% load custom_filters %} {# Load the custom filters for group membership #}
+{% load custom_filters %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +51,7 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'cart:view_cart' %}">
+                            <a class="nav-link" href="{% url 'view_cart' %}">
                                 Cart
                                 {% if user.is_authenticated and cart_items_count > 0 %}
                                     ({{ cart_items_count }})

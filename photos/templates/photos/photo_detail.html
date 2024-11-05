@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load custom_filters %}  <!-- Load the custom filter -->
+{% load custom_filters %}
 
 {% block content %}
 <div class="container mt-4">
@@ -8,7 +8,7 @@
 
     <!-- Cart Link -->
     <div class="mb-3">
-        <a href="{% url 'cart:view_cart' %}" class="btn btn-outline-info">
+        <a href="{% url 'view_cart' %}" class="btn btn-outline-info">
             View Cart (
             {% if user.is_authenticated %}
                 {% with request.user.cart.items.count as cart_count %}
@@ -29,14 +29,51 @@
         <div class="col-md-6">
             <h4>Description</h4>
             <p>{{ photo.description }}</p>
-            <h4>Size</h4>
-            <p>{{ photo.size }}</p>
             <h4>Price</h4>
             <p>{{ photo.price_display }}</p>
-            <a href="{% url 'gallery' %}" class="btn btn-primary">Back to Gallery</a>
+
+            <!-- Quantity Selector -->
+            <div class="col-12">
+                <p class="mt-3"><strong>Quantity:</strong></p>
+                <div class="form-group w-50">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <button class="decrement-qty btn btn-black rounded-0" 
+                                data-item_id="{{ photo.id }}" id="decrement-qty_{{ photo.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-minus"></i>
+                                </span>
+                            </button>
+                        </div>
+                        <input class="form-control qty_input" type="number"
+                            name="quantity" value="1" min="1" max="99"
+                            data-item_id="{{ photo.id }}"
+                            id="id_qty_{{ photo.id }}">
+                        <div class="input-group-append">
+                            <button class="increment-qty btn btn-black rounded-0"
+                                data-item_id="{{ photo.id }}" id="increment-qty_{{ photo.id }}">
+                                <span class="icon">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="{% url 'gallery' %}" class="btn btn-primary mt-2">Back to Gallery</a>
             <!-- Add an option to add to cart -->
-            <a href="{% url 'cart:add_to_cart' photo.id %}" class="btn btn-success">Add to Cart</a>
+            <form action="{% url 'add_to_cart' photo.id %}" method="POST" class="mt-3">
+                {% csrf_token %}
+                <input type="hidden" name="quantity" value="1" id="quantity-input">
+                <button type="submit" class="btn btn-success">Add to Cart</button>
+            </form>
         </div>
     </div>
 </div>
+
+{% block postloadjs %}
+{{ block.super }}
+{% include 'photos/includes/quantity_input_script.html' %}
+{% endblock %}
 {% endblock %}

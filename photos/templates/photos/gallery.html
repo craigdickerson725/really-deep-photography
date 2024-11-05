@@ -17,7 +17,7 @@
 
     <!-- Cart Link -->
     <div class="mb-3">
-        <a href="{% url 'cart:view_cart' %}" class="btn btn-outline-info">
+        <a href="{% url 'view_cart' %}" class="btn btn-outline-info">
             View Cart (
             {% if user.is_authenticated %}
                 {% with request.user.cart.items.count as cart_count %}

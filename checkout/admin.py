@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Order, OrderItem
+from .models import Order, OrderLineItem
 
-class OrderItemAdminInline(admin.TabularInline):
-    model = OrderItem
+class OrderLineItemAdminInline(admin.TabularInline):
+    model = OrderLineItem
     readonly_fields = ('photo', 'quantity', 'price', 'get_total_price')
     extra = 0  # Prevents extra empty rows from appearing
 
@@ -11,7 +11,7 @@ class OrderItemAdminInline(admin.TabularInline):
     get_total_price.short_description = 'Total Price'
 
 class OrderAdmin(admin.ModelAdmin):
-    inlines = (OrderItemAdminInline,)
+    inlines = (OrderLineItemAdminInline,)
 
     readonly_fields = ('order_number', 'date', 'order_total')
 
