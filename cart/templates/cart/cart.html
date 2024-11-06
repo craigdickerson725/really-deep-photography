@@ -80,9 +80,14 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Update button: triggers form submission -->
+                                                <button type="submit" class="update-btn btn btn-outline-info btn-sm mt-2 w-100">Update</button>
                                             </form>
-                                            <a class="update-link text-info"><small>Update</small></a>
-                                            <a class="remove-item text-danger float-right" id="remove_{{ item.photo.id }}"><small>Remove</small></a>
+                                            <!-- Remove button: triggers removal from cart -->
+                                            <form method="POST" action="{% url 'remove_from_cart' item.photo.id %}" class="remove-form">
+                                                {% csrf_token %}
+                                                <button type="submit" class="remove-btn btn btn-danger btn-sm mt-2 w-100">Remove</button>
+                                            </form>
                                         </td>
                                         <td class="py-3">
                                             <p class="my-0">${{ item.photo.price|floatformat:2 }}</p>
@@ -128,27 +133,71 @@
     </main>
 {% endblock %}
 
-{% block postloadjs %}
-{{ block.super }}
-{% include 'photos/includes/quantity_input_script.html' %}
+{% block scripts %}
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script type="text/javascript">
-    // Update quantity on click
-    $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
-        form.submit();
-    });
+    <script>
+        // Increment button functionality
+        $(".increment-qty").click(function(e) {
+            e.preventDefault();
+            var photoId = $(this).data('photo_id');
+            var quantityField = $("#id_qty_" + photoId);
+            var newQty = parseInt(quantityField.val()) + 1;
+            quantityField.val(newQty);
+            quantityField.trigger('change');
+        });
 
-    // Remove item and reload on click
-    $('.remove-item').click(function(e) {
-        var csrfToken = "{{ csrf_token }}";
-        var photoId = $(this).attr('id').split('remove_')[1];
-        var url = `/cart/remove-from-cart/${photoId}/`;
+        // Decrement button functionality
+        $(".decrement-qty").click(function(e) {
+            e.preventDefault();
+            var photoId = $(this).data('photo_id');
+            var quantityField = $("#id_qty_" + photoId);
+            var newQty = parseInt(quantityField.val()) - 1;
+            if (newQty >= 1) {
+                quantityField.val(newQty);
+                quantityField.trigger('change');
+            }
+        });
 
-        $.post(url, { 'csrfmiddlewaretoken': csrfToken })
-         .done(function() {
-             location.reload();
-         });
-    });
-</script>
+        // Update button form submission (AJAX if needed)
+        $(".update-form").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var data = form.serialize();
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: data,
+                success: function(response) {
+                    // Optionally reload or update the cart section with the new total
+                    location.reload();
+                },
+                error: function(error) {
+                    console.log("Error updating cart: ", error);
+                }
+            });
+        });
+
+        // Remove button functionality (AJAX if needed)
+        $(".remove-form").submit(function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var data = form.serialize();
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: data,
+                success: function(response) {
+                    // Optionally reload the cart or remove the item from the UI
+                    location.reload();
+                },
+                error: function(error) {
+                    console.log("Error removing item: ", error);
+                }
+            });
+        });
+    </script>
 {% endblock %}

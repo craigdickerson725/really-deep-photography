@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const elements = stripe.elements(); // Initialize Stripe Elements
     const checkoutButton = document.getElementById('checkout-button');
     const form = document.getElementById('payment-form');
-    
+
     // Create a Card Element and mount it to the DOM
     const cardElement = elements.create('card');
     cardElement.mount('#card-element');
@@ -53,21 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         try {
-            // First, send request to cache checkout data
-            const cacheResponse = await fetch('/cache-checkout-data/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken'), // Get CSRF token using the helper function
-                },
-                body: JSON.stringify({ client_secret: stripe.clientSecret })
-            });
-
-            if (!cacheResponse.ok) {
-                throw new Error('Failed to cache checkout data');
-            }
-
-            // Then create a payment intent
+            // Create a payment intent
             const response = await fetch('/create-payment-intent/', {
                 method: 'POST',
                 headers: {
@@ -84,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const { clientSecret } = await response.json();
 
             // Use Stripe.js to handle payment confirmation
-            const { error } = await stripe.confirmCardPayment(clientSecret, {
+            const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
                     billing_details: {
@@ -104,9 +90,25 @@ document.addEventListener('DOMContentLoaded', function () {
             if (error) {
                 console.error('Payment failed:', error.message);
                 alert('Payment failed. Please try again.');
-            } else {
-                // Redirect to checkout success URL on success
-                alert('Payment succeeded! Redirecting to confirmation page...');
+            } else if (paymentIntent.status === 'succeeded') {
+                // Payment was successful
+                alert('Payment succeeded! Redirecting to success page...');
+
+                // Clear the cart on the server
+                const clearCartResponse = await fetch('/clear-cart/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    }
+                });
+
+                if (!clearCartResponse.ok) {
+                    console.error('Failed to clear cart:', await clearCartResponse.text());
+                    alert('Payment succeeded, but failed to clear the cart.');
+                }
+
+                // Redirect to success page
                 window.location.href = '/checkout-success/';
             }
         } catch (error) {
