@@ -113,6 +113,26 @@ input[type="text"]:focus {
 	cursor: pointer;
 }
 
+.btn-black {
+    background-color: #000;
+    color: #fff;
+}
+
+.btn-black:hover {
+    background-color: #333; /* Slightly lighter shade on hover */
+    color: #fff;
+}
+
+.remove-item {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.remove-item:hover {
+    color: #ff0000; /* Bright red when hovered */
+    text-decoration: underline;
+}
+
 /* Footer */
 footer {
     background-color: #333;
