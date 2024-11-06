@@ -48,19 +48,19 @@
                                         </td>
                                         <td class="py-3">
                                             <p class="my-0"><strong>{{ item.photo.name }}</strong></p>
-                                            <p class="my-0 small text-muted">ID: {{ item.item_id }}</p>
+                                            <p class="my-0 small text-muted">ID: {{ item.photo.id }}</p>
                                         </td>
                                         <td class="py-3">
                                             <p class="my-0">${{ item.photo.price }}</p>
                                         </td>
                                         <td class="py-3 w-25">
-                                            <form class="form update-form" method="POST" action="{% url 'update_cart' item.item_id %}">
+                                            <form class="form update-form" method="POST" action="{% url 'adjust_cart' item.photo.id %}">
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <button class="decrement-qty btn btn-sm btn-black rounded-0" 
-                                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                                                data-photo_id="{{ item.photo.id }}" id="decrement-qty_{{ item.photo.id }}">
                                                                 <span>
                                                                     <i class="fas fa-minus fa-sm"></i>
                                                                 </span>
@@ -68,11 +68,11 @@
                                                         </div>
                                                         <input class="form-control form-control-sm qty_input" type="number"
                                                             name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                            data-item_id="{{ item.item_id }}"
-                                                            id="id_qty_{{ item.item_id }}">
+                                                            data-photo_id="{{ item.photo.id }}"
+                                                            id="id_qty_{{ item.photo.id }}">
                                                         <div class="input-group-append">
                                                             <button class="increment-qty btn btn-sm btn-black rounded-0"
-                                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                                                data-photo_id="{{ item.photo.id }}" id="increment-qty_{{ item.photo.id }}">
                                                                 <span>
                                                                     <i class="fas fa-plus fa-sm"></i>
                                                                 </span>
@@ -82,7 +82,7 @@
                                                 </div>
                                             </form>
                                             <a class="update-link text-info"><small>Update</small></a>
-                                            <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}"><small>Remove</small></a>
+                                            <a class="remove-item text-danger float-right" id="remove_{{ item.photo.id }}"><small>Remove</small></a>
                                         </td>
                                         <td class="py-3">
                                             <p class="my-0">${{ item.photo.price|floatformat:2 }}</p>
@@ -97,7 +97,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="5" class="text-right">
-                                        <a href="{% url 'photos' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                                        <a href="{% url 'gallery' %}" class="btn btn-outline-black rounded-0 btn-lg">
                                             <span class="icon">
                                                 <i class="fas fa-chevron-left"></i>
                                             </span>
@@ -142,8 +142,8 @@
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
-        var itemId = $(this).attr('id').split('remove_')[1];
-        var url = `/cart/remove-from-cart/${itemId}/`;
+        var photoId = $(this).attr('id').split('remove_')[1];
+        var url = `/cart/remove-from-cart/${photoId}/`;
 
         $.post(url, { 'csrfmiddlewaretoken': csrfToken })
          .done(function() {
