@@ -144,7 +144,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PK')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SK')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WH')
-STRIPE_CURRENCY = 'eur'
+STRIPE_CURRENCY = 'usd'
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
