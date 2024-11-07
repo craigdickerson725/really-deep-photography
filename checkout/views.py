@@ -38,6 +38,9 @@ def checkout(request):
     stripe_public_key = settings.STRIPE_PUBLISHABLE_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    # Initialize order_form as an empty OrderForm instance
+    order_form = OrderForm()
+
     if request.method == 'POST':
         cart = request.session.get('cart', {})
 

@@ -15,21 +15,6 @@
     <h1 class="mt-1">Gallery</h1>
     <p>Explore our collection of beautiful deep photography.</p>
 
-    <!-- Cart Link -->
-    <div class="mb-3">
-        <a href="{% url 'view_cart' %}" class="btn btn-outline-info">
-            View Cart (
-            {% if user.is_authenticated %}
-                {% with request.user.cart.items.count as cart_count %}
-                    {{ cart_count }}
-                {% endwith %}
-            {% else %}
-                0
-            {% endif %}
-            )
-        </a>
-    </div>
-
     <!-- Search Bar -->
     <form method="GET" action="{% url 'search' %}" class="mb-4" onsubmit="return validateSearch()">
         <div class="input-group">

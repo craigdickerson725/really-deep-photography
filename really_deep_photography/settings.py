@@ -80,9 +80,15 @@ TEMPLATES = [
                 # to display cart items on all pages
                 'cart.contexts.cart_contents',
             ],
+            # 'built-ins': [
+            #     'crispy_forms.templatetags.crispy_forms_tags',
+            #     'crispy_forms.templatetags.crispy_forms_field',
+            # ]
         },
     },
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 AUTHENTICATION_BACKENDS = (
     # Needed to log in by username in Django admin, regardless of `allauth`
@@ -138,6 +144,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 STRIPE_PUBLISHABLE_KEY = os.environ.get('STRIPE_PK')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SK')
 STRIPE_WEBHOOK_SECRET = os.environ.get('STRIPE_WH')
+STRIPE_CURRENCY = 'eur'
 
 if 'DEVELOPMENT' in os.environ:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -199,3 +206,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+

@@ -70,4 +70,4 @@ class OrderLineItem(models.Model):
         self.order.update_total()  # Ensure the order total is updated when this item is saved
 
     def __str__(self):
-        return f'{self.photo.name} on order {self.order.order_number}'
+        return f'{self.photo.title} on order {self.order.order_number}'

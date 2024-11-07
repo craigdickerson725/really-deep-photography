@@ -1,112 +1,133 @@
 {% extends "base.html" %}
-
 {% load crispy_forms_tags %}
 {% load static %}
+{% load cart_tools %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
 
 {% block content %}
-<div class="container my-5">
-    <h2 class="text-center mb-4">Checkout</h2>
-    
-    <div class="card p-4 shadow-sm bg-dark text-white">
-        
-        <h5 class="mb-3">Order Summary</h5>
-        <ul class="list-group mb-3">
-            {% for item in cart_items %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    {{ item.photo.title }} 
-                    <span>${{ item.subtotal|floatformat:2 }}</span>
-                </li>
-            {% endfor %}
-            <li class="list-group-item d-flex justify-content-between">
-                <strong>Total:</strong>
-                <strong>${{ total_amount|floatformat:2 }}</strong>
-            </li>
-        </ul>
-        
-        <h5 class="mb-3">Payment Details</h5>
-        
-        <form id="payment-form" class="form-group" method="post">
-            {% csrf_token %}  <!-- This includes the CSRF token in your form -->
-            {% crispy form %}  <!-- This should include your form fields -->
-            
-            <div id="card-element" class="form-control mb-3"></div>
-            <div id="card-errors" role="alert" class="text-danger"></div>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <hr>
+                <h2 class="logo-font mb-4">Checkout</h2>
+                <hr>
+            </div>
+        </div>
 
-            <button id="checkout-button" class="btn btn-primary w-100 mt-3" type="button">
-                Pay Now
-            </button>
-        </form>
+        <div class="row">
+            <div class="col-12 col-lg-6 order-lg-last mb-5">
+                <p class="text-muted">Order Summary ({{ photo_count }})</p>
+                <div class="row">
+                    <div class="col-7 offset-2">
+                        <p class="mb-1 mt-0 small text-muted">Item</p>
+                    </div>
+                    <div class="col-3 text-right">
+                        <p class="mb-1 mt-0 small text-muted">Subtotal</p>
+                    </div>
+                </div>
+                {% for item in cart_items %}
+                    <div class="row">
+                        <div class="col-2 mb-1">
+                            <a href="{% url 'photo_detail' item.photo.id %}">
+                                {% if item.photo.image %}
+                                    <img class="w-100" src="{{ item.photo.image.url }}" alt="{{ photo.title }}">
+                                {% else %}
+                                    <img class="w-100" src="{{ MEDIA_URL }}noimage.png" alt="{{ photo.title }}">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-7">
+                            <p class="my-0"><strong>{{ item.photo.title }}</strong></p>
+                            <p class="my-0 small text-muted">Qty: {{ item.quantity }}</p>
+                        </div>
+                        <div class="col-3 text-right">
+                            <p class="my-0 small text-muted">${{ item.photo.price|floatformat:2 }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <hr class="my-0">
+                <div class="row text-black text-right">
+                    <div class="col-7 offset-2">
+                        <p class="my-0">Order Total:</p>
+                        <p class="my-0"><strong>${{ order_total|floatformat:2 }}</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <p class="text-muted">Please fill out the form below to complete your order</p>
+                <form action="{% url 'checkout' %}" method="POST" id="payment-form">
+                    {% csrf_token %}
+                    <fieldset class="rounded px-3 mb-5">
+                        <legend class="fieldset-label small text-black px-2 w-auto">Details</legend>
+                        {{ order_form.full_name|as_crispy_field }}
+                        {{ order_form.email|as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="rounded px-3 mb-5">
+                        <legend class="fieldset-label small text-black px-2 w-auto">Billing Info</legend>
+                        {{ order_form.phone_number|as_crispy_field }}
+                        {{ order_form.street_address1|as_crispy_field }}
+                        {{ order_form.street_address2|as_crispy_field }}
+                        {{ order_form.town_or_city|as_crispy_field }}
+                        {{ order_form.county|as_crispy_field }}
+                        {{ order_form.postcode|as_crispy_field }}
+                        {{ order_form.country|as_crispy_field }}
+                    </fieldset>
+                    <fieldset class="px-3">
+                        <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
+                        <div class="mb-3" id="card-element"></div>
+                        <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
+                        <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                    </fieldset>
+
+                    <div class="submit-button text-right mt-5 mb-2">                    
+                        <a href="{% url 'view_cart' %}" class="btn btn-outline-black rounded-0">
+                            <span class="icon">
+                                <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="font-weight-bold">Adjust Cart</span>
+                        </a>
+                        <button id="submit-button" class="btn btn-black rounded-0">
+                            <span class="font-weight-bold">Complete Order</span>
+                            <span class="icon">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                        </button>
+                        <p class="small text-danger my-0">
+                            <span class="icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </span>
+                            <span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
+    <div id="loading-overlay">
+        <h1 class="text-light logo-font loading-spinner">
+            <span class="icon">
+                <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+            </span>
+        </h1>
+    </div>
+{% endblock %}
 
-<script src="https://js.stripe.com/v3/"></script>
-<script>
-    const stripe = Stripe('{{ stripe_publishable_key }}');
-    const elements = stripe.elements();
-    
-    const cardElement = elements.create('card');
-    cardElement.mount('#card-element');
-
-    const form = document.getElementById('payment-form');
-
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        // Safely access first name and last name
-        const firstName = form.querySelector('input[name="first_name"]');
-        const lastName = form.querySelector('input[name="last_name"]');
-
-        // Check if firstName and lastName exist
-        if (!firstName || !lastName) {
-            console.error("First name or last name field not found!");
-            document.getElementById('card-errors').textContent = "First name and last name are required.";
-            return; // Exit if fields are not found
-        }
-
-        const billingName = `${firstName.value} ${lastName.value}`; // Combine first and last name
-
-        // Get CSRF token from the form
-        const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        const response = await fetch('/create-payment-intent/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrfToken, // Include CSRF token
-            },
-            body: JSON.stringify({ billing_name: billingName }),
-        });
-
-        if (!response.ok) {
-            console.error("Failed to create payment intent");
-            document.getElementById('card-errors').textContent = "Failed to create payment intent.";
-            return;
-        }
-
-        const { clientSecret } = await response.json();
-
-        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: {
-                card: cardElement,
-                billing_details: {
-                    name: billingName, // Use combined name
-                },
-            },
-        });
-
-        if (error) {
-            document.getElementById('card-errors').textContent = error.message;
-        } else {
-            if (paymentIntent.status === 'succeeded') {
-                // Payment was successful
-                // Redirect to the checkout success page
-                window.location.href = '/checkout-success/'; // Update as necessary
-            }
-        }
-    });
-
-    document.getElementById('checkout-button').addEventListener('click', () => {
-        form.requestSubmit(); // This submits the form and triggers the event listener
-    });
-</script>
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
