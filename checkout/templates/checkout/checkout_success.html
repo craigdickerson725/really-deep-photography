@@ -8,7 +8,69 @@
         <p class="lead mt-3">Thank you for your purchase!</p>
         <p>Your order number is <strong>{{ order.order_number }}</strong>.</p>
         <p>A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
-        <a href="{% url 'gallery' %}" class="btn btn-outline-primary mt-4">Back to Gallery</a>
+    </div>
+    
+    <!-- Order Summary -->
+    <div class="order-summary mt-5">
+        <h3 class="text-center">Order Summary</h3>
+        <table class="table table-bordered mt-3">
+            <thead>
+                <tr>
+                    <th>Photo Title</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.lineitems.all %}
+                <tr>
+                    <td>{{ item.photo.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.photo.price }}</td>
+                    <td>${{ item.lineitem_total }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Order Total:</strong></td>
+                    <td><strong>${{ order.order_total }}</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
+                    <td><strong>${{ order.grand_total }}</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <!-- Billing/Shipping Information -->
+    <div class="billing-info mt-5">
+        <h3 class="text-center">Billing and Shipping Information</h3>
+        <div class="row mt-3">
+            <div class="col-md-6">
+                <h5>Billing Details</h5>
+                <p><strong>Full Name:</strong> {{ order.full_name }}</p>
+                <p><strong>Email:</strong> {{ order.email }}</p>
+                <p><strong>Phone Number:</strong> {{ order.phone_number }}</p>
+            </div>
+            <div class="col-md-6">
+                <h5>Shipping Address</h5>
+                <p><strong>Street Address 1:</strong> {{ order.street_address1 }}</p>
+                {% if order.street_address2 %}
+                    <p><strong>Street Address 2:</strong> {{ order.street_address2 }}</p>
+                {% endif %}
+                <p><strong>Town/City:</strong> {{ order.town_or_city }}</p>
+                <p><strong>County:</strong> {{ order.county }}</p>
+                <p><strong>Postcode:</strong> {{ order.postcode }}</p>
+                <p><strong>Country:</strong> {{ order.country.name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'home' %}" class="btn btn-outline-primary">Take Me Back Home!</a>
     </div>
 </div>
 {% endblock %}

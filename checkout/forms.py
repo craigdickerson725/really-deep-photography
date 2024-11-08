@@ -29,12 +29,15 @@ class OrderForm(forms.ModelForm):
 
         # Set autofocus on the first field
         self.fields['full_name'].widget.attrs['autofocus'] = True
-        
+
         for field in self.fields:
+            if field == 'postcode':
+                self.fields[field].required = True
+                self.fields['county'].required = True
             if field != 'country':
                 # Add asterisk for required fields
                 placeholder = f"{placeholders[field]} *" if self.fields[field].required else placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input larger-input'
             # Remove labels for a cleaner form design
             self.fields[field].label = False
