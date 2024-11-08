@@ -3,7 +3,7 @@ from .models import Order, OrderLineItem
 
 class OrderLineItemAdminInline(admin.TabularInline):
     model = OrderLineItem
-    readonly_fields = ('photo', 'quantity', 'price', 'get_total_price')
+    readonly_fields = ('lineitem_total',)
     extra = 0  # Prevents extra empty rows from appearing
 
     def get_total_price(self, obj):
