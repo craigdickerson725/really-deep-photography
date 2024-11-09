@@ -2,6 +2,10 @@
 {% load static %}
 {% load custom_filters %}
 
+{% block title %}{{ photo.title }} | Really Deep Photography{% endblock %}
+
+{% block page_header %}{% endblock %} <!-- Remove the hero section -->
+
 {% block content %}
 <div class="container mt-4">
     <h1>{{ photo.title }}</h1>
@@ -14,19 +18,10 @@
         <div class="col-md-6">
             <h4>Description</h4>
             <p>{{ photo.description }}</p>
+            <h4>Size</h4>
+            <p>{{ photo.size }}</p>
             <h4>Price</h4>
             <p>{{ photo.price_display }}</p>
-
-            <!-- Quantity Selector -->
-            <div class="col-12">
-                <p class="mt-3"><strong>Quantity:</strong></p>
-                <div class="form-group w-50">
-                    <input class="form-control qty_input" type="number"
-                        name="quantity" value="1" min="1" max="99"
-                        data-photo_id="{{ photo.id }}"
-                        id="id_qty_{{ photo.id }}">
-                </div>
-            </div>
 
             <a href="{% url 'gallery' %}" class="btn btn-primary mt-2">Back to Gallery</a>
             <!-- Add an option to add to cart -->
