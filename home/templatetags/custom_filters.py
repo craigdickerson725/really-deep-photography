@@ -27,7 +27,6 @@ def cloudinary_optimized(image_url, params="w=400&h=300&c=fill&q=auto"):
     """
     Appends Cloudinary transformation parameters to the image URL.
     Default params resize to 400x300 and optimize quality automatically.
-    You can override the params by passing a different string.
     """
     if image_url:
         return f"{image_url}?{params}"

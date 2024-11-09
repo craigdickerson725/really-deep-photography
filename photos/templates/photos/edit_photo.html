@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ photo.title }} | Really Deep Photography{% endblock %}
+
+{% block page_header %}{% endblock %} <!-- Remove the hero section -->
+
 {% block content %}
 <h1>Edit Photo</h1>
 <form method="POST" enctype="multipart/form-data">

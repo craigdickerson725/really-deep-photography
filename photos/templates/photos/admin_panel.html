@@ -1,45 +1,65 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}Admin Panel | Really Deep Photography{% endblock %}
+
+{% block page_header %}{% endblock %} <!-- No hero section -->
+
 {% block content %}
-<h1>Admin Panel</h1>
+<div class="container mt-4">
+    <h1 class="text-white bg-dark text-center py-2">Admin Panel</h1>
 
-<h2>Add Photo</h2>
-<form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Photo</button>
-</form>
+    <!-- Add Photo Form -->
+    <div class="my-4">
+        <h2 class="h4">Add Photo</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-dark">Add Photo</button>
+        </form>
+    </div>
 
-<h2>Manage Photos</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Size</th>
-            <th>Price</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for photo in photos %}
-        <tr>
-            <td>{{ photo.title }}</td>
-            <td>{{ photo.description }}</td>
-            <td><img src="{{ photo.image.url }}" alt="{{ photo.title }}" width="100"></td>
-            <td>{{ photo.size }}</td>
-            <td>{{ photo.price_display }}</td>
-            <td>
-                <a href="{% url 'edit_photo' photo.id %}">Edit</a>
-                <form action="{% url 'delete_photo' photo.id %}" method="POST" style="display:inline;">
-                    {% csrf_token %}
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- Manage Photos Table -->
+    <div class="my-4">
+        <h2 class="h4">Manage Photos</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th class="d-none d-md-table-cell">Description</th>
+                        <th class="text-center d-none d-md-table-cell">Image</th>
+                        <th>Size</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for photo in photos %}
+                    <tr>
+                        <td>{{ photo.title }}</td>
+                        <td class="d-none d-md-table-cell">{{ photo.description }}</td>
+                        <td class="text-center d-none d-md-table-cell">
+                            <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="img-thumbnail" style="max-width: 100px; border: 2px solid black;">
+                        </td>
+                        <td>{{ photo.size }}</td>
+                        <td>{{ photo.price_display }}</td>
+                        <td>
+                            <div class="d-flex flex-column flex-md-row">
+                                <a href="{% url 'edit_photo' photo.id %}" class="btn btn-sm btn-dark mb-1 mb-md-0 me-md-2">Edit</a>
+                                <form action="{% url 'delete_photo' photo.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
