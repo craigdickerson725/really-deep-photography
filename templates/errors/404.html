@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page Not Found | Really Deep Photography{% endblock %}
+
+{% block content %}
+<div class="bg-black text-white text-center py-5 d-flex flex-column align-items-center justify-content-center" style="min-height: 70vh;">
+    <h1 class="display-4">Woah! Looks like you're getting a bit too deep!</h1>
+    <p class="lead mt-4">Needless to say, what you're looking for can't be found here.</p>
+    <a href="{% url 'home' %}" class="btn btn-light mt-4">Take Me Home</a>
+</div>
+{% endblock %}
