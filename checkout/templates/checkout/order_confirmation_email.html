@@ -18,7 +18,8 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h5 class="card-title">Order Summary</h5>
-                <p><strong>Order Number:</strong> {{ order.order_number }}</p>
+                <!-- Correctly display the order number -->
+                <p><strong>Order Number:</strong> {{ order_number }}</p>
                 <p><strong>Total Amount:</strong> ${{ total_amount }}</p>
             </div>
         </div>
@@ -39,6 +40,7 @@
         <p>If you have any questions, feel free to reply to this email or contact our support team.</p>
 
         <footer class="text-center text-muted mt-4">
+            <!-- Display the current year for the copyright notice -->
             <p>&copy; {{ current_year }} Really Deep Photography. All rights reserved.</p>
         </footer>
     </div>

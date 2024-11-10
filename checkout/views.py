@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
+from datetime import datetime
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from photos.models import Photo
@@ -139,6 +140,8 @@ def checkout_success(request, order_number):
         'customer_name': order.full_name,
         'order_items': order.lineitems.all(),  # Fetch all line items associated with this order
         'total_amount': order.grand_total,
+        'order_number': order.order_number,
+        'current_year': datetime.now().year,
     }
 
     # Render email message (as HTML)
@@ -147,11 +150,11 @@ def checkout_success(request, order_number):
     # Send email
     send_mail(
         subject,
-        message,  # This will be the HTML email content
+        message,
         settings.DEFAULT_FROM_EMAIL,
         [customer_email],
         fail_silently=False,
-        html_message=message  # This makes sure the email is sent as HTML
+        html_message=message
     )
 
     template = 'checkout/checkout_success.html'
