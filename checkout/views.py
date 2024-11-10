@@ -137,8 +137,8 @@ def checkout_success(request, order_number):
     customer_email = order.email
     email_context = {
         'customer_name': order.full_name,
-        'order_items': order.orderlineitem_set.all(),  # Fetch all line items associated with this order
-        'total_amount': order.total,  # Adjust according to your order model
+        'order_items': order.lineitems.all(),  # Fetch all line items associated with this order
+        'total_amount': order.grand_total,
     }
 
     # Render email message
