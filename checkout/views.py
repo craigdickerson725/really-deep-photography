@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
@@ -124,6 +126,32 @@ def checkout_success(request, order_number):
     # Clear the cart after a successful checkout
     if 'cart' in request.session:
         del request.session['cart']
+
+    template = 'checkout/checkout_success.html'
+    context = {
+        'order': order,
+    }
+
+    # Prepare email content
+    subject = "Your Order Confirmation from Really Deep Photography"
+    customer_email = order.email
+    email_context = {
+        'customer_name': order.full_name,
+        'order_items': order.orderlineitem_set.all(),  # Fetch all line items associated with this order
+        'total_amount': order.total,  # Adjust according to your order model
+    }
+
+    # Render email message
+    message = render_to_string('checkout/order_confirmation_email.html', email_context)
+
+    # Send email
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [customer_email],
+        fail_silently=False,
+    )
 
     template = 'checkout/checkout_success.html'
     context = {
