@@ -57,7 +57,7 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'view_cart' %}">
+                            <a class="nav-link" href="{% url 'view_cart' %}" id="cart-tab">
                                 Cart
                                 {% with request.session.cart as cart %}
                                     {% if cart %}

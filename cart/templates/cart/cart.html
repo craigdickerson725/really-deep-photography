@@ -126,6 +126,25 @@
         </div>
     </div>
 </div>
+
+<!-- Modal for displaying 'Item removed from cart' message -->
+<div class="modal fade" id="removeCartModal" tabindex="-1" aria-labelledby="removeCartModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="removeCartModalLabel">Item Removed</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-black text-white">
+        <p>You removed an item from your cart.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeRemoveModal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block postloadjs %}
@@ -149,7 +168,7 @@
         inputField.closest('form').submit();
     });
 
-    // Remove item and reload on click
+    // Remove item and show modal on success
     $('.remove-item').click(function(e) {
         e.preventDefault();
         var csrfToken = "{{ csrf_token }}";
@@ -162,12 +181,18 @@
                 'csrfmiddlewaretoken': csrfToken
             },
             success: function(response) {
-                location.reload();
+                // Show the modal after item is successfully removed
+                $('#removeCartModal').modal('show');
             },
             error: function() {
                 alert("Error removing item.");
             }
         });
+    });
+
+    // Close modal and reload page
+    $('#closeRemoveModal').click(function() {
+        window.location.reload(); // Refresh the page after closing modal
     });
 </script>
 {% endblock %}

@@ -34,12 +34,18 @@ def add_to_cart(request, photo_id):
 
     if photo_id in cart:
         cart[photo_id] += quantity
-        messages.success(request, f'Updated {photo.title} quantity to {cart[photo_id]}')
     else:
         cart[photo_id] = quantity
-        messages.success(request, f'Added {photo.title} to your cart')
 
     request.session['cart'] = cart
+
+    # Return the updated cart item count
+    cart_item_count = sum(cart.values())
+    
+    # Check if the request is AJAX using the header
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return JsonResponse({'cart_item_count': cart_item_count})
+    
     return redirect(redirect_url)
 
 # Adjust cart
@@ -51,10 +57,10 @@ def adjust_cart(request, photo_id):
 
     if quantity > 0:
         cart[photo_id] = quantity
-        messages.success(request, f'Updated {photo.title} quantity to {cart[photo_id]}')
+        # messages.success(request, f'Updated {photo.title} quantity to {cart[photo_id]}')
     else:
         cart.pop(photo_id, None)  # Remove item if quantity is 0 or invalid
-        messages.success(request, f'Removed {photo.title} from your cart')
+        # messages.success(request, f'Removed {photo.title} from your cart')
 
     request.session['cart'] = cart
     return redirect(reverse('view_cart'))
