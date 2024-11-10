@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import send_mail
@@ -33,7 +34,8 @@ def cache_checkout_data(request):
         messages.error(request, 'Sorry, your payment cannot be processed right now. Please try again later.')
         return HttpResponse(content=str(e), status=400)
 
-
+# Checkout view
+@login_required
 def checkout(request):
     """
     Process the checkout form, create an Order, and set up Stripe PaymentIntent

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
-from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
 from photos.models import Photo
 
 # View cart
+@login_required
 def view_cart(request):
     """ Renders the cart contents page """
     cart = request.session.get('cart', {})
@@ -22,6 +24,7 @@ def view_cart(request):
     return render(request, 'cart/cart.html', {'cart_items': cart_items})
 
 # Add to cart
+@login_required
 def add_to_cart(request, photo_id):
     """ Add a specified quantity of the selected photo to the cart """
     photo = get_object_or_404(Photo, id=photo_id)
