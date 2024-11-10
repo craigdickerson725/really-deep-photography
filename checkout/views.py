@@ -141,16 +141,17 @@ def checkout_success(request, order_number):
         'total_amount': order.grand_total,
     }
 
-    # Render email message
+    # Render email message (as HTML)
     message = render_to_string('checkout/order_confirmation_email.html', email_context)
 
     # Send email
     send_mail(
         subject,
-        message,
+        message,  # This will be the HTML email content
         settings.DEFAULT_FROM_EMAIL,
         [customer_email],
         fail_silently=False,
+        html_message=message  # This makes sure the email is sent as HTML
     )
 
     template = 'checkout/checkout_success.html'
