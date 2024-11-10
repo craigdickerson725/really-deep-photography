@@ -1,16 +1,34 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block title %}{{ photo.title }} | Really Deep Photography{% endblock %}
+
+{% block page_header %}{% endblock %}
+
 {% block content %}
 <div class="container">
-    <h1 class="mt-5"><i class="fa-regular fa-address-book"></i> Contact Us</h1>
+    <h1 class="mt-5 bg-black text-white p-3 text-center">
+        <i class="fa-regular fa-address-book"></i> Contact Us
+    </h1>
     <p>We'd love to hear from you! Whether you have questions, want to discuss a project, or simply want to say hello, feel free to reach out.</p>
 
     <h2>Contact Information</h2>
-    <p><strong>Email:</strong> <a href="mailto:craigdickerson@reallydeepphotography.com">craigdickerson@reallydeepphotography.com</a></p>
+    <p><strong>Email:</strong> <a href="mailto:craigdickerson@reallydeepphotography.com">craigdickerson725@googlemail.com</a></p>
     <p><strong>Phone:</strong> +1 (123) 456-7890</p>
     
     <h2>Send Us a Message</h2>
+
+    <!-- Display success/error messages -->
+    {% if messages %}
+    <div class="my-3">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <form action="{% url 'contact' %}" method="post">
         {% csrf_token %}
         <div class="mb-3">
