@@ -4,7 +4,7 @@
 
 {% block title %}{{ photo.title }} | Really Deep Photography{% endblock %}
 
-{% block page_header %}{% endblock %} <!-- Remove the hero section -->
+{% block page_header %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -30,7 +30,7 @@
                 <input type="hidden" name="quantity" value="1" id="quantity-input">
                 <!-- Include the redirect_url hidden field -->
                 <input type="hidden" name="redirect_url" value="{% url 'view_cart' %}">
-                <button type="submit" class="btn btn-success">Add to Cart</button>
+                <button type="submit" class="btn btn-black">Add to Cart</button>
             </form>
         </div>
     </div>

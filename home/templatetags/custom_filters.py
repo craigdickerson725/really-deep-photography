@@ -25,11 +25,13 @@ def multiply(value, arg):
 @register.filter(name='cloudinary_optimized')
 def cloudinary_optimized(image_url, params="w=400&h=300&c=fill&q=auto"):
     """
-    Appends Cloudinary transformation parameters to the image URL.
+    Appends Cloudinary transformation parameters to the image URL and ensures HTTPS.
     Default params resize to 400x300 and optimize quality automatically.
     """
     if image_url:
-        return f"{image_url}?{params}"
+        # Ensure the URL starts with HTTPS
+        secure_url = image_url.replace("http://", "https://")
+        return f"{secure_url}?{params}"
     return image_url
 
 @register.filter(name='is_in_group')
