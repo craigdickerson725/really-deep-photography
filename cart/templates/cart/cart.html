@@ -22,6 +22,21 @@
             </div>
         </div>
 
+        <!-- Success and error messages -->
+        {% if messages %}
+        <div class="row">
+            <div class="col">
+                <div class="alert-container">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} mb-3" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <div class="row">
             <div class="col">
                 {% if cart_items %}
@@ -127,47 +142,31 @@
     </div>
 </div>
 
-<!-- Modal for displaying 'Item removed from cart' message -->
-<div class="modal fade" id="removeCartModal" tabindex="-1" aria-labelledby="removeCartModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="removeCartModalLabel">Item Removed</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body bg-black text-white">
-        <p>You removed an item from your cart.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeRemoveModal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
 {% include 'photos/includes/quantity_input_script.html' %}
 
+<!-- Modal for displaying 'Item removed from cart' message -->
+<div class="modal fade" id="removeCartModal" tabindex="-1" aria-labelledby="removeCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="removeCartModalLabel">Item Removed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-black text-white">
+                <p>You removed an item from your cart.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeRemoveModal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
-    // Update quantity on click
-    $('.increment-qty, .decrement-qty').click(function(e) {
-        var itemId = $(this).data('item_id');
-        var inputField = $('#id_qty_' + itemId);
-        var currentQty = parseInt(inputField.val());
-
-        if ($(this).hasClass('increment-qty')) {
-            inputField.val(currentQty + 1);
-        } else if ($(this).hasClass('decrement-qty') && currentQty > 1) {
-            inputField.val(currentQty - 1);
-        }
-
-        // Trigger form submission
-        inputField.closest('form').submit();
-    });
-
     // Remove item and show modal on success
     $('.remove-item').click(function(e) {
         e.preventDefault();

@@ -8,6 +8,15 @@
 
 {% block content %}
 <div class="container mt-4">
+    <!-- Display success message if there is one -->
+    {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <h1>{{ photo.title }}</h1>
 
     <div class="row">
@@ -36,53 +45,8 @@
     </div>
 </div>
 
-<!-- Modal for displaying 'Item added to cart' message -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="cartModalLabel">Really Deep Cart</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body bg-black text-white">
-        <p>You added an item to your cart.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 {% block postloadjs %}
 {{ block.super }}
 {% include 'photos/includes/quantity_input_script.html' %}
-
-<script type="text/javascript">
-    // Listen for the form submission and prevent the default action
-    document.getElementById('add-to-cart-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Submit the form using AJAX
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                // Show modal on successful add-to-cart action
-                $('#cartModal').modal('show');
-            },
-            error: function() {
-                alert("There was an error adding the item to the cart.");
-            }
-        });
-    });
-
-    // Handle the Close button in the modal to refresh the page
-    document.getElementById('closeModal').addEventListener('click', function() {
-        // Redirect the page to the same URL to update the cart count
-        window.location.reload(); // Refreshes the page and updates the cart count
-    });
-</script>
 {% endblock %}
 {% endblock %}

@@ -29,7 +29,7 @@ def add_to_cart(request, photo_id):
     """ Add a specified quantity of the selected photo to the cart """
     photo = get_object_or_404(Photo, id=photo_id)
     quantity = int(request.POST.get('quantity', 1))  # Default to 1 if quantity is not provided
-    redirect_url = request.POST.get('redirect_url', reverse('view_cart'))  # Default to cart view if not provided
+    redirect_url = request.POST.get('redirect_url', reverse('photo_detail', args=[photo_id]))  # Redirect to the photo_detail page
     cart = request.session.get('cart', {})
 
     if photo_id in cart:
@@ -39,16 +39,18 @@ def add_to_cart(request, photo_id):
 
     request.session['cart'] = cart
 
-    # Return the updated cart item count
+    # Calculate total items in the cart
     cart_item_count = sum(cart.values())
-    
+
+    # Add success message
+    messages.success(request, f'Added {photo.title} to your cart!')
+
     # Check if the request is AJAX using the header
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({'cart_item_count': cart_item_count})
-    
+
     return redirect(redirect_url)
 
-# Adjust cart
 def adjust_cart(request, photo_id):
     """Adjust the quantity of the specified photo to the specified amount"""
     photo = get_object_or_404(Photo, pk=photo_id)
@@ -57,13 +59,13 @@ def adjust_cart(request, photo_id):
 
     if quantity > 0:
         cart[photo_id] = quantity
-        # messages.success(request, f'Updated {photo.title} quantity to {cart[photo_id]}')
+        messages.success(request, f"Quantity of {photo.title} has been updated.")
     else:
         cart.pop(photo_id, None)  # Remove item if quantity is 0 or invalid
-        # messages.success(request, f'Removed {photo.title} from your cart')
+        messages.success(request, f"{photo.title} has been removed from your cart.")
 
     request.session['cart'] = cart
-    return redirect(reverse('view_cart'))
+    return redirect('view_cart') 
 
 # Remove from cart
 def remove_from_cart(request, photo_id):
@@ -75,9 +77,13 @@ def remove_from_cart(request, photo_id):
         # Remove the item from the cart
         if str(photo_id) in cart:
             del cart[str(photo_id)]
-        
+            messages.success(request, f"{photo.title} has been removed from your cart.")
+
         request.session['cart'] = cart  # Update the session with the new cart
-        return JsonResponse({'status': 'success'})  # Return success response in JSON format
+        request.session.modified = True  # Ensure session is saved immediately
+
+        return redirect('view_cart')  # Redirect to the cart page
 
     except Exception as e:
-        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+        messages.error(request, f"Error removing item: {str(e)}")
+        return redirect('view_cart')  # Redirect to the cart page in case of an error
