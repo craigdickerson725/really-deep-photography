@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Admin Panel | Really Deep Photography{% endblock %}
 
-{% block page_header %}{% endblock %} <!-- No hero section -->
+{% block page_header %}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -42,7 +43,7 @@
                         <td>{{ photo.title }}</td>
                         <td class="d-none d-md-table-cell">{{ photo.description }}</td>
                         <td class="text-center d-none d-md-table-cell">
-                            <img src="{{ photo.image.url }}" alt="{{ photo.title }}" class="img-thumbnail" style="max-width: 100px; border: 2px solid black;">
+                            <img src="{{ photo.image.url|cloudinary_optimized }}" class="img-fluid" alt="{{ photo.title }}">
                         </td>
                         <td>{{ photo.size }}</td>
                         <td>{{ photo.price_display }}</td>

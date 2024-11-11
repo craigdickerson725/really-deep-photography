@@ -51,21 +51,26 @@ def add_to_cart(request, photo_id):
 
     return redirect(redirect_url)
 
+# Adjust cart
 def adjust_cart(request, photo_id):
-    """Adjust the quantity of the specified photo to the specified amount"""
+    """ Adjust the quantity of the specified photo to the specified amount """
     photo = get_object_or_404(Photo, pk=photo_id)
     quantity = int(request.POST.get('quantity', 1))  # Default to 1 if no quantity is provided
+    
+    # Ensure the cart exists in the session
     cart = request.session.get('cart', {})
 
+    # Check if the quantity is valid (greater than 0)
     if quantity > 0:
         cart[photo_id] = quantity
-        messages.success(request, f"Quantity of {photo.title} has been updated.")
+        messages.success(request, f"Quantity of {photo.title} has been updated to {quantity}.")
     else:
         cart.pop(photo_id, None)  # Remove item if quantity is 0 or invalid
         messages.success(request, f"{photo.title} has been removed from your cart.")
 
+    # Save the cart back to the session
     request.session['cart'] = cart
-    return redirect('view_cart') 
+    return redirect('view_cart')
 
 # Remove from cart
 def remove_from_cart(request, photo_id):

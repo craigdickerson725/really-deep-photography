@@ -57,13 +57,17 @@
                             <a class="nav-link" href="{% url 'contact' %}">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'view_cart' %}" id="cart-tab">
-                                Cart
+                            <a class="nav-link position-relative" href="{% url 'view_cart' %}" id="cart-tab">
+                                <!-- FontAwesome shopping cart icon -->
+                                <i class="fa-solid fa-cart-shopping" style="color: #B197FC;"></i>
                                 {% with request.session.cart as cart %}
                                     {% if cart %}
                                         {% with cart|length as cart_item_count %}
                                             {% if cart_item_count > 0 %}
-                                                ({{ cart_item_count }})
+                                                <!-- Badge positioned closer to the icon -->
+                                                <span class="badge bg-danger position-absolute top-0 start-75 translate-middle p-2 rounded-circle">
+                                                    <!-- Leave empty for badge without a count -->
+                                                </span>
                                             {% endif %}
                                         {% endwith %}
                                     {% endif %}
