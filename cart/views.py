@@ -32,10 +32,13 @@ def add_to_cart(request, photo_id):
     redirect_url = request.POST.get('redirect_url', reverse('photo_detail', args=[photo_id]))  # Redirect to the photo_detail page
     cart = request.session.get('cart', {})
 
-    if photo_id in cart:
-        cart[photo_id] += quantity
+    # Convert photo_id to string before storing in the cart
+    str_photo_id = str(photo_id)
+
+    if str_photo_id in cart:
+        cart[str_photo_id] += quantity
     else:
-        cart[photo_id] = quantity
+        cart[str_photo_id] = quantity
 
     request.session['cart'] = cart
 
