@@ -4,6 +4,12 @@
 
 {% block title %}Gallery | Browse Stunning Photography | Really Deep Photography{% endblock %}
 
+{% block head %}
+    {{ block.super }}
+    <meta name="description" content="Browse our exclusive collection of stunning photography prints, carefully curated for art enthusiasts and collectors alike. Discover unique, high-quality images.">
+    <meta name="keywords" content="gallery, photography prints, art gallery, high-quality photos, unique photography">
+{% endblock %}
+
 {% block page_header %}{% endblock %} <!-- Remove the hero section -->
 
 {% block content %}
@@ -44,7 +50,7 @@
             {% for photo in photos %}
                 <div class="col-md-4">
                     <div class="card mb-4">
-                        <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }}">
+                        <img src="{{ photo.image.url|cloudinary_optimized }}" class="card-img-top img-fluid" alt="{{ photo.title }} - Dark, gorgeous forest scene">
                         <div class="card-body">
                             <h5 class="card-title">{{ photo.title }}</h5>
                             <a href="{% url 'photo_detail' photo.id %}" class="btn btn-black text-white">View Details</a>

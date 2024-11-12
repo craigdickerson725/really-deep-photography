@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary_storage',
     'django.contrib.sites',
+    'django.contrib.sitemaps',
     'django_countries',
     'allauth',
     'allauth.account',

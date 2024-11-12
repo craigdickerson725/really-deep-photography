@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}About Us | Really Deep Photography{% endblock %}
+{% block title %}About Us | Discover Really Deep Photography{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <meta name="description" content="Learn about Really Deep Photography, our passion for capturing artistic images, and our dedication to delivering beautiful prints. Meet the vision behind the art.">
+    <meta name="keywords" content="about us, photography story, art vision, Really Deep Photography, artistic prints">
+{% endblock %}
+
 {% block page_header %}{% endblock %}
 
 {% load static %}
@@ -19,7 +26,7 @@
     <h2>Meet the Photographer</h2>
     <div class="row mb-4 align-items-center">  <!-- Added align-items-center for vertical alignment -->
         <div class="col-md-4">
-            <img src="{% static 'images/about_photo.jpg' %}" class="img-fluid rounded-square" alt="Photographer">
+            <img src="{% static 'images/about_photo.jpg' %}" class="img-fluid rounded-square" alt="Photo of the photographer/business owner">
         </div>
         <div class="col-md-8">
             <h3>Robert Craig Dickerson</h3>

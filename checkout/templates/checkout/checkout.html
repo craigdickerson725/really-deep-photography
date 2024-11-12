@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Checkout | Secure Payment | Really Deep Photography{% endblock %}
 
+{% block head %}
+    {{ block.super }}
+    <meta name="description" content="Complete your purchase of high-quality photography prints with our secure checkout process. Experience the art of Really Deep Photography in your home.">
+    <meta name="keywords" content="checkout, purchase prints, secure checkout, photography art, home decor">
+{% endblock %}
+
 {% load crispy_forms_tags %}
 {% load static %}
 {% load cart_tools %}
