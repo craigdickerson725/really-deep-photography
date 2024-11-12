@@ -10,6 +10,12 @@
 <div class="container mt-4">
     <h1 class="text-white bg-dark text-center py-2">Admin Panel</h1>
 
+    {% if featured_photos_count <= 3 %}
+    <div class="alert alert-info">
+        <strong>Note:</strong> You currently have {{ featured_photos_count }} featured photo(s). You can only have up to 3 featured photos at a time.
+    </div>
+    {% endif %}
+    
     <!-- Add Photo Form -->
     <div class="my-4">
         <h2 class="h4">Add Photo</h2>

@@ -57,7 +57,12 @@ class AdminPanelView(UserPassesTestMixin, View):
     def get(self, request):
         photos = Photo.objects.all()
         form = PhotoForm()  # Display a blank form on the get request
-        return render(request, self.template_name, {'photos': photos, 'form': form})
+        featured_photos_count = Photo.objects.filter(is_featured=True).count()  # Count featured photos
+        return render(request, self.template_name, {
+            'photos': photos, 
+            'form': form,
+            'featured_photos_count': featured_photos_count,  # Pass the count to the template
+        })
 
     def post(self, request):
         form = PhotoForm(request.POST, request.FILES)
@@ -66,6 +71,7 @@ class AdminPanelView(UserPassesTestMixin, View):
             return redirect('admin_panel')  # Redirect back to the admin panel on successful save
         photos = Photo.objects.all()
         return render(request, self.template_name, {'photos': photos, 'form': form})
+
 
 # No Permission View
 class NoPermissionView(TemplateView):
@@ -78,7 +84,15 @@ class EditPhotoView(View):
     def get(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
         form = PhotoForm(instance=photo)
-        return render(request, self.template_name, {'form': form, 'photo': photo})
+
+        # Count featured photos
+        featured_photos_count = Photo.objects.filter(is_featured=True).count()
+
+        return render(request, self.template_name, {
+            'form': form, 
+            'photo': photo,
+            'featured_photos_count': featured_photos_count,  # Pass count to template
+        })
 
     def post(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
@@ -87,6 +101,7 @@ class EditPhotoView(View):
             form.save()
             return redirect('admin_panel')
         return render(request, self.template_name, {'form': form, 'photo': photo})
+
 
 # Delete Photo View
 class DeletePhotoView(View):

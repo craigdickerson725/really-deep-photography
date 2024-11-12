@@ -8,6 +8,13 @@
 
 {% block content %}
 <h1>Edit Photo</h1>
+
+{% if featured_photos_count <= 3 %}
+<div class="alert alert-info">
+    <strong>Note:</strong> You currently have {{ featured_photos_count }} featured photo(s). You can only have up to 3 featured photos at a time.
+</div>
+{% endif %}
+
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}

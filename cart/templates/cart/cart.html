@@ -46,65 +46,64 @@
                             <thead class="text-black">
                                 <tr>
                                     <th scope="col">Photo Info</th>
-                                    <th scope="col"></th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Qty</th>
                                     <th scope="col">Subtotal</th>
+                                    <th scope="col">Actions</th>
                                 </tr>
                             </thead>
 
                             {% for item in cart_items %}
-                                <tr>
-                                    <td class="p-3 w-25">
-                                        {% if item.photo.image %}
-                                        <img class="img-fluid rounded" src="{{ item.photo.image.url|cloudinary_optimized }}" alt="{{ item.photo.title }}">
-                                        {% else %}
-                                        <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.photo.title }}">
-                                        {% endif %}
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0"><strong>{{ item.photo.title }}</strong></p>
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0">${{ item.photo.price }}</p>
-                                    </td>
-                                    <td class="py-3 w-25">
-                                        <form class="form update-form" method="POST" action="{% url 'adjust_cart' item.photo_id %}">
-                                            {% csrf_token %}
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <button class="decrement-qty btn btn-sm btn-black rounded-0" 
-                                                            data-item_id="{{ item.photo_id }}" id="decrement-qty_{{ item.photo_id }}">
-                                                            <span>
-                                                                <i class="fas fa-minus fa-sm"></i>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <input class="form-control form-control-sm qty_input" type="number"
-                                                        name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                        data-item_id="{{ item.photo_id }}"
-                                                        id="id_qty_{{ item.photo_id }}">
-                                                    <div class="input-group-append">
-                                                        <button class="increment-qty btn btn-sm btn-black rounded-0"
-                                                            data-item_id="{{ item.photo_id }}" id="increment-qty_{{ item.photo_id }}">
-                                                            <span>
-                                                                <i class="fas fa-plus fa-sm"></i>
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                            <tr>
+                                <td class="p-3 w-25">
+                                    {% if item.photo.image %}
+                                    <img class="img-fluid rounded" src="{{ item.photo.image.url|cloudinary_optimized }}" alt="{{ item.photo.title }}">
+                                    {% else %}
+                                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.photo.title }}">
+                                    {% endif %}
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.photo.price }}</p>
+                                </td>
+                                <td class="py-3 w-25">
+                                    <form class="form update-form" method="POST" action="{% url 'adjust_cart' item.photo_id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <button class="decrement-qty btn btn-sm btn-black rounded-0" 
+                                                        data-item_id="{{ item.photo_id }}" id="decrement-qty_{{ item.photo_id }}">
+                                                        <span>
+                                                            <i class="fas fa-minus fa-sm"></i>
+                                                        </span>
+                                                    </button>
+                                                </div>
+                                                <input class="form-control form-control-sm qty_input" type="number"
+                                                    name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                                    data-item_id="{{ item.photo_id }}" id="id_qty_{{ item.photo_id }}">
+                                                <div class="input-group-append">
+                                                    <button class="increment-qty btn btn-sm btn-black rounded-0"
+                                                        data-item_id="{{ item.photo_id }}" id="increment-qty_{{ item.photo_id }}">
+                                                        <span>
+                                                            <i class="fas fa-plus fa-sm"></i>
+                                                        </span>
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </form>
-                                        <a class="remove-item btn btn-danger btn-sm float-right mt-2" id="remove_{{ item.photo_id }}">
-                                            <small>Remove</small>
-                                        </a>
-                                    </td>
-                                    <td class="py-3">
-                                        <p class="my-0">${{ item.photo.price|multiply:item.quantity }}</p>
-                                    </td>
-                                </tr>
+                                        </div>
+                                    </form>
+                                </td>
+                                <td class="py-3">
+                                    <p class="my-0">${{ item.photo.price|multiply:item.quantity }}</p>
+                                </td>
+                                <td class="py-3">
+                                    <a class="remove-item btn btn-danger btn-sm" id="remove_{{ item.photo_id }}">
+                                        <small>Remove</small>
+                                    </a>
+                                </td>
+                            </tr>
                             {% endfor %}
+
                             <tr>
                                 <td colspan="5" class="pt-5 text-right">
                                     <h6><strong>Cart Total: ${{ total|floatformat:2 }}</strong></h6>
@@ -130,8 +129,8 @@
                         </table>
                     </div>
                 {% else %}
-                    <p class="lead mb-5">Your cart is empty.</p>
-                    <a href="{% url 'gallery' %}" class="btn btn-black text-white rounded-0 btn-lg">
+                    <p class="lead mb-5 text-center">Your cart is empty.</p>
+                    <a href="{% url 'gallery' %}" class="btn btn-black text-white rounded-0 btn-lg mx-auto">
                         <span class="icon">
                             <i class="fas fa-chevron-left"></i>
                         </span>
@@ -169,22 +168,22 @@
 
 <script type="text/javascript">
     // Increment the quantity
-$('.increment-qty').click(function() {
-    var itemId = $(this).data('item_id');
-    var input = $('#id_qty_' + itemId);
-    var newValue = parseInt(input.val()) + 1;
-    input.val(newValue);  // Update input field with new value
-    input.trigger('change');  // Trigger change event to update form value
-});
+    $('.increment-qty').click(function() {
+        var itemId = $(this).data('item_id');
+        var input = $('#id_qty_' + itemId);
+        var newValue = parseInt(input.val()) + 1;
+        input.val(newValue);  // Update input field with new value
+        input.trigger('change');  // Trigger change event to update form value
+    });
 
-// Decrement the quantity
-$('.decrement-qty').click(function() {
-    var itemId = $(this).data('item_id');
-    var input = $('#id_qty_' + itemId);
-    var newValue = Math.max(1, parseInt(input.val()) - 1);  // Prevent going below 1
-    input.val(newValue);  // Update input field with new value
-    input.trigger('change');  // Trigger change event to update form value
-});
+    // Decrement the quantity
+    $('.decrement-qty').click(function() {
+        var itemId = $(this).data('item_id');
+        var input = $('#id_qty_' + itemId);
+        var newValue = Math.max(1, parseInt(input.val()) - 1);  // Prevent going below 1
+        input.val(newValue);  // Update input field with new value
+        input.trigger('change');  // Trigger change event to update form value
+    });
 
     // Remove item and show modal on success
     $('.remove-item').click(function(e) {

@@ -142,6 +142,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield; /* For Firefox */
+    appearance: textfield; /* For other browsers */
 }
 
 /* Footer */
@@ -158,17 +159,17 @@ footer {
 }
 
 /* Media Queries for larger screens */
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     .hero-section h1 {
-        font-size: 2.5rem;
+        font-size: 3.5rem;
     }
 
     .hero-section p {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .container {
-        max-width: 750px;
+        max-width: 1140px;
     }
 }
 
@@ -186,16 +187,16 @@ footer {
     }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     .hero-section h1 {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
 
     .hero-section p {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .container {
-        max-width: 1140px;
+        max-width: 750px;
     }
 }
