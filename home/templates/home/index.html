@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
+{% block title %}Welcome to Really Deep Photography | High-Quality Prints{% endblock %}
 {% load static %}
 {% load custom_filters %}
+
+{% block head %}
+    {{ block.super }}
+    <meta name="description" content="Explore high-quality, deeply artistic photography prints that capture the beauty of the world. Enhance your space with Really Deep Photography.">
+    <meta name="keywords" content="photography, prints, artistic photos, home decor, Really Deep Photography">
+{% endblock %}
 
 {% block content %}
 <div class="container">

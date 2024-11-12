@@ -172,31 +172,3 @@ footer {
         max-width: 1140px;
     }
 }
-
-@media (min-width: 992px) {
-    .hero-section h1 {
-        font-size: 3rem;
-    }
-
-    .hero-section p {
-        font-size: 1.75rem;
-    }
-
-    .container {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 768px) {
-    .hero-section h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-section p {
-        font-size: 1.5rem;
-    }
-
-    .container {
-        max-width: 750px;
-    }
-}
