@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /accounts/
+Disallow: /cart/
+Disallow: /checkout/
+
+Sitemap: https://really-deep-photography-0f99271ef54c.herokuapp.com/sitemap.xml
