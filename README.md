@@ -47,3 +47,27 @@ The footer complements the site's aesthetic with a dark background, featuring a 
 The website has been developed with a mobile-first approach, ensuring that content and interactive elements adjust gracefully across devices and screen sizes. The use of clear, high-contrast text and simple layout ensures readability, while form elements are designed for usability on touchscreens as well as desktops.
 
 Overall, "Really Deep Photography" offers an accessible, visually appealing, and easy-to-navigate experience that allows users to focus on exploring and purchasing photos with ease.
+
+## User Stories
+
+### Customer User Stories
+
+- As a customer I can browse a gallery of available photos so that I can choose which prints to purchase
+- As a customer I can view details of a photo so that I can see a larger image and more information (e.g., description, dimensions, price)
+- As a customer I can create an account so that I can log in to add/purchase items
+- As a customer I can receive password reset emails so that I can regain access to my account if I forget my password
+- As a customer I can search for specific photos or categories so that I can find something specific to buy
+- As a customer I can review the items in my cart so that I can make sure I'm ready to checkout
+- As a customer I can add a photo to my shopping cart so that I can purchase it later
+- As a customer I can complete a checkout process so that I can purchase the selected photos
+- As a customer I can receive an email confirmation after I make a purchase so that I have a record of my order
+
+### Site Admin User Stories
+
+- As a site admin I can upload new photos to the website so that customers can purchase them
+- As a site admin I can manage existing photos (edit titles, prices, or remove them) so that my gallery stays up to date
+- As a site admin I can view a list of all orders so that I can keep track of what has been sold and needs to be shipped
+- As a site admin I can employ SEO strategies so that my website ranks higher in search results
+- As a site admin I can integrate social media links so that I can promote my work easily
+
+## Wireframes
