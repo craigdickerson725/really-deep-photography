@@ -12,12 +12,6 @@ In addition to serving art buyers, Really Deep Photography includes a range of t
 
 source: [amiresponsive](https://ui.dev/amiresponsive?url=https://really-deep-photography-0f99271ef54c.herokuapp.com)
 
-![screenshot](documentation/Wireframes/wireframe01.png)
-
-![screenshot](documentation/Wireframes/wireframe02.png)
-
-![screenshot](documentation/Wireframes/wireframe03.png)
-
 ## User Experience (UX)
 The "Really Deep Photography" website has been designed to offer an intuitive, streamlined user experience for both customers and site administrators. The layout and navigation prioritize ease of use, simplicity, and a minimalist aesthetic, making it straightforward for users to browse photos and make purchases.
 
@@ -71,3 +65,70 @@ Overall, "Really Deep Photography" offers an accessible, visually appealing, and
 - As a site admin I can integrate social media links so that I can promote my work easily
 
 ## Wireframes
+
+### Mobile Wireframes
+
+<details>
+<summary> Click here to see the Mobile Wireframes </summary>
+
+Home
+  - ![screenshot](documentation/wireframes/wireframe02.png)
+
+About
+  - ![screenshot](documentation/wireframes/wireframe08.png)
+
+Contact
+  - ![screenshot](documentation/wireframes/wireframe11.png)
+
+Gallery
+  - ![screenshot](documentation/wireframes/wireframe05.png)
+
+Cart
+  - ![screenshot](documentation/wireframes/wireframe14.png)
+
+</details>
+
+### Tablet Wireframes
+
+<details>
+<summary> Click here to see the Tablet Wireframes </summary>
+
+Home
+  - ![screenshot](documentation/wireframes/wireframe03.png)
+
+About
+  - ![screenshot](documentation/wireframes/wireframe09.png)
+
+Contact
+  - ![screenshot](documentation/wireframes/wireframe12.png)
+
+Gallery
+  - ![screenshot](documentation/wireframes/wireframe06.png)
+
+Cart
+  - ![screenshot](documentation/wireframes/wireframe15.png)
+
+</details>
+
+### Desktop Wireframes
+
+<details>
+<summary> Click here to see the Desktop Wireframes </summary>
+
+Home
+  - ![screenshot](documentation/wireframes/wireframe01.png)
+
+About
+  - ![screenshot](documentation/wireframes/wireframe07.png)
+
+Contact
+  - ![screenshot](documentation/wireframes/wireframe10.png)
+
+Gallery
+  - ![screenshot](documentation/wireframes/wireframe04.png)
+
+Cart
+  - ![screenshot](documentation/wireframes/wireframe13.png)
+
+</details>
+
