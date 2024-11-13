@@ -153,6 +153,46 @@ footer {
     margin-top: auto;
 }
 
+/* Footer Mailchimp Form Styling */
+.mailchimp-signup {
+    color: #fff;
+    background-color: transparent;
+}
+
+.mailchimp-signup .form-label {
+    color: #ccc;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.mailchimp-signup .input-group {
+    display: flex;
+}
+
+.mailchimp-signup .form-control {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 0;
+}
+
+.mailchimp-signup .form-control::placeholder {
+    color: #aaa;
+}
+
+.mailchimp-signup .btn-primary {
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+}
+
+.mailchimp-signup .btn-primary:hover {
+    background-color: #5a6268;
+}
+
+
 /* Mobile-first approach */
 .container {
     padding: 1rem;

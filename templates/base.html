@@ -119,10 +119,32 @@
     <!-- Footer -->
     <footer class="bg-dark text-white text-center text-lg-start mt-5">
         <div class="container p-4">
-            <div class="d-flex flex-column align-items-center">
-                <p class="mb-2">Trolling on social media? Then keep track of what we're up to by following us on Facebook:</p>
-                <div class="d-flex flex-column flex-md-row gap-3">
-                    <a href="#" class="text-white text-decoration-none">Facebook <i class="fa-brands fa-facebook"></i></a>
+            <div class="row justify-content-between">
+                <div class="col-md-6 mb-3 mb-md-0">
+                    <a href="https://www.facebook.com/profile.php?id=61568281965684" 
+                    class="text-white text-decoration-none" 
+                    target="_blank" 
+                    rel="noopener noreferrer">
+                        Trolling on social media? Find us on Facebook <i class="fa-brands fa-facebook"></i>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <div id="mc_embed_shell" class="mailchimp-signup">
+                        <form action="https://herokuapp.us7.list-manage.com/subscribe/post?u=c7da9c42026385f8b9ee61eba&amp;id=a82e605d6a&amp;f_id=00691ae1f0" 
+                            method="post" 
+                            id="mc-embedded-subscribe-form" 
+                            name="mc-embedded-subscribe-form" 
+                            target="_blank" 
+                            class="validate">
+                            <div id="mc_embed_signup_scroll">
+                                <label for="mce-EMAIL" class="form-label">Subscribe to our Newsletter</label>
+                                <div class="input-group">
+                                    <input type="email" name="EMAIL" class="form-control" id="mce-EMAIL" placeholder="Email Address" required>
+                                    <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn btn-primary">Subscribe</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,6 +152,7 @@
             © 2024 Really Deep Photography
         </div>
     </footer>
+
 
     {% block postloadjs %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
