@@ -4,6 +4,9 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <h2 class="text-center mb-4">Sign Up for Really Deep Photography</h2>
+
+            {% include "partials/messages.html" %}
+            
             <div class="card shadow-sm p-4">
                 <form method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}

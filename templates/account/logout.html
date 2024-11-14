@@ -5,6 +5,9 @@
         <div class="col-md-6 text-center">
             <h2 class="mb-4">Do you really want to log out?</h2>
             <p class="lead">We'll miss you, but we've had a good run.</p>
+
+            {% include "partials/messages.html" %}
+            
             <div class="mt-4">
                 <form method="POST" action="{% url 'account_logout' %}">
                     {% csrf_token %}

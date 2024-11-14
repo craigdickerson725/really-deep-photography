@@ -8,6 +8,7 @@
     {% element h1 %}
         {% trans "Verify Your Email Address" %}
     {% endelement %}
+    {% include "partials/messages.html" %}
     {% url 'account_email' as email_url %}
     {% element p %}
         {% blocktrans %}This part of the site requires us to verify that

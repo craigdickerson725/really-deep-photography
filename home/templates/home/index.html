@@ -15,13 +15,7 @@
     <p>Explore our collection of beautiful deep photography.</p>
 
     <!-- Display Messages -->
-    {% if messages %}
-        <div class="alert alert-info">
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        </div>
-    {% endif %}
+    {% include "partials/messages.html" %}
 
     <!-- Featured Photos Section -->
     <h2>Featured Photos</h2>
