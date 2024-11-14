@@ -190,7 +190,7 @@ Cart
 
 - **Order Management**
 
--- A dashboard provides admins with a list of all orders, allowing them to track sales and fulfill customer requests promptly.
+  - A dashboard provides admins with a list of all orders, allowing them to track sales and fulfill customer requests promptly.
 
 ![screenshot](documentation/features/feature09.png)
 
@@ -205,3 +205,134 @@ Cart
   - Social media links in the footer and relevant pages make it easy for admins to promote photos across platforms, reaching more potential customers.
 
 ![screenshot](documentation/features/feature11.png)
+
+
+
+## Database Design
+
+### Data Model
+
+Entity Relationship Diagrams (ERD) help to visualize database architecture before creating models. Understanding the relationships between different tables can save time later in the project.
+
+![screenshot](documentation/erd.png)
+
+⚠️ INSTRUCTIONS ⚠️
+
+Using your defined models, create an ERD with the relationships identified. A couple of recommendations for building your own free ERDs:
+- [Lucidchart](https://www.lucidchart.com/pages/ER-diagram-symbols-and-meaning)
+- [Draw.io](https://draw.io)
+
+Looking for an interactive version of your ERD? Consider using a [`Mermaid flowchart`](https://mermaid.live). To simplify the process, you can ask ChatGPT (or similar) the following prompt:
+
+> ChatGPT Prompt:
+> "Generate a Markdown syntax Mermaid ERD using my Django models"
+> [paste-your-django-models-into-ChatGPT]
+
+I've already done yours for project, Really Deep Photography, below.
+
+**NOTE**: A Markdown Preview tool doesn't show the interactive ERD; you must first commit/push the code to your GitHub repository in order to see it live in action.
+
+⚠️ --- END --- ⚠️
+
+I have used `Mermaid` to generate an interactive ERD of my project.
+
+```mermaid
+erDiagram
+    User {
+        int id PK
+        string username
+        string email
+    }
+
+    Cart {
+        int id PK
+        int user_id FK
+    }
+    CartItem {
+        int id PK
+        int cart_id FK
+        int photo_id FK
+        int quantity
+    }
+    Photo {
+        int id PK
+        string title
+        string description
+        string size
+        decimal price
+        boolean is_featured
+    }
+
+    Order {
+        int id PK
+        string order_number
+        string full_name
+        string email
+        string phone_number
+        string country
+        string postcode
+        string town_or_city
+        string street_address1
+        string street_address2
+        string county
+        datetime date
+        decimal order_total
+        decimal grand_total
+        string original_cart
+        string stripe_pid
+    }
+
+    OrderLineItem {
+        int id PK
+        int order_id FK
+        int photo_id FK
+        int quantity
+        decimal lineitem_total
+    }
+
+    ContactMessage {
+        int id PK
+        string name
+        string email
+        text message
+        datetime date_sent
+    }
+
+    User ||--o| Cart : "1 has"
+    Cart ||--o| CartItem : "1 has many"
+    CartItem ||--|| Photo : "1 refers to"
+    Order ||--o| OrderLineItem : "1 has many"
+    OrderLineItem ||--|| Photo : "1 refers to"
+```
+
+source: [Mermaid](https://mermaid.live/edit#pako:eNqdVFFv2jAQ_iuWnwGRkEKb106Tpm5apWkvU6ToGh9gLbEz-6KVAv99dgLUECqi5SXWfd99Z3939pYXWiBPOZpPElYGqkwx9_20aNi2W_tPKmJSsOen95AlI9WKNY6poMIegBXIsovuM9UtHsHQDVkf8pq5i39-OuUfs78QVgMUCkcNFY7xeq1JXwP-NKBI0uas4LNnD7PB5ZZ9DwTawsiapFY9zMq3IEFgISsoWW1kEYRftC4RFJM2XyJQY1BcWPrdiKGt0p6aq6Z6QdMDl01Z5rcaGUSdkwo_Eit0o8hs-knakh-4vn36r8q1yYtTC0KnyCBSDkIYtDa6gcfXdxPICiAkWWG76Legs4k0QdkH3RVR4hI8-StXUkGZ--m7tktZY17Lqx38KhUOnO1uf_8_3OFxSldWurLhid5vq1YEBX1zpsIKh83YkAkifCVWdaofdCW3qOhiO-2btNuNx3rXPSQpy3jE1mAzHjwvAaM19MRiFahNSG1hT9_tDle94xpcorFuJo_k7o4dhM_bdV39nHOrBB_xCo3zSLiHuHU547RGZyT3bAHmt6ftHQ8a0j82quApmQZHvKm9W4enm6dLKK2L1qB4uuWvPJ0l0eR-vojn0Wy6iKfTZDHiG56OZ5N5Es-SJL57WNzdxw_xYj_ib1o7jWgyjWZxkrg093NYq_erxbqiRjer9aHY_h-NUea4)
+
+⚠️ RECOMMENDED ⚠️
+
+Alternatively, or in addition to, a more comprehensive ERD can be auto-generated once you're at the end of your development stages, just before you submit. Follow the steps below to obtain a thorough ERD that you can include. Feel free to leave the steps below in the README for future use to yourself.
+
+⚠️ --- END --- ⚠️
+
+I have used `pygraphviz` and `django-extensions` to auto-generate an ERD.
+
+The steps taken were as follows:
+- In the terminal: `sudo apt update`
+- then: `sudo apt-get install python3-dev graphviz libgraphviz-dev pkg-config`
+- then type `Y` to proceed
+- then: `pip3 install django-extensions pygraphviz`
+- in my `settings.py` file, I added the following to my `INSTALLED_APPS`:
+```python
+INSTALLED_APPS = [
+    ...
+    'django_extensions',
+    ...
+]
+```
+- back in the terminal: `python3 manage.py graph_models -a -o erd.png`
+- drag the new `erd.png` file into my `documentation/` folder
+- removed `'django_extensions',` from my `INSTALLED_APPS`
+- finally, in the terminal: `pip3 uninstall django-extensions pygraphviz -y`
+
+![screenshot](documentation/advanced-erd.png)
+
+source: [medium.com](https://medium.com/@yathomasi1/1-using-django-extensions-to-visualize-the-database-diagram-in-django-application-c5fa7e710e16)
