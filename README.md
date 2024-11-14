@@ -691,3 +691,22 @@ You can fork this repository by using the following steps:
 ### Local VS Deployment
 
 To the best of my knowledge after much testing, I am unaware of any differences that exist between the local site and the deployed site.
+
+## Credits
+
+While the design and layout of Really Deep Photography are largely my own, it must be acknowledged that the functionality of the checkout process using Stripe payments comes from the Code Institute 'Boutique Ado Walkthrough Project' from their Building An E-Commerce Platform course material.  Without these lessons and access to the source code, it would have seemed an insurmountable task to get the payments running smoothly.  It must also be mentioned that the Code Institute Tutor Support helped me get a most annoying bug fixed (which you can find more information about in TESTING.txt).  The modals used on the shopping cart page are based from the basic template found on the Bootstrap website.  The navbar was a variation on code discussed on the W3Schools website.
+
+### Content
+
+| Source | Location | Notes |
+| --- | --- | --- |
+| [Markdown Builder](https://tim.2bn.dev/markdown-builder) | README and TESTING | tool to help generate the Markdown files |
+| [Chris Beams](https://chris.beams.io/posts/git-commit) | version control | "How to Write a Git Commit Message" |
+| [W3Schools](https://www.w3schools.com/howto/howto_js_topnav_responsive.asp) | entire site | responsive HTML/CSS/JS navbar |
+| [Code Institute](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+EA101+4/courseware/eb05f06e62c64ac89823cc956fcd8191/48ac02aa8ecc4079be016c336231bee7/6) | Boutique Ado Walkthrough | Stripe Payments |
+| [Bootstrap](https://getbootstrap.com/docs/4.6/components/modal/) | components section | Modals |
+| [WhiteNoise](http://whitenoise.evans.io) | entire site | hosting static files on Heroku temporarily |
+
+### Media
+
+All of the photography used on this site is the property of the business owner (Craig Dickerson), and may be used freely by anyone who is interested in them.
