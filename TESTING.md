@@ -64,4 +64,41 @@ In this section, we document the testing efforts made to ensure that Really Deep
         - Check the receipt email to verify that order details (e.g., items purchased, total cost) match the transaction.
     - **Outcome:** The checkout process completes successfully, with an order confirmation page and a correctly formatted receipt email sent to the user.
     - **Adjustments:** Updated validation messaging for missing or invalid fields to enhance user guidance.
-    
+
+### User Experience Testing
+
+- #### **Usability Testing**
+
+    - **Objective:** Assess ease of use by observing users as they navigate the site.
+    - **Testing Steps:**
+        - Select a group of users unfamiliar with the site and observe their interaction, noting any points of confusion or friction.
+        - Collect feedback on the clarity of navigation, layout, and ease of completing core tasks (e.g., browsing, adding items to the cart, checkout).
+    - **Outcome:** Users were able to navigate easily with minimal guidance, completing tasks with minimal difficulty.
+    - **Adjustments:** Adjusted button labels for improved clarity (e.g., changing “Proceed” to “Checkout”).
+
+- **Accessibility Testing**
+
+    - **Objective:** Ensure the site is accessible to users with disabilities, including compatibility with screen readers and navigability by keyboard.
+    - **Testing Steps:**
+        - Use a screen reader to navigate the site, ensuring all images have descriptive alt text and page elements are labeled.
+        - Verify keyboard-only navigation through all site elements.
+    - **Outcome:** Site meets accessibility standards, with all elements accessible by keyboard and screen reader-compatible alt text added.
+    - **Adjustments:** Minor tweaks to alt text descriptions for improved readability.
+
+### Compatibility Testing
+
+- #### **Browser Compatibility**
+
+    - **Objective:** Ensure consistent performance across multiple browsers (Chrome, Firefox, Safari, Edge).
+    - **Testing Steps:**
+        - Open the site in each browser and check that all functionality and layout appear consistent.
+    - **Outcome:** The site performs consistently across all tested browsers.
+    - **Adjustments:** Minor CSS adjustments for Safari to improve alignment on some elements.
+
+- #### **Device Compatibility**
+
+    - **Objective:** Verify site functionality on a range of devices (desktop, laptop, tablet, and mobile).
+    - **Testing Steps:**
+        - Test on different devices to confirm that all elements render correctly and interact as intended.
+    - **Outcome:** The site is fully functional on all tested devices.
+    - **Adjustments:** Updated media queries to ensure consistent spacing on smaller screens.
