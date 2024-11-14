@@ -358,3 +358,54 @@ INSTALLED_APPS = [
 ![screenshot](documentation/database_design/erd.png)
 
 source: [medium.com](https://medium.com/@yathomasi1/1-using-django-extensions-to-visualize-the-database-diagram-in-django-application-c5fa7e710e16)
+
+## Agile Development Process
+
+### GitHub Projects
+
+[GitHub Projects](https://github.com/craigdickerson725/really-deep-photography/projects) served as an Agile tool for this project.
+It isn't a specialized tool, but with the right tags and project creation/issue assignments, it can be made to work.
+
+Through it, user stories, issues, and milestone tasks were planned, then tracked on a weekly basis using the basic Kanban board.
+
+![screenshot](documentation/agile_development/github_project_board.png)
+
+### GitHub Issues
+
+[GitHub Issues](https://github.com/craigdickerson725/really-deep-photography/issues) served as an another Agile tool.
+There, I used my own **User Story Template** to manage user stories.
+
+It also helped with milestone iterations on a weekly basis.
+
+- [Open Issues](https://github.com/craigdickerson725/really-deep-photography/issues) [![GitHub issues](https://img.shields.io/github/issues/craigdickerson725/really-deep-photography)](https://github.com/craigdickerson725/really-deep-photography/issues)
+
+    ![screenshot](documentation/agile_development/open_issues.png)
+
+- [Closed Issues](https://github.com/craigdickerson725/really-deep-photography/issues?q=is%3Aissue+is%3Aclosed) [![GitHub closed issues](https://img.shields.io/github/issues-closed/craigdickerson725/really-deep-photography)](https://github.com/craigdickerson725/really-deep-photography/issues?q=is%3Aissue+is%3Aclosed)
+
+    ![screenshot](documentation/agile_development/closed_issues.png)
+
+### MoSCoW Prioritization
+
+I've decomposed my Epics into stories prior to prioritizing and implementing them.
+Using this approach, I was able to apply the MoSCow prioritization and labels to my user stories within the Issues tab.
+
+- **Must Have**: guaranteed to be delivered (*max 60% of stories*)
+- **Should Have**: adds significant value, but not vital (*the rest ~20% of stories*)
+- **Could Have**: has small impact if left out (*20% of stories*)
+- **Won't Have**: not a priority for this iteration
+
+## Ecommerce Business Model
+
+This site sells goods to individual customers, and therefore follows a `Business to Customer` model.
+It is of the simplest **B2C** forms, as it focuses on individual transactions, and doesn't need anything
+such as monthly/annual subscriptions.
+
+It is still in its early development stages, although it already has a newsletter, and links for social media marketing.
+
+Social media can potentially build a community of users around the business, and boost site visitor numbers,
+especially when using larger platforms such a Facebook.
+
+A newsletter list can be used by the business to send regular messages to site users.
+For example, what photos are on special offer, new photos in stock,
+updates to business hours, notifications of events, and much more!
