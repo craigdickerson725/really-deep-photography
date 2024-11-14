@@ -132,3 +132,76 @@ Cart
 
 </details>
 
+## Features
+
+### Existing Features
+
+#### Customer Features
+
+- **Photo Gallery Browsing**
+
+  - This feature provides a main gallery where customers can browse all available photos for sale. It serves as the primary landing point for users interested in purchasing, offering a visual overview of available prints.
+
+![screenshot](documentation/features/feature01.png)
+
+- **Photo Details View**
+
+  - Customers can click on individual photos to view a larger image along with details like description, dimensions, and price. This helps users make informed decisions by offering additional insights about each photo before purchase.
+
+![screenshot](documentation/features/feature02.png)
+
+- **User Registration and Login**
+
+  - The site allows customers to create an account and log in, giving them access to the features necessary for adding items to their shopping cart and completing the purchasing process. This feature also includes password reset functionality for account recovery.
+
+![screenshot](documentation/features/feature03.png)
+
+- **Search Functionality**
+
+  - The search bar allows customers to find specific photos or categories, saving time and enhancing the browsing experience for those with particular interests.
+
+![screenshot](documentation/features/feature04.png)
+
+- **Shopping Cart**
+
+  - Users can add photos to their cart and review the items before checkout. This feature helps them keep track of selected items and make adjustments prior to finalizing the purchase.
+
+![screenshot](documentation/features/feature05.png)
+
+- **Secure Checkout Process**
+
+  - The checkout feature allows customers to complete a purchase securely. It includes options for entering payment information and confirming the order, which then redirects them to an order confirmation page.
+
+![screenshot](documentation/features/feature06.png)
+
+- **Email Order Confirmation**
+
+  - After completing a purchase, customers receive a confirmation email with details of their order, providing them with a record of the transaction.
+
+![screenshot](documentation/features/feature07.png)
+
+### Site Admin Features
+
+- **Photo Management**
+
+  - Admins can upload new photos, update titles and prices, or remove outdated images. This feature allows for easy gallery management to keep offerings fresh and current.
+
+![screenshot](documentation/features/feature08.png)
+
+- **Order Management**
+
+-- A dashboard provides admins with a list of all orders, allowing them to track sales and fulfill customer requests promptly.
+
+![screenshot](documentation/features/feature09.png)
+
+- **SEO Implementation**
+
+  - SEO elements, such as meta tags and page titles, have been implemented to improve site visibility in search results. This feature is crucial for reaching a wider audience and improving search engine ranking.
+
+![screenshot](documentation/features/feature10.png)
+
+- **Social Media Integration**
+
+  - Social media links in the footer and relevant pages make it easy for admins to promote photos across platforms, reaching more potential customers.
+
+![screenshot](documentation/features/feature11.png)
