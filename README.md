@@ -206,6 +206,34 @@ Cart
 
 ![screenshot](documentation/features/feature11.png)
 
+### Future Features
+
+- Order History Access
+  - Customers will be able to log in and view a history of their orders. This feature provides convenience and transparency, allowing customers to check the status and details of past purchases at any time.
+
+- Cryptocurrency Payment Options
+  - Adding cryptocurrency payment options will give customers more flexibility at checkout, accommodating those who prefer digital currency over traditional payment methods.
+
+- Social Media Login
+  - Integrating social media login options (e.g., Facebook, Google) will allow users to sign in quickly, simplifying the login process and enhancing user convenience.
+
+- Shipping Notifications via Text Message
+  - Customers will receive text message notifications when their order ships, enabling them to track their delivery more easily and stay informed about their order’s progress.
+
+- Augmented Reality (AR) Visualization
+  - AR functionality will allow customers to visualize how a photo would look on their own wall through their mobile device. This feature provides a more immersive experience and helps users make purchase decisions with greater confidence.
+
+- Frame Style Live Preview
+  - Users will have the option to see how different frame styles look around a selected photo, giving them more control and satisfaction over choosing the ideal frame for their home.
+
+- Customer Reviews and Ratings
+  - Allowing customers to leave reviews and rate photos will enable them to share their opinions, helping other customers make informed decisions and creating a community-driven atmosphere.
+
+- Personalized Recommendations
+  - Based on previous purchases, customers will see personalized photo recommendations tailored to their tastes. This feature improves the shopping experience by highlighting similar items of interest.
+
+
+
 
 
 ## Database Design
