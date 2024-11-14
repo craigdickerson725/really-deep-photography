@@ -710,3 +710,10 @@ While the design and layout of Really Deep Photography are largely my own, it mu
 ### Media
 
 All of the photography used on this site is the property of the business owner (Craig Dickerson), and may be used freely by anyone who is interested in them.
+
+### Acknowledgements
+
+- I would like to thank my Code Institute mentor, [Tim Nelson](https://github.com/TravelTimN) for his support throughout the development of this project.  I have not had the pleasure of meeting any of the other Code Institute mentors, but I can't imagine them being more helpful and supportive than Tim.  Without him, my projects would have all suffered greatly.
+- I would like to thank the [Code Institute](https://codeinstitute.net) tutor team for their assistance with troubleshooting and debugging some project issues.  They are a very patient and helpful group, and all us students benefit greatly from their help!
+- I would like to thank the [Code Institute Slack community](https://code-institute-room.slack.com) for the moral support; it kept me going during periods of self doubt and impostor syndrome, of which there were many.
+- Most importantly, I would like to thank my wife and daughter, who supported me and encouraged me through every single step of this journey. I work hard for them, and hope to make them proud.
