@@ -15,7 +15,8 @@
         <strong>Note:</strong> You currently have {{ featured_photos_count }} featured photo(s). You can only have up to 3 featured photos at a time.
     </div>
     {% endif %}
-    
+    {% include "partials/messages.html" %}
+
     <!-- Add Photo Form -->
     <div class="my-4">
         <h2 class="h4">Add Photo</h2>
@@ -44,9 +45,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for photo in photos %}
+                    {% for photo in photos|dictsort:"is_featured" reversed %}
                     <tr>
-                        <td>{{ photo.title }}</td>
+                        <td>
+                            {% if photo.is_featured %}
+                            <span class="badge rounded-pill text-white" style="background-color:#b197fc">Featured</span>
+                            <br>
+                            {% endif %}
+                            {{ photo.title }}
+                        </td>
                         <td class="d-none d-md-table-cell">{{ photo.description }}</td>
                         <td class="text-center d-none d-md-table-cell">
                             <img src="{{ photo.image.url|cloudinary_optimized }}" class="img-fluid" alt="{{ photo.title }}">
@@ -56,10 +63,34 @@
                         <td>
                             <div class="d-flex flex-column flex-md-row">
                                 <a href="{% url 'edit_photo' photo.id %}" class="btn btn-sm btn-dark mb-1 mb-md-0 me-md-2">Edit</a>
-                                <form action="{% url 'delete_photo' photo.id %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                </form>
+                                
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-{{photo.id}}">
+                                    Delete
+                                </button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="modal-delete-{{photo.id}}" tabindex="-1" aria-labelledby="modal-delete-{{photo.id}}-label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title fs-5" id="modal-delete-{{photo.id}}-label">Delete Photo</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this photo?
+                                                <br>
+                                                <small class="text-muted">This is permanent</small>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+                                                <form action="{% url 'delete_photo' photo.id %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="btn btn-sm btn-danger">Yes</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
