@@ -119,3 +119,43 @@ In this section, we document the testing efforts made to ensure that Really Deep
 - **Outcome:** Complete documentation maintained for all testing, assisting in troubleshooting and future reference.
 - **Adjustments:** Documentation reviewed and updated to improve clarity and detail.
 
+## Code Validation
+
+### HTML
+
+I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my HTML files.
+
+| Directory | File | Screenshot | Notes |
+| --- | --- | --- | --- |
+| about | about.html | ![screenshot](documentation/validation/about.png) | |
+| cart | cart.html | ![screenshot](documentation/validation/cart.png) | |
+| checkout | checkout.html | ![screenshot](documentation/validation/checkout.png) | |
+| checkout | checkout_success.html | ![screenshot](documentation/validation/checkout_success.png) | |
+| checkout | order_confirmation_email.html | ![screenshot](documentation/validation/order_confirmation_email.png) | |
+| contact | contact.html | ![screenshot](documentation/validation/contact.png) | |
+| home | index.html | ![screenshot](documentation/validation/home.png) | |
+| photos | admin_panel.html | ![screenshot](documentation/validation/admin_panel.png) | |
+| photos | edit_photo.html | ![screenshot](documentation/validation/edit_photo.png) | |
+| photos | gallery.html | ![screenshot](documentation/validation/gallery.png) | |
+| photos | no_permission.html | ![screenshot](documentation/validation/no_permission.png) | |
+| photos | photo_detail.html | ![screenshot](documentation/validation/photo_detail.png) | |
+| photos | search_results.html | ![screenshot](documentation/validation/search_results.png) | |
+| templates | 404.html | ![screenshot](documentation/validation/404.png) | |
+
+### CSS
+
+I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) to validate all of my CSS files.
+
+| Directory | File | Screenshot | Notes |
+| --- | --- | --- | --- |
+| checkout | checkout.css | ![screenshot](documentation/validation/checkout_css.png) | |
+| static | style.css | ![screenshot](documentation/validation/style_css.png) | |
+
+### JavaScript
+
+I have used the recommended [JShint Validator](https://jshint.com) to validate all of my JS files.
+
+| Directory | File | Screenshot | Notes |
+| --- | --- | --- | --- |
+| checkout | stripe_elements.js | ![screenshot](documentation/validation/stripe_elements.png) | |
+| static | checkout.js | ![screenshot](documentation/validation/checkout_js.png) | |
