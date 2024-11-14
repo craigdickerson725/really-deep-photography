@@ -68,6 +68,7 @@ class AdminPanelView(UserPassesTestMixin, View):
         form = PhotoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            messages.info(self.request, 'Photo successfully added')
             return redirect('admin_panel')  # Redirect back to the admin panel on successful save
         photos = Photo.objects.all()
         return render(request, self.template_name, {'photos': photos, 'form': form})
@@ -99,6 +100,7 @@ class EditPhotoView(View):
         form = PhotoForm(request.POST, request.FILES, instance=photo)
         if form.is_valid():
             form.save()
+            messages.info(self.request, 'Photo successfully edited')
             return redirect('admin_panel')
         return render(request, self.template_name, {'form': form, 'photo': photo})
 
@@ -108,4 +110,5 @@ class DeletePhotoView(View):
     def post(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
         photo.delete()
+        messages.info(self.request, 'Photo successfully deleted')
         return redirect('admin_panel')
