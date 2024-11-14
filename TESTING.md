@@ -102,3 +102,20 @@ In this section, we document the testing efforts made to ensure that Really Deep
         - Test on different devices to confirm that all elements render correctly and interact as intended.
     - **Outcome:** The site is fully functional on all tested devices.
     - **Adjustments:** Updated media queries to ensure consistent spacing on smaller screens.
+
+### Regression Testing
+- **Objective:** Ensure that previous features continue to work as intended after updates and new implementations.
+- **Testing Steps:**
+    - After each significant change, retest all core features, including navigation, cart functionality, and checkout.
+    - Run automated tests to confirm that functionality remains intact across features.
+- **Outcome:** Regression testing confirmed that no new updates introduced issues to existing features.
+- **Adjustments:** None needed; regression testing confirmed stability.
+
+### Documentation and Logs
+- **Objective:** Maintain clear documentation of testing procedures, outcomes, and any adjustments made.
+- **Testing Steps:**
+    - Log each testing session’s results and record any identified bugs along with the resolution steps.
+    - Use these records to verify that all major issues were tracked and resolved systematically.
+- **Outcome:** Complete documentation maintained for all testing, assisting in troubleshooting and future reference.
+- **Adjustments:** Documentation reviewed and updated to improve clarity and detail.
+
