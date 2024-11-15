@@ -257,18 +257,15 @@ The table below summarizes manual tests performed across key pages to validate d
 | Page | Expectation | Test | Result | Fix | Screenshot |
 | --- | --- | --- | --- | --- | --- |
 | Home | | | | | |
-| | Only three featured photos should display at a time. | Added more than three photos with is_featured=True via the admin panel. | Only three featured photos displayed on the home page. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
+| | Only three featured photos should display at a time. | Added more than three photos with is_featured=True via the admin panel. | Only three featured photos displayed on the home page. | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive01.png) |
 | Gallery | | | | | |
-| | Users should not access photo upload forms without logging in as an admin. | Attempted to visit /gallery/upload/ without logging in. | Redirected to the login page. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
-| | Users should not upload non-image files. | Attempted to upload .exe and .txt files via the photo upload form. | Server rejected the files and displayed a validation error. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
+| | Admins must upload image files when updating the gallery in the admin panel. | Attempted to upload a gallery entry without a selected image | Server rejected the files and displayed a validation error. | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive02.png) |
 | Cart | | | | | |
-| | Users cannot update the cart if they are not logged in. | Attempted to add an item to the cart without logging in. | Redirected to the login page before adding the item. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
+| | Users cannot update the cart if they are not logged in. | Attempted to add an item to the cart without logging in. | Redirected to the login page before adding the item. | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive03.png) |
 | Checkout | | | | | |
-| | Only authenticated users can access the checkout page. | Attempted to access /checkout/ while logged out. | Redirected to the login page. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
-| | Form fields must not accept invalid data. | Entered invalid credit card details (e.g., 1234 5678 9012 3456, expiration: 13/2024). | Stripe rejected the input, and the user was notified of invalid card details. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
+| | Only authenticated users can access the checkout page. | Attempted to access /checkout/ while logged out. | Redirected to the login page. | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive04.png) |
+| | Form fields must not accept invalid data. | Entered invalid credit card details (e.g., 1234 5678 9012 3456, expiration: 13/2024). | Stripe rejected the input, and the user was notified of invalid card details. | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive05.png) |
 | Contact | | | | | |
-| | Users must enter all required fields to submit the contact form. | Attempted to submit the form with one or more empty fields. | Form displayed an error: "This field is required." | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
-| Admin Panel | | | | | |
-| | Non-superusers should not access the admin panel. | Logged in as a standard user and attempted to visit /admin/. | Redirected to a No Permission page. | Test concluded and passed | ![screenshot](documentation/features/feature01.png) |
+| | Users must enter all required fields to submit the contact form. | Attempted to submit the form with one or more empty fields. | Form displayed an error: "This field is required." | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive06.png) |
 
-This section provides a detailed view of the security measures and their effectiveness across the site, ensuring a reliable and secure user experience.
+This section provides a view of some of the security measures and their effectiveness across the site, ensuring a reliable and secure user experience.
