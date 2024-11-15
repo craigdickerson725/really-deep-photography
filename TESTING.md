@@ -269,3 +269,23 @@ The table below summarizes manual tests performed across key pages to validate d
 | | Users must enter all required fields to submit the contact form. | Attempted to submit the form with one or more empty fields. | Form displayed an error: "This field is required." | Test concluded and passed | ![screenshot](documentation/defensive_programming/defensive06.png) |
 
 This section provides a view of some of the security measures and their effectiveness across the site, ensuring a reliable and secure user experience.
+
+## User Story Testing
+
+| User Story | Screenshot |
+| --- | --- |
+| As a customer I can browse a gallery of available photos so that I can choose which prints to purchase | ![screenshot](documentation/user_story_testing/ust01.png) |
+| As a customer I can view details of a photo so that I can see a larger image and more information (e.g., description, dimensions, price) | ![screenshot](documentation/user_story_testing/ust02.png) |
+| As a customer I can create an account so that I can log in to add/purchase items | ![screenshot](documentation/user_story_testing/ust03.png) |
+| As a customer I can receive password reset emails so that I can regain access to my account if I forget my password | ![screenshot](documentation/user_story_testing/ust04.png) |
+| As a customer I can search for specific photos or categories so that I can find something specific to buy | ![screenshot](documentation/user_story_testing/ust05.png) |
+| As a customer I can review the items in my cart so that I can make sure I'm ready to checkout | ![screenshot](documentation/user_story_testing/ust06.png) |
+| As a customer I can add a photo to my shopping cart so that I can purchase it later | ![screenshot](documentation/user_story_testing/ust07.png) |
+| As a customer I can complete a checkout process so that I can purchase the selected photos | ![screenshot](documentation/user_story_testing/ust08.png) |
+| As a customer I can receive an email confirmation after I make a purchase so that I have a record of my order | ![screenshot](documentation/user_story_testing/ust09.png) |
+| As a site admin I can upload new photos to the website so that customers can purchase them | ![screenshot](documentation/user_story_testing/ust10.png) |
+| As a site admin I can manage existing photos (edit titles, prices, or remove them) so that my gallery stays up to date | ![screenshot](documentation/user_story_testing/ust11.png) |
+| As a site admin I can view a list of all orders so that I can keep track of what has been sold and needs to be shipped | ![screenshot](documentation/user_story_testing/ust12.png) |
+| As a site admin I can employ SEO strategies so that my website ranks higher in search results | ![screenshot](documentation/user_story_testing/ust13.png) |
+| As a site admin I can integrate social media links so that I can promote my work easily | ![screenshot](documentation/user_story_testing/ust14.png) |
+
