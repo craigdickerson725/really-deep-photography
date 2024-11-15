@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from django.views.generic import TemplateView
 from .models import ContactMessage
 
+
 # Contact view
 class ContactView(TemplateView):
     """Handle the contact form submission."""
@@ -17,5 +18,5 @@ class ContactView(TemplateView):
             message=request.POST['message'],
         )
         # Display a success message
-        messages.success(request, 'Thank you for reaching out! Your message has been sent.')
+        messages.success(request, 'Thank you for reaching out! Your message has been sent.')  # noqa
         return redirect('contact')
