@@ -129,8 +129,7 @@ input[type="text"]:focus {
 }
 
 .remove-item:hover {
-    color: #ff0000; /* Bright red when hovered */
-    text-decoration: underline;
+    color: darkgray;
 }
 
 /* Hide number input arrows */

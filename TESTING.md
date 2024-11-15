@@ -201,3 +201,13 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 | really_deep_photography | settings.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/settings.py) | ![screenshot](documentation/validation/python_validation/rdp_settings.png) | |
 | really_deep_photography | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/urls.py) | ![screenshot](documentation/validation/python_validation/rdp_urls.png) | |
 | really_deep_photography | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/views.py) | ![screenshot](documentation/validation/python_validation/rdp_views.png) | |
+
+## Browser Compatibility
+
+I've tested my deployed project on multiple browsers to check for compatibility issues.
+
+| Browser | Home | Gallery | About | Contact | Cart | Checkout | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Chrome | ![screenshot](documentation/browsers/chrome01.png) | ![screenshot](documentation/browsers/chrome02.png) | ![screenshot](documentation/browsers/chrome03.png) | ![screenshot](documentation/browsers/chrome04.png) | ![screenshot](documentation/browsers/chrome05.png) | ![screenshot](documentation/browsers/chrome06.png) | Works as expected |
+| Edge | ![screenshot](documentation/browsers/edge01.png) | ![screenshot](documentation/browsers/edge02.png) | ![screenshot](documentation/browsers/edge03.png) | ![screenshot](documentation/browsers/edge04.png) | ![screenshot](documentation/browsers/edge05.png) | ![screenshot](documentation/browsers/edge06.png) | Works as expected |
+| Firefox | ![screenshot](documentation/browsers/firefox01.png) | ![screenshot](documentation/browsers/firefox02.png) | ![screenshot](documentation/browsers/firefox03.png) | ![screenshot](documentation/browsers/firefox04.png) | ![screenshot](documentation/browsers/firefox05.png) | ![screenshot](documentation/browsers/firefox06.png) | Works as expected |
