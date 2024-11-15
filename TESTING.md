@@ -223,3 +223,16 @@ I've tested my deployed project on multiple devices to check for responsiveness 
 | Desktop | ![screenshot](documentation/responsiveness/desktop01.png) | ![screenshot](documentation/responsiveness/desktop02.png) | ![screenshot](documentation/responsiveness/desktop03.png) | ![screenshot](documentation/responsiveness/desktop04.png) | ![screenshot](documentation/responsiveness/desktop05.png) | ![screenshot](documentation/responsiveness/desktop06.png) | Works as expected |
 | XL Monitor | ![screenshot](documentation/responsiveness/xl01.png) | ![screenshot](documentation/responsiveness/xl02.png) | ![screenshot](documentation/responsiveness/xl03.png) | ![screenshot](documentation/responsiveness/xl04.png) | ![screenshot](documentation/responsiveness/xl05.png) | ![screenshot](documentation/responsiveness/xl06.png) | Scaling starts to have minor issues |
 | 4K Monitor | ![screenshot](documentation/responsiveness/4k01.png) | ![screenshot](documentation/responsiveness/4k02.png) | ![screenshot](documentation/responsiveness/4k03.png) | ![screenshot](documentation/responsiveness/4k04.png) | ![screenshot](documentation/responsiveness/4k05.png) | ![screenshot](documentation/responsiveness/4k06.png) | Scaling has minor issues |
+
+## Lighthouse Audit
+
+I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
+
+| Page | Mobile | Desktop | Notes |
+| --- | --- | --- | --- |
+| Home | ![screenshot](documentation/lighthouse/home01.png) | ![screenshot](documentation/lighthouse/home02.png) | Some minor warnings |
+| Gallery | ![screenshot](documentation/lighthouse/gallery01.png) | ![screenshot](documentation/lighthouse/gallery02.png) | Some minor warnings |
+| About | ![screenshot](documentation/lighthouse/about01.png) | ![screenshot](documentation/lighthouse/about02.png) | Slow response time due to large images |
+| Contact | ![screenshot](documentation/lighthouse/contact01.png) | ![screenshot](documentation/lighthouse/contact02.png) | Slow response time due to large images |
+| Cart | ![screenshot](documentation/lighthouse/cart01.png) | ![screenshot](documentation/lighthouse/cart02.png) | Slow response time due to large images |
+| Checkout | ![screenshot](documentation/lighthouse/checkout01.png) | ![screenshot](documentation/lighthouse/checkout02.png) | Slow response time due to large images |
