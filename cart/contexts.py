@@ -3,6 +3,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404
 from photos.models import Photo
 
+
 def cart_contents(request):
     cart_items = []
     total = 0
@@ -20,7 +21,7 @@ def cart_contents(request):
         })
 
     grand_total = total
-    
+
     context = {
         'cart_items': cart_items,
         'total': total,
