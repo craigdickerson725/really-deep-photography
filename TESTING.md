@@ -159,3 +159,45 @@ I have used the recommended [JShint Validator](https://jshint.com) to validate a
 | --- | --- | --- | --- |
 | checkout | stripe_elements.js | ![screenshot](documentation/validation/stripe_elements.png) | |
 | static | checkout.js | ![screenshot](documentation/validation/checkout_js.png) | |
+
+### Python
+
+I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
+
+| Directory | File | CI URL | Screenshot | Notes |
+| --- | --- | --- | --- | --- |
+| about | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/about/admin.py) | ![screenshot](documentation/validation/python_validation/about_admin.png) | |
+| about | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/about/models.py) | ![screenshot](documentation/validation/python_validation/about_models.png) | |
+| about | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/about/urls.py) | ![screenshot](documentation/validation/python_validation/about_urls.png) | |
+| about | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/about/views.py) | ![screenshot](documentation/validation/python_validation/about_views.png) | |
+| cart | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/admin.py) | ![screenshot](documentation/validation/python_validation/cart_admin.png) | |
+| cart | contexts.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/contexts.py) | ![screenshot](documentation/validation/python_validation/cart_contexts.png) | |
+| cart | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/models.py) | ![screenshot](documentation/validation/python_validation/cart_models.png) | |
+| cart | cart_tools.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/templatetags/cart_tools.py) | ![screenshot](documentation/validation/python_validation/cart_cart_tools.png) | |
+| cart | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/urls.py) | ![screenshot](documentation/validation/python_validation/cart_urls.png) | |
+| cart | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/cart/views.py) | ![screenshot](documentation/validation/python_validation/cart_views.png) | |
+| checkout | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/admin.py) | ![screenshot](documentation/validation/python_validation/checkout_admin.png) | |
+| checkout | forms.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/forms.py) | ![screenshot](documentation/validation/python_validation/checkout_forms.png) | |
+| checkout | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/models.py) | ![screenshot](documentation/validation/python_validation/checkout_models.png) | |
+| checkout | signals.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/signals.py) | ![screenshot](documentation/validation/python_validation/checkout_signals.png) | |
+| checkout | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/urls.py) | ![screenshot](documentation/validation/python_validation/checkout_urls.png) | |
+| checkout | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/checkout/views.py) | ![screenshot](documentation/validation/python_validation/checkout_views.png) | |
+| contact | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/contact/admin.py) | ![screenshot](documentation/validation/python_validation/contact_admin.png) | |
+| contact | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/contact/models.py) | ![screenshot](documentation/validation/python_validation/contact_models.png) | |
+| contact | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/contact/urls.py) | ![screenshot](documentation/validation/python_validation/contact_urls.png) | |
+| contact | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/contact/views.py) | ![screenshot](documentation/validation/python_validation/contact_views.png) | |
+| home | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/admin.py) | ![screenshot](documentation/validation/python_validation/home_admin.png) | |
+| home | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/models.py) | ![screenshot](documentation/validation/python_validation/home_models.png) | |
+| home | custom_filters.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/templatetags/custom_filters.py) | ![screenshot](documentation/validation/python_validation/home_custom_filters.png) | |
+| home | user_filters.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/templatetags/user_filters.py) | ![screenshot](documentation/validation/python_validation/home_user_filters.png) | |
+| home | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/urls.py) | ![screenshot](documentation/validation/python_validation/home_urls.png) | |
+| home | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/home/views.py) | ![screenshot](documentation/validation/python_validation/home_views.png) | |
+|  | manage.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/manage.py) | ![screenshot](documentation/validation/python_validation/main_manage.png) | |
+| photos | admin.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/photos/admin.py) | ![screenshot](documentation/validation/python_validation/photos_admin.png) | |
+| photos | forms.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/photos/forms.py) | ![screenshot](documentation/validation/python_validation/photos_forms.png) | |
+| photos | models.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/photos/models.py) | ![screenshot](documentation/validation/python_validation/photos_models.png) | |
+| photos | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/photos/urls.py) | ![screenshot](documentation/validation/python_validation/photos_urls.png) | |
+| photos | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/photos/views.py) | ![screenshot](documentation/validation/python_validation/photos_views.png) | |
+| really_deep_photography | settings.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/settings.py) | ![screenshot](documentation/validation/python_validation/rdp_settings.png) | |
+| really_deep_photography | urls.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/urls.py) | ![screenshot](documentation/validation/python_validation/rdp_urls.png) | |
+| really_deep_photography | views.py | [PEP8 CI](https://pep8ci.herokuapp.com/https://raw.githubusercontent.com/craigdickerson725/really-deep-photography/main/really_deep_photography/views.py) | ![screenshot](documentation/validation/python_validation/rdp_views.png) | |
