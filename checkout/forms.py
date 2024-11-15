@@ -36,8 +36,8 @@ class OrderForm(forms.ModelForm):
                 self.fields['county'].required = True
             if field != 'country':
                 # Add asterisk for required fields
-                placeholder = f"{placeholders[field]} *" if self.fields[field].required else placeholders[field]
+                placeholder = f"{placeholders[field]} *" if self.fields[field].required else placeholders[field]  # noqa
                 self.fields[field].widget.attrs['placeholder'] = placeholder
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input larger-input'
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input larger-input'  # noqa
             # Remove labels for a cleaner form design
             self.fields[field].label = False

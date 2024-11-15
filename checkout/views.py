@@ -1,4 +1,6 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (
+    render, redirect, reverse, get_object_or_404, HttpResponse
+)
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -24,17 +26,24 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        stripe.PaymentIntent.modify(pid, metadata={
-            'cart': json.dumps(request.session.get('cart', {})),
-            'save_info': request.POST.get('save_info'),
-            'username': request.user,
-        })
+        stripe.PaymentIntent.modify(
+            pid,
+            metadata={
+                'cart': json.dumps(request.session.get('cart', {})),
+                'save_info': request.POST.get('save_info'),
+                'username': request.user,
+            },
+        )
         return HttpResponse(status=200)
     except Exception as e:
-        messages.error(request, 'Sorry, your payment cannot be processed right now. Please try again later.')
+        messages.error(
+            request,
+            'Sorry, your payment cannot be processed right now. '
+            'Please try again later.'
+        )
         return HttpResponse(content=str(e), status=400)
 
-# Checkout view
+
 @login_required
 def checkout(request):
     """
@@ -48,7 +57,6 @@ def checkout(request):
 
     if request.method == 'POST':
         cart = request.session.get('cart', {})
-
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -79,20 +87,30 @@ def checkout(request):
                     )
                     order_line_item.save()
                 except Photo.DoesNotExist:
-                    messages.error(request, "One of the photos in your cart wasn't found in our database. Please call us for assistance!")
+                    messages.error(
+                        request,
+                        "One of the photos in your cart wasn't found in our "
+                        "database. Please call us for assistance!"
+                    )
                     order.delete()
                     return redirect(reverse('cart:view_cart'))
 
             # Optionally save user info if requested
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(reverse('checkout_success', args=[order.order_number]))  # noqa
         else:
-            messages.error(request, 'There was an error with your form. Please double-check your information.')
-
+            messages.error(
+                request,
+                'There was an error with your form. '
+                'Please double-check your information.'
+            )
     else:
         cart = request.session.get('cart', {})
         if not cart:
-            messages.error(request, "There's nothing in your cart at the moment.")
+            messages.error(
+                request,
+                "There's nothing in your cart at the moment."
+            )
             return redirect(reverse('gallery'))
 
         current_cart = cart_contents(request)
@@ -105,7 +123,10 @@ def checkout(request):
         )
 
     if not stripe_public_key:
-        messages.warning(request, 'Stripe public key is missing. Did you forget to set it in your environment?')
+        messages.warning(
+            request,
+            'Stripe public key is missing. Did you forget to set it in your environment?'  # noqa
+        )
 
     template = 'checkout/checkout.html'
     context = {
@@ -123,31 +144,35 @@ def checkout_success(request, order_number):
     Handle successful checkouts
     """
     order = get_object_or_404(Order, order_number=order_number)
-
-    messages.success(request, f'Order successfully processed! Your order number is {order_number}. A confirmation email will be sent to {order.email}.')
+    messages.success(
+        request,
+        f'Order successfully processed! Your order number is {order_number}. '
+        f'A confirmation email will be sent to {order.email}.'
+    )
 
     # Clear the cart after a successful checkout
     if 'cart' in request.session:
         del request.session['cart']
 
     template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
+    context = {'order': order}
 
     # Prepare email content
     subject = "Your Order Confirmation from Really Deep Photography"
     customer_email = order.email
     email_context = {
         'customer_name': order.full_name,
-        'order_items': order.lineitems.all(),  # Fetch all line items associated with this order
+        'order_items': order.lineitems.all(),
         'total_amount': order.grand_total,
         'order_number': order.order_number,
         'current_year': datetime.now().year,
     }
 
     # Render email message (as HTML)
-    message = render_to_string('checkout/order_confirmation_email.html', email_context)
+    message = render_to_string(
+        'checkout/order_confirmation_email.html',
+        email_context
+    )
 
     # Send email
     send_mail(
@@ -158,10 +183,5 @@ def checkout_success(request, order_number):
         fail_silently=False,
         html_message=message
     )
-
-    template = 'checkout/checkout_success.html'
-    context = {
-        'order': order,
-    }
 
     return render(request, template, context)
