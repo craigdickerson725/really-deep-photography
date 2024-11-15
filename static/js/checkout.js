@@ -1,3 +1,6 @@
+/* jshint esversion: 8 */
+/* global Stripe */
+
 document.addEventListener('DOMContentLoaded', function () {
     const stripe = Stripe('{{ stripe_publishable_key }}'); // Initialize Stripe with your publishable key
     const elements = stripe.elements(); // Initialize Stripe Elements
