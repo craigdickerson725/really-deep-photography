@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    GalleryView, photo_detail, AdminPanelView, EditPhotoView, 
+    GalleryView, photo_detail, AdminPanelView, EditPhotoView,
     DeletePhotoView, search, NoPermissionView
 )
 
@@ -14,8 +14,8 @@ urlpatterns = [
 
     # Admin panel for site owner
     path('admin_panel/', AdminPanelView.as_view(), name='admin_panel'),
-    path('admin_panel/edit/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),
-    path('admin_panel/delete/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),
+    path('admin_panel/edit/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),  # noqa
+    path('admin_panel/delete/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),  # noqa
 
     # No permission page
     path('no_permission/', NoPermissionView.as_view(), name='no_permission'),

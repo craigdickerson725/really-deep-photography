@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Photo
 from .forms import PhotoForm
 
+
 # Gallery view
 class GalleryView(ListView):
     """Display all photos in the gallery."""
@@ -16,18 +17,19 @@ class GalleryView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_obj'] = context['paginator'].get_page(context['page_obj'].number)
+        context['page_obj'] = context['paginator'].get_page(context['page_obj'].number)  # noqa
         return context
 
     def get_queryset(self):
         return Photo.objects.all().order_by("id")
+
 
 # Search view
 def search(request):
     """Handle search queries and render results."""
     query = request.GET.get('q')
     if query:
-        photos = Photo.objects.filter(title__icontains=query) | Photo.objects.filter(description__icontains=query)
+        photos = Photo.objects.filter(title__icontains=query) | Photo.objects.filter(description__icontains=query)  # noqa
     else:
         photos = []
         messages.warning(request, "Please enter a search term.")
@@ -36,19 +38,22 @@ def search(request):
         'photos': photos
     })
 
+
 # Photo detail view
 def photo_detail(request, photo_id):
     """Display the details of a single photo."""
     photo = get_object_or_404(Photo, id=photo_id)
     return render(request, 'photos/photo_detail.html', {'photo': photo})
 
-# Admin panel 
+
+# Admin panel
 class AdminPanelView(UserPassesTestMixin, View):
     template_name = 'photos/admin_panel.html'  # Correct template path
 
     def test_func(self):
-        # Check if user is authenticated and either a superuser or belongs to the 'Site Admin' group
-        return self.request.user.is_authenticated and (self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists())
+        # Check if user is authenticated and either a superuser
+        # or belongs to the 'Site Admin' group
+        return self.request.user.is_authenticated and (self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists())  # noqa
 
     def handle_no_permission(self):
         # Redirect unauthorized users to a 'no permission' page
@@ -57,11 +62,13 @@ class AdminPanelView(UserPassesTestMixin, View):
     def get(self, request):
         photos = Photo.objects.all()
         form = PhotoForm()  # Display a blank form on the get request
-        featured_photos_count = Photo.objects.filter(is_featured=True).count()  # Count featured photos
+        # Count featured photos
+        featured_photos_count = Photo.objects.filter(is_featured=True).count()
         return render(request, self.template_name, {
-            'photos': photos, 
+            'photos': photos,
             'form': form,
-            'featured_photos_count': featured_photos_count,  # Pass the count to the template
+            # Pass the count to the template
+            'featured_photos_count': featured_photos_count,
         })
 
     def post(self, request):
@@ -69,14 +76,16 @@ class AdminPanelView(UserPassesTestMixin, View):
         if form.is_valid():
             form.save()
             messages.info(self.request, 'Photo successfully added')
-            return redirect('admin_panel')  # Redirect back to the admin panel on successful save
+            # Redirect back to the admin panel on successful save
+            return redirect('admin_panel')
         photos = Photo.objects.all()
-        return render(request, self.template_name, {'photos': photos, 'form': form})
+        return render(request, self.template_name, {'photos': photos, 'form': form})  # noqa
 
 
 # No Permission View
 class NoPermissionView(TemplateView):
     template_name = "photos/no_permission.html"
+
 
 # Edit Photo View
 class EditPhotoView(View):
@@ -90,9 +99,10 @@ class EditPhotoView(View):
         featured_photos_count = Photo.objects.filter(is_featured=True).count()
 
         return render(request, self.template_name, {
-            'form': form, 
+            'form': form,
             'photo': photo,
-            'featured_photos_count': featured_photos_count,  # Pass count to template
+            # Pass count to template
+            'featured_photos_count': featured_photos_count,
         })
 
     def post(self, request, photo_id):
@@ -102,7 +112,7 @@ class EditPhotoView(View):
             form.save()
             messages.info(self.request, 'Photo successfully edited')
             return redirect('admin_panel')
-        return render(request, self.template_name, {'form': form, 'photo': photo})
+        return render(request, self.template_name, {'form': form, 'photo': photo})  # noqa
 
 
 # Delete Photo View
