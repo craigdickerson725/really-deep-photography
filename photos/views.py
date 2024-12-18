@@ -91,6 +91,14 @@ class NoPermissionView(TemplateView):
 class EditPhotoView(View):
     template_name = 'photos/edit_photo.html'  # Correct template path
 
+    def dispatch(self, request, *args, **kwargs):
+        # Restrict to superusers or 'Site Admin' group members
+        if not (request.user.is_authenticated and (
+            request.user.is_superuser or request.user.groups.filter(name='Site Admin').exists()
+        )):
+            return redirect('no_permission')
+        return super().dispatch(request, *args, **kwargs)
+
     def get(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
         form = PhotoForm(instance=photo)
@@ -117,6 +125,7 @@ class EditPhotoView(View):
 
 # Delete Photo View
 class DeletePhotoView(View):
+
     def post(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
         photo.delete()
