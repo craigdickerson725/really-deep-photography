@@ -295,6 +295,8 @@ This section provides a view of some of the security measures and their effectiv
 
 During the development of the Really Deep Photography project, several bugs were encountered, particularly when I refactored the application by breaking each page into its own app. This restructuring led to issues with reverse lookups, redirects, and incorrect URL paths, as I occasionally missed updating the paths after splitting the apps. These issues often resulted in the site not loading the correct pages or redirecting users to incorrect URLs.
 
+A security issue was also raised when it was demonstrated that the edit photo section of the on-site admin panel could be accessed (without authorized credentials) by brute force if the url was pasted into the web-browser.  This was quite an easy fix, once the issue was exposed.
+
 The most significant bug occurred within the shopping cart functionality. Specifically, the cart would not update when multiple instances of the same photo were added. This bug was challenging to capture with a screenshot since the problem was related to something that did not happen. After investigation, I discovered that the issue was caused by a statement where an integer was being used. The integer needed to be converted to a string for the cart to properly handle the update. I would not have discovered the cause at all if not for Oisin from Code Institute's Tutor Support Team.  He was very thorough, and patient, and brilliant for catching this one.  His help was certainly vital to this project!  Once this conversion was made, the issue was resolved, and the cart began updating correctly when multiple identical photos were added.
 
 ## Unfixed Bugs
