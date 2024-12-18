@@ -81,14 +81,14 @@
                     </ul>
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
+                            {% if user.is_superuser or is_site_admin %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'admin_panel' %}">Admin</a>
+                            </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                             </li>
-                            {% if user|is_in_group:"Real Administrators" %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'admin_panel' %}">Admin</a>
-                                </li>
-                            {% endif %}
                         {% else %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'account_login' %}">Login</a>
