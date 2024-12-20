@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}FAQ | Really Deep Questions{% endblock %}
+
+{% block head %}
+    {{ block.super }}
+    <meta name="description" content="Got really deep questions about our services?  Ask away, or find your answer among our frequently asked questions.">
+    <meta name="keywords" content="customer service, frequently asked questions, Really Deep Photography">
+{% endblock %}
+
+{% block page_header %}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Frequently Asked Questions</h1>
+    <div class="accordion mt-4" id="faqAccordion">
+        {% for faq in faqs %}
+        <div class="card">
+            <div class="card-header" id="heading{{ forloop.counter }}">
+                <h2 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                        {{ faq.question }}
+                    </button>
+                </h2>
+            </div>
+            <div id="collapse{{ forloop.counter }}" class="collapse" aria-labelledby="heading{{ forloop.counter }}" data-parent="#faqAccordion">
+                <div class="card-body">
+                    {{ faq.answer|safe }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

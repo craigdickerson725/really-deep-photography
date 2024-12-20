@@ -13,6 +13,7 @@ urlpatterns = [
     path('photos/', include('photos.urls')),
     path('cart/', include('cart.urls',)),
     path('checkout/', include('checkout.urls')),
+    path('faq/', include('faq.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'really_deep_photography.views.handler404'
