@@ -8,7 +8,11 @@
 
 {% block content %}
 <div class="container mt-4">
+
     <h1 class="text-white bg-dark text-center py-2">Admin Panel</h1>
+
+    <!-- Quick Jump Navigation Link to FAQ Section -->
+    <a href="#faq-section" class="btn btn-black text-white mb-3">Go to Manage FAQs</a>
 
     {% if featured_photos_count <= 3 %}
     <div class="alert alert-info">
@@ -17,9 +21,9 @@
     {% endif %}
     {% include "partials/messages.html" %}
 
-    <!-- Add Photo Form -->
-    <div class="my-4">
-        <h2 class="h4">Add Photo</h2>
+    <!-- Add Photo Form with anchor -->
+    <div class="my-4" id="add-photo-section">
+        <h2 class="h4 bg-dark text-white text-center">Add Photo</h2>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -100,9 +104,9 @@
         </div>
     </div>
 
-    <!-- FAQ Section -->
-    <div class="my-4">
-        <h2 class="h4">Manage FAQs</h2>
+    <!-- FAQ Section with anchor -->
+    <div class="my-4" id="faq-section">
+        <h2 class="h4 bg-dark text-white text-center">Manage FAQs</h2>
 
         <!-- Add FAQ Form -->
         <form method="POST">
@@ -153,5 +157,8 @@
             </table>
         </div>
     </div>
+
+    <!-- Quick Jump Navigation Link to Add Photo Section -->
+    <a href="#add-photo-section" class="btn btn-black text-white mb-3">Back to Add Photo</a>
 </div>
 {% endblock %}
