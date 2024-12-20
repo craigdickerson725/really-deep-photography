@@ -99,5 +99,59 @@
             </table>
         </div>
     </div>
+
+    <!-- FAQ Section -->
+    <div class="my-4">
+        <h2 class="h4">Manage FAQs</h2>
+
+        <!-- Add FAQ Form -->
+        <form method="POST">
+            {% csrf_token %}
+            <h3 class="h5">Add FAQ</h3>
+            <div class="form-group">
+                {{ faq_form.as_p }}
+            </div>
+            <button type="submit" name="faq_form" class="btn btn-dark">Add FAQ</button>
+        </form>
+
+        <!-- Existing FAQs -->
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Question</th>
+                        <th>Answer</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for faq in faqs %}
+                    <tr>
+                        <td>{{ faq.question }}</td>
+                        <td>{{ faq.answer }}</td>
+                        <td>
+                            <!-- Update FAQ Form -->
+                            <form method="POST" class="d-inline-block">
+                                {% csrf_token %}
+                                <input type="hidden" name="faq_id" value="{{ faq.id }}">
+                                <input type="hidden" name="faq_update" value="1">
+                                <input type="text" name="question" value="{{ faq.question }}" class="form-control mb-1">
+                                <textarea name="answer" class="form-control mb-1">{{ faq.answer }}</textarea>
+                                <button type="submit" class="btn btn-sm btn-dark">Update</button>
+                            </form>
+
+                            <!-- Delete FAQ Form -->
+                            <form method="POST" class="d-inline-block">
+                                {% csrf_token %}
+                                <input type="hidden" name="faq_id" value="{{ faq.id }}">
+                                <button type="submit" name="faq_delete" value="1" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

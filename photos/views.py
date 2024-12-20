@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import UserPassesTestMixin
 from .models import Photo
 from .forms import PhotoForm
+from faq.models import FAQ
+from faq.forms import FAQForm
 
 
 # Gallery view
@@ -48,38 +50,65 @@ def photo_detail(request, photo_id):
 
 # Admin panel
 class AdminPanelView(UserPassesTestMixin, View):
-    template_name = 'photos/admin_panel.html'  # Correct template path
+    template_name = 'photos/admin_panel.html'
 
     def test_func(self):
-        # Check if user is authenticated and either a superuser
-        # or belongs to the 'Site Admin' group
-        return self.request.user.is_authenticated and (self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists())  # noqa
+        return self.request.user.is_authenticated and (
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+        )
 
     def handle_no_permission(self):
-        # Redirect unauthorized users to a 'no permission' page
         return redirect('no_permission')
 
     def get(self, request):
         photos = Photo.objects.all()
-        form = PhotoForm()  # Display a blank form on the get request
-        # Count featured photos
+        form = PhotoForm()
+        faq_form = FAQForm()
+        faqs = FAQ.objects.all()
         featured_photos_count = Photo.objects.filter(is_featured=True).count()
+
         return render(request, self.template_name, {
             'photos': photos,
             'form': form,
-            # Pass the count to the template
+            'faq_form': faq_form,
+            'faqs': faqs,
             'featured_photos_count': featured_photos_count,
         })
 
     def post(self, request):
-        form = PhotoForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.info(self.request, 'Photo successfully added')
-            # Redirect back to the admin panel on successful save
+        if 'faq_form' in request.POST:
+            # Handle FAQ Form Submission
+            faq_form = FAQForm(request.POST)
+            if faq_form.is_valid():
+                faq_form.save()
+                messages.success(request, "FAQ successfully added.")
+                return redirect('admin_panel')
+
+        elif 'faq_update' in request.POST:
+            # Handle FAQ Update
+            faq_id = request.POST.get('faq_id')
+            faq_instance = FAQ.objects.get(id=faq_id)
+            faq_form = FAQForm(request.POST, instance=faq_instance)
+            if faq_form.is_valid():
+                faq_form.save()
+                messages.success(request, "FAQ successfully updated.")
+                return redirect('admin_panel')
+
+        elif 'faq_delete' in request.POST:
+            # Handle FAQ Deletion
+            faq_id = request.POST.get('faq_id')
+            FAQ.objects.filter(id=faq_id).delete()
+            messages.success(request, "FAQ successfully deleted.")
             return redirect('admin_panel')
+
         photos = Photo.objects.all()
-        return render(request, self.template_name, {'photos': photos, 'form': form})  # noqa
+        faqs = FAQ.objects.all()
+        return render(request, self.template_name, {
+            'photos': photos,
+            'form': PhotoForm(),
+            'faq_form': FAQForm(),
+            'faqs': faqs,
+        })
 
 
 # No Permission View
