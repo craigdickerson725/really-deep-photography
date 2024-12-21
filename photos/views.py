@@ -97,8 +97,11 @@ class AdminPanelView(UserPassesTestMixin, View):
         elif 'faq_delete' in request.POST:
             # Handle FAQ Deletion
             faq_id = request.POST.get('faq_id')
-            FAQ.objects.filter(id=faq_id).delete()
-            messages.success(request, "FAQ successfully deleted.")
+            try:
+                FAQ.objects.get(id=faq_id).delete()
+                messages.success(request, "FAQ successfully deleted.")
+            except FAQ.DoesNotExist:
+                messages.error(request, "FAQ not found.")
             return redirect('admin_panel')
 
         photos = Photo.objects.all()

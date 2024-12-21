@@ -1,4 +1,7 @@
 from django.views.generic import ListView
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib import messages
+from django.views import View
 from .models import FAQ
 
 # FAQ list view
