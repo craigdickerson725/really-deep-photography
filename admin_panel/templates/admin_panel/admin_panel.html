@@ -7,6 +7,7 @@
 {% block page_header %}{% endblock %}
 
 {% block content %}
+
 <div class="container mt-4">
 
     <h1 class="text-white bg-dark text-center py-2">Admin Panel</h1>
@@ -27,7 +28,7 @@
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
-                {{ form.as_p }}
+                {{ photo_form.as_p }}
             </div>
             <button type="submit" class="btn btn-dark">Add Photo</button>
         </form>
@@ -115,7 +116,7 @@
             <div class="form-group">
                 {{ faq_form.as_p }}
             </div>
-            <button type="submit" name="faq_form" class="btn btn-dark">Add FAQ</button>
+            <button type="submit" name="add_faq" class="btn btn-dark">Add FAQ</button>
         </form>
 
         <!-- Existing FAQs -->
@@ -134,17 +135,12 @@
                         <td>{{ faq.question }}</td>
                         <td>{{ faq.answer }}</td>
                         <td>
-                            <!-- Update FAQ Form -->
                             <form method="POST" class="d-inline-block">
                                 {% csrf_token %}
                                 <input type="hidden" name="faq_id" value="{{ faq.id }}">
-                                <input type="hidden" name="faq_update" value="1">
-                                <input type="text" name="question" value="{{ faq.question }}" class="form-control mb-1">
-                                <textarea name="answer" class="form-control mb-1">{{ faq.answer }}</textarea>
-                                <button type="submit" class="btn btn-sm btn-dark">Update</button>
+                                <button type="submit" name="update_faq" class="btn btn-sm btn-dark">Update</button>
                             </form>
 
-                            <!-- Button to trigger modal -->
                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ faq.id }}">
                                 Delete
                             </button>
@@ -163,13 +159,12 @@
                                             <small class="text-muted">This action cannot be undone.</small>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                                            <form method="POST">
+                                            <form method="POST" action="{% url 'faq_delete' %}">
                                                 {% csrf_token %}
-                                                <input type="hidden" name="faq_delete" value="1">
                                                 <input type="hidden" name="faq_id" value="{{ faq.id }}">
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                <button type="submit" class="btn btn-sm btn-danger">Yes</button>
                                             </form>
+                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,4 +180,5 @@
     <!-- Quick Jump Navigation Link to Add Photo Section -->
     <a href="#add-photo-section" class="btn btn-black text-white mb-3">Back to Add Photo</a>
 </div>
+
 {% endblock %}
