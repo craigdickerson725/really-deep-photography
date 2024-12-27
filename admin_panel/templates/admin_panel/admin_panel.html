@@ -25,7 +25,7 @@
 
     <!-- Add Photo Form with anchor -->
     <div class="my-4" id="add-photo-section">
-        <h2 class="h4 bg-dark text-white text-center">Add Photo</h2>
+        <h2 class="h4 bg-dark text-white text-center">Manage Photos</h2>
         <form method="POST" action="{% url 'add_photo' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
@@ -109,7 +109,7 @@
 
     <!-- FAQ Section -->
     <div class="my-4" id="faq-section">
-        <h2 class="h4">Manage FAQs</h2>
+        <h2 class="h4 bg-dark text-center text-white">Manage FAQs</h2>
         <form method="POST" action="{% url 'faq_crud' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -125,16 +125,16 @@
                 <li class="list-group-item">
                     <strong>{{ faq.question }}</strong>
                     <p>{{ faq.answer }}</p>
-                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit-faq-modal-{{faq.id}}">Edit</button>
+                    <button class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#edit-faq-modal-{{faq.id}}">Edit</button>
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-faq-modal-{{faq.id}}">Delete</button>
 
                     <!-- Edit FAQ Modal -->
                     <div class="modal fade" id="edit-faq-modal-{{faq.id}}" tabindex="-1" aria-labelledby="edit-faq-modal-{{faq.id}}-label" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <form method="POST">
+                                <form method="POST" action="{% url 'faq_crud' %}">
                                     {% csrf_token %}
-                                    <input type="hidden" name="faq_id" value="{{faq.id}}">
+                                    <input type="hidden" name="faq_id" value="{{ faq.id }}">
                                     {{ faq_form.as_p }}
                                     <button type="submit" name="update_faq" class="btn btn-dark">Update FAQ</button>
                                 </form>
