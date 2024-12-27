@@ -20,17 +20,18 @@
         <strong>Note:</strong> You currently have {{ featured_photos_count }} featured photo(s). You can only have up to 3 featured photos at a time.
     </div>
     {% endif %}
+
     {% include "partials/messages.html" %}
 
     <!-- Add Photo Form with anchor -->
     <div class="my-4" id="add-photo-section">
         <h2 class="h4 bg-dark text-white text-center">Add Photo</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST" action="{% url 'add_photo' %}" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 {{ photo_form.as_p }}
             </div>
-            <button type="submit" class="btn btn-dark">Add Photo</button>
+            <button type="submit" name="add_photo" class="btn btn-dark">Add Photo</button>
         </form>
     </div>
 
@@ -69,6 +70,7 @@
                             <div class="d-flex flex-column flex-md-row">
                                 <a href="{% url 'edit_photo' photo.id %}" class="btn btn-sm btn-dark mb-1 mb-md-0 me-md-2">Edit</a>
                                 
+
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-{{photo.id}}">
                                     Delete
@@ -84,13 +86,13 @@
                                             <div class="modal-body">
                                                 Are you sure you want to delete this photo?
                                                 <br>
-                                                <small class="text-muted">This is permanent</small>
+                                                <small class="text-muted">This action cannot be undone.</small>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
-                                                <form action="{% url 'delete_photo' photo.id %}" method="POST">
+                                                <form method="POST" action="{% url 'delete_photo' photo.id %}">
                                                     {% csrf_token %}
-                                                    <button type="submit" class="btn btn-sm btn-danger">Yes</button>
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -105,80 +107,72 @@
         </div>
     </div>
 
-    <!-- FAQ Section with anchor -->
+    <!-- FAQ Section -->
     <div class="my-4" id="faq-section">
-        <h2 class="h4 bg-dark text-white text-center">Manage FAQs</h2>
-
-        <!-- Add FAQ Form -->
-        <form method="POST">
+        <h2 class="h4">Manage FAQs</h2>
+        <form method="POST" action="{% url 'faq_crud' %}">
             {% csrf_token %}
-            <h3 class="h5">Add FAQ</h3>
             <div class="form-group">
                 {{ faq_form.as_p }}
             </div>
             <button type="submit" name="add_faq" class="btn btn-dark">Add FAQ</button>
         </form>
 
-        <!-- Existing FAQs -->
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Question</th>
-                        <th>Answer</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for faq in faqs %}
-                    <tr>
-                        <td>{{ faq.question }}</td>
-                        <td>{{ faq.answer }}</td>
-                        <td>
-                            <form method="POST" class="d-inline-block">
-                                {% csrf_token %}
-                                <input type="hidden" name="faq_id" value="{{ faq.id }}">
-                                <button type="submit" name="update_faq" class="btn btn-sm btn-dark">Update</button>
-                            </form>
+        <div class="mt-4">
+            <h5>Existing FAQs</h5>
+            <ul class="list-group">
+                {% for faq in faqs %}
+                <li class="list-group-item">
+                    <strong>{{ faq.question }}</strong>
+                    <p>{{ faq.answer }}</p>
+                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit-faq-modal-{{faq.id}}">Edit</button>
+                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#delete-faq-modal-{{faq.id}}">Delete</button>
 
-                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal-delete-{{ faq.id }}">
-                                Delete
-                            </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="modal-delete-{{ faq.id }}" tabindex="-1" aria-labelledby="modal-delete-{{ faq.id }}-label" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title fs-5" id="modal-delete-{{ faq.id }}-label">Delete FAQ</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure you want to delete this FAQ?
-                                            <br>
-                                            <small class="text-muted">This action cannot be undone.</small>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form method="POST" action="{% url 'faq_delete' %}">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="faq_id" value="{{ faq.id }}">
-                                                <button type="submit" class="btn btn-sm btn-danger">Yes</button>
-                                            </form>
-                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Edit FAQ Modal -->
+                    <div class="modal fade" id="edit-faq-modal-{{faq.id}}" tabindex="-1" aria-labelledby="edit-faq-modal-{{faq.id}}-label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="faq_id" value="{{faq.id}}">
+                                    {{ faq_form.as_p }}
+                                    <button type="submit" name="update_faq" class="btn btn-dark">Update FAQ</button>
+                                </form>
                             </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                        </div>
+                    </div>
+
+                    <!-- Delete FAQ Modal -->
+                    <div class="modal fade" id="delete-faq-modal-{{faq.id}}" tabindex="-1" aria-labelledby="delete-faq-modal-{{faq.id}}-label" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="POST" action="{% url 'faq_delete' %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="faq_id" value="{{faq.id}}">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="delete-faq-modal-{{faq.id}}-label">Delete FAQ</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this FAQ?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 
     <!-- Quick Jump Navigation Link to Add Photo Section -->
     <a href="#add-photo-section" class="btn btn-black text-white mb-3">Back to Add Photo</a>
+    
 </div>
 
 {% endblock %}

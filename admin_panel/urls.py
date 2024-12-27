@@ -9,6 +9,7 @@ urlpatterns = [
     path('', AdminPanelView.as_view(), name='admin_panel'),
 
     # Photo management
+    path('add_photo/', FAQCRUDView.as_view(), name='add_photo'),
     path('edit_photo/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),
     path('delete_photo/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),
 

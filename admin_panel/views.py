@@ -27,30 +27,8 @@ class AdminPanelView(UserPassesTestMixin, View):
         return render(request, self.template_name, {
             'photos': photos,
             'faqs': faqs,
-            'photo_form': PhotoForm(),
-            'faq_form': FAQForm(),
-            'featured_photos_count': featured_photos_count,
-        })
-
-    def post(self, request):
-        # Handle adding a photo
-        photo_form = PhotoForm(request.POST, request.FILES)
-        if photo_form.is_valid():
-            photo_form.save()
-            messages.success(request, "Photo successfully added.")
-            photo_form = PhotoForm() 
-        else:
-            messages.error(request, "Failed to add photo. Check the form for errors.")
-
-        # Re-render the admin panel with updated context
-        photos = Photo.objects.all()
-        faqs = FAQ.objects.all()
-        featured_photos_count = Photo.objects.filter(is_featured=True).count()
-        return render(request, self.template_name, {
-            'photos': photos,
-            'faqs': faqs,
-            'photo_form': photo_form,
-            'faq_form': FAQForm(),
+            'photo_form': PhotoForm(),  # Blank form for adding photos
+            'faq_form': FAQForm(),      # Blank form for adding FAQs
             'featured_photos_count': featured_photos_count,
         })
 
