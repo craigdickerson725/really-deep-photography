@@ -33,6 +33,28 @@ class AdminPanelView(UserPassesTestMixin, View):
         })
 
 
+class PhotoCRUDView(UserPassesTestMixin, View):
+    """Add or manage photos"""
+
+    def test_func(self):
+        return self.request.user.is_authenticated and (
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+        )
+
+    def handle_no_permission(self):
+        return redirect('no_permission')
+
+    def post(self, request):
+        if 'add_photo' in request.POST:
+            photo_form = PhotoForm(request.POST, request.FILES)
+            if photo_form.is_valid():
+                photo_form.save()
+                messages.success(request, "Photo successfully added.")
+            else:
+                messages.error(request, "Failed to add photo. Check the form.")
+        return redirect('admin_panel')
+
+
 class EditPhotoView(UserPassesTestMixin, View):
     """Edit a photo"""
     template_name = 'admin_panel/edit_photo.html'
