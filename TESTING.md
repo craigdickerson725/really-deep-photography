@@ -136,6 +136,7 @@ I have used the recommended [HTML W3C Validator](https://validator.w3.org) to va
 | home | index.html | ![screenshot](documentation/validation/home.png) | |
 | photos | admin_panel.html | ![screenshot](documentation/validation/admin_panel.png) | |
 | photos | edit_photo.html | ![screenshot](documentation/validation/edit_photo.png) | |
+| faq | faq.html | ![screenshot](documentation/validation/faq.png) | |
 | photos | gallery.html | ![screenshot](documentation/validation/gallery.png) | |
 | photos | no_permission.html | ![screenshot](documentation/validation/no_permission.png) | |
 | photos | photo_detail.html | ![screenshot](documentation/validation/photo_detail.png) | |
