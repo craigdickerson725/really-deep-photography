@@ -216,11 +216,11 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
-| Browser | Home | Gallery | About | Contact | Cart | Checkout | Notes |
+| Browser | Home | Gallery | About | Contact | FAQ | Cart | Checkout | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Chrome | ![screenshot](documentation/browsers/chrome01.png) | ![screenshot](documentation/browsers/chrome02.png) | ![screenshot](documentation/browsers/chrome03.png) | ![screenshot](documentation/browsers/chrome04.png) | ![screenshot](documentation/browsers/chrome05.png) | ![screenshot](documentation/browsers/chrome06.png) | Works as expected |
-| Edge | ![screenshot](documentation/browsers/edge01.png) | ![screenshot](documentation/browsers/edge02.png) | ![screenshot](documentation/browsers/edge03.png) | ![screenshot](documentation/browsers/edge04.png) | ![screenshot](documentation/browsers/edge05.png) | ![screenshot](documentation/browsers/edge06.png) | Works as expected |
-| Firefox | ![screenshot](documentation/browsers/firefox01.png) | ![screenshot](documentation/browsers/firefox02.png) | ![screenshot](documentation/browsers/firefox03.png) | ![screenshot](documentation/browsers/firefox04.png) | ![screenshot](documentation/browsers/firefox05.png) | ![screenshot](documentation/browsers/firefox06.png) | Works as expected |
+| Chrome | ![screenshot](documentation/browsers/chrome01.png) | ![screenshot](documentation/browsers/chrome02.png) | ![screenshot](documentation/browsers/chrome03.png) | ![screenshot](documentation/browsers/chrome04.png) | ![screenshot](documentation/browsers/chrome07.png) | ![screenshot](documentation/browsers/chrome05.png) | ![screenshot](documentation/browsers/chrome06.png) | Works as expected |
+| Edge | ![screenshot](documentation/browsers/edge01.png) | ![screenshot](documentation/browsers/edge02.png) | ![screenshot](documentation/browsers/edge03.png) | ![screenshot](documentation/browsers/edge04.png) | ![screenshot](documentation/browsers/edge07.png) | ![screenshot](documentation/browsers/edge05.png) | ![screenshot](documentation/browsers/edge06.png) | Works as expected |
+| Firefox | ![screenshot](documentation/browsers/firefox01.png) | ![screenshot](documentation/browsers/firefox02.png) | ![screenshot](documentation/browsers/firefox03.png) | ![screenshot](documentation/browsers/firefox04.png) | ![screenshot](documentation/browsers/firefox07.png) | ![screenshot](documentation/browsers/firefox05.png) | ![screenshot](documentation/browsers/firefox06.png) | Works as expected |
 
 ## Responsiveness
 
