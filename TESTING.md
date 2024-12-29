@@ -244,6 +244,7 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | Gallery | ![screenshot](documentation/lighthouse/gallery01.png) | ![screenshot](documentation/lighthouse/gallery02.png) | Some minor warnings |
 | About | ![screenshot](documentation/lighthouse/about01.png) | ![screenshot](documentation/lighthouse/about02.png) | Slow response time due to large images |
 | Contact | ![screenshot](documentation/lighthouse/contact01.png) | ![screenshot](documentation/lighthouse/contact02.png) | Slow response time due to large images |
+| FAQ | ![screenshot](documentation/lighthouse/faq01.png) | ![screenshot](documentation/lighthouse/faq02.png) | Some minor warnings |
 | Cart | ![screenshot](documentation/lighthouse/cart01.png) | ![screenshot](documentation/lighthouse/cart02.png) | Slow response time due to large images |
 | Checkout | ![screenshot](documentation/lighthouse/checkout01.png) | ![screenshot](documentation/lighthouse/checkout02.png) | Slow response time due to large images |
 
@@ -298,6 +299,8 @@ This section provides a view of some of the security measures and their effectiv
 | As a site admin I can view a list of all orders so that I can keep track of what has been sold and needs to be shipped | ![screenshot](documentation/user_story_testing/ust12.png) |
 | As a site admin I can employ SEO strategies so that my website ranks higher in search results | ![screenshot](documentation/user_story_testing/ust13.png) |
 | As a site admin I can integrate social media links so that I can promote my work easily | ![screenshot](documentation/user_story_testing/ust14.png) |
+| As a site admin I can manage (add, edit, and delete) frequently asked questions through the admin panel so that I can keep the FAQ section accurate and up-to-date | ![screenshot](documentation/user_story_testing/ust15.png) |
+| As a customer I can view a well-organized FAQ section on the website so that I can quickly find answers to my questions | ![screenshot](documentation/user_story_testing/ust16.png) |
 
 ## Bugs
 
