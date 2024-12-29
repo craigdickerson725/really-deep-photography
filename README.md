@@ -55,6 +55,7 @@ Overall, "Really Deep Photography" offers an accessible, visually appealing, and
 - As a customer I can add a photo to my shopping cart so that I can purchase it later
 - As a customer I can complete a checkout process so that I can purchase the selected photos
 - As a customer I can receive an email confirmation after I make a purchase so that I have a record of my order
+- As a customer I can view a well-organized FAQ section on the website so that I can quickly find answers to my questions
 
 ### Site Admin User Stories
 
@@ -63,6 +64,7 @@ Overall, "Really Deep Photography" offers an accessible, visually appealing, and
 - As a site admin I can view a list of all orders so that I can keep track of what has been sold and needs to be shipped
 - As a site admin I can employ SEO strategies so that my website ranks higher in search results
 - As a site admin I can integrate social media links so that I can promote my work easily
+- As a site admin I can manage (add, edit, and delete) frequently asked questions through the admin panel so that I can keep the FAQ section accurate and up-to-date
 
 ## Wireframes
 
