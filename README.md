@@ -23,6 +23,7 @@ The website's main navigation bar is present across all pages, offering quick li
 - **Cart:** Accessible from the navigation bar, the cart offers users a clear overview of selected items, with options to adjust quantities or remove items.
 - **Checkout:** A simple checkout process integrated with Stripe provides a secure and efficient way to complete purchases.
 - **About and Contact:** These pages provide additional information about the business and a means for users to reach out directly.
+- **FAQ:** An FAQ page will provide customers with answers for the most common questions that they may have.
 - **Navbar:** The navbar itself uses clear, recognizable icons (like a cart icon) and is fully responsive, making it easy to navigate on both mobile and desktop devices. A user authentication option is available on the navbar, offering a quick login/logout functionality, and an "Admin" link appears for authorized users in the admin group, streamlining access to site management features.
 
 ### Visual Design
@@ -88,6 +89,9 @@ Gallery
 Cart
   - ![screenshot](documentation/wireframes/wireframe14.png)
 
+FAQ
+  - ![screenshot](documentation/wireframes/wireframe17.png)
+
 </details>
 
 ### Tablet Wireframes
@@ -110,6 +114,9 @@ Gallery
 Cart
   - ![screenshot](documentation/wireframes/wireframe15.png)
 
+FAQ
+  - ![screenshot](documentation/wireframes/wireframe18.png)
+
 </details>
 
 ### Desktop Wireframes
@@ -131,6 +138,9 @@ Gallery
 
 Cart
   - ![screenshot](documentation/wireframes/wireframe13.png)
+
+FAQ
+  - ![screenshot](documentation/wireframes/wireframe16.png)
 
 </details>
 
