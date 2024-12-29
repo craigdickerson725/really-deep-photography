@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import render
 from django.urls import path
 
+
 # Define the FAQ model
 class FAQ(models.Model):
     question = models.CharField(max_length=255)

@@ -14,7 +14,7 @@ class AdminPanelView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):
@@ -38,7 +38,7 @@ class PhotoCRUDView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):
@@ -61,7 +61,7 @@ class EditPhotoView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):
@@ -70,7 +70,7 @@ class EditPhotoView(UserPassesTestMixin, View):
     def get(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
         form = PhotoForm(instance=photo)
-        return render(request, self.template_name, {'form': form, 'photo': photo})
+        return render(request, self.template_name, {'form': form, 'photo': photo})  # noqa
 
     def post(self, request, photo_id):
         photo = get_object_or_404(Photo, id=photo_id)
@@ -80,7 +80,7 @@ class EditPhotoView(UserPassesTestMixin, View):
             messages.success(request, "Photo successfully updated.")
             return redirect('admin_panel')
         messages.error(request, "Failed to update photo. Check the form.")
-        return render(request, self.template_name, {'form': form, 'photo': photo})
+        return render(request, self.template_name, {'form': form, 'photo': photo})  # noqa
 
 
 class DeletePhotoView(UserPassesTestMixin, View):
@@ -88,7 +88,7 @@ class DeletePhotoView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):
@@ -106,7 +106,7 @@ class FAQCRUDView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):
@@ -128,7 +128,7 @@ class FAQCRUDView(UserPassesTestMixin, View):
                 faq_form.save()
                 messages.success(request, "FAQ successfully updated.")
             else:
-                messages.error(request, "Failed to update FAQ. Check the form.")
+                messages.error(request, "Failed to update FAQ. Check the form.")  # noqa
         return redirect('admin_panel')
 
 
@@ -137,7 +137,7 @@ class FAQDeleteView(UserPassesTestMixin, View):
 
     def test_func(self):
         return self.request.user.is_authenticated and (
-            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()
+            self.request.user.is_superuser or self.request.user.groups.filter(name='Site Admin').exists()  # noqa
         )
 
     def handle_no_permission(self):

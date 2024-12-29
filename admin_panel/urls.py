@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (
-    AdminPanelView, PhotoCRUDView,EditPhotoView,
+    AdminPanelView, PhotoCRUDView, EditPhotoView,
     DeletePhotoView, FAQCRUDView, FAQDeleteView,
     NoPermissionView
 )
@@ -11,8 +11,8 @@ urlpatterns = [
 
     # Photo management
     path('add_photo/', PhotoCRUDView.as_view(), name='add_photo'),
-    path('edit_photo/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),
-    path('delete_photo/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),
+    path('edit_photo/<int:photo_id>/', EditPhotoView.as_view(), name='edit_photo'),  # noqa
+    path('delete_photo/<int:photo_id>/', DeletePhotoView.as_view(), name='delete_photo'),  # noqa
 
     # FAQ management
     path('faq_crud/', FAQCRUDView.as_view(), name='faq_crud'),
