@@ -218,6 +218,12 @@ FAQ
 
 ![screenshot](documentation/features/feature11.png)
 
+- **FAQ Management**
+
+  - CRUD functionality for the FAQ page is made accessible to site admins via the on-site Admin Panel.
+
+![screenshot](documentation/features/feature12.png)
+
 ### Future Features
 
 - Order History Access
