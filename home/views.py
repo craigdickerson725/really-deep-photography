@@ -12,7 +12,7 @@ def index(request):
     # Determine if the user is part of the "Site Admin" group
     is_site_admin = (
         request.user.is_authenticated
-        and (request.user.is_superuser or request.user.groups.filter(name="Site Admin").exists())
+        and (request.user.is_superuser or request.user.groups.filter(name="Site Admin").exists())  # noqa
     )
 
     # Render the template with the required context

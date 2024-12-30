@@ -14,7 +14,7 @@ urlpatterns = [
     path('cart/', include('cart.urls')),
     path('checkout/', include('checkout.urls')),
     path('faq/', include('faq.urls')),
-    path('admin_panel/', include('admin_panel.urls')),  # Add this line for the admin panel
+    path('admin_panel/', include('admin_panel.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = 'really_deep_photography.views.handler404'
