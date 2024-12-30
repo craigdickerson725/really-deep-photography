@@ -217,7 +217,7 @@ I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com
 I've tested my deployed project on multiple browsers to check for compatibility issues.
 
 | Browser | Home | Gallery | About | Contact | FAQ | Cart | Checkout | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Chrome | ![screenshot](documentation/browsers/chrome01.png) | ![screenshot](documentation/browsers/chrome02.png) | ![screenshot](documentation/browsers/chrome03.png) | ![screenshot](documentation/browsers/chrome04.png) | ![screenshot](documentation/browsers/chrome07.png) | ![screenshot](documentation/browsers/chrome05.png) | ![screenshot](documentation/browsers/chrome06.png) | Works as expected |
 | Edge | ![screenshot](documentation/browsers/edge01.png) | ![screenshot](documentation/browsers/edge02.png) | ![screenshot](documentation/browsers/edge03.png) | ![screenshot](documentation/browsers/edge04.png) | ![screenshot](documentation/browsers/edge07.png) | ![screenshot](documentation/browsers/edge05.png) | ![screenshot](documentation/browsers/edge06.png) | Works as expected |
 | Firefox | ![screenshot](documentation/browsers/firefox01.png) | ![screenshot](documentation/browsers/firefox02.png) | ![screenshot](documentation/browsers/firefox03.png) | ![screenshot](documentation/browsers/firefox04.png) | ![screenshot](documentation/browsers/firefox07.png) | ![screenshot](documentation/browsers/firefox05.png) | ![screenshot](documentation/browsers/firefox06.png) | Works as expected |
@@ -227,7 +227,7 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 I've tested my deployed project on multiple devices to check for responsiveness issues.
 
 | Device | Home | Gallery | About | Contact | FAQ | Cart | Checkout | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Mobile (DevTools) | ![screenshot](documentation/responsiveness/mobile01.png) | ![screenshot](documentation/responsiveness/mobile02.png) | ![screenshot](documentation/responsiveness/mobile03.png) | ![screenshot](documentation/responsiveness/mobile04.png) | ![screenshot](documentation/responsiveness/mobile07.png) | ![screenshot](documentation/responsiveness/mobile05.png) | ![screenshot](documentation/responsiveness/mobile06.png) | Works as expected |
 | Tablet (DevTools) | ![screenshot](documentation/responsiveness/tablet01.png) | ![screenshot](documentation/responsiveness/tablet02.png) | ![screenshot](documentation/responsiveness/tablet03.png) | ![screenshot](documentation/responsiveness/tablet04.png) | ![screenshot](documentation/responsiveness/tablet07.png) | ![screenshot](documentation/responsiveness/tablet05.png) | ![screenshot](documentation/responsiveness/tablet06.png) | Works as expected |
 | Desktop | ![screenshot](documentation/responsiveness/desktop01.png) | ![screenshot](documentation/responsiveness/desktop02.png) | ![screenshot](documentation/responsiveness/desktop03.png) | ![screenshot](documentation/responsiveness/desktop04.png) | ![screenshot](documentation/responsiveness/desktop07.png) | ![screenshot](documentation/responsiveness/desktop05.png) | ![screenshot](documentation/responsiveness/desktop06.png) | Works as expected |
