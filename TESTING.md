@@ -304,7 +304,7 @@ This section provides a view of some of the security measures and their effectiv
 
 ## Bugs
 
-**Fixed Bugs**
+### Fixed Bugs
 
 During the development of the Really Deep Photography project, several bugs were encountered, particularly when I refactored the application by breaking each page into its own app. This restructuring led to issues with reverse lookups, redirects, and incorrect URL paths, as I occasionally missed updating the paths after splitting the apps. These issues often resulted in the site not loading the correct pages or redirecting users to incorrect URLs.
 
@@ -312,7 +312,18 @@ A security issue was also raised when it was demonstrated that the edit photo se
 
 The most significant bug occurred within the shopping cart functionality. Specifically, the cart would not update when multiple instances of the same photo were added. This bug was challenging to capture with a screenshot since the problem was related to something that did not happen. After investigation, I discovered that the issue was caused by a statement where an integer was being used. The integer needed to be converted to a string for the cart to properly handle the update. I would not have discovered the cause at all if not for Oisin from Code Institute's Tutor Support Team.  He was very thorough, and patient, and brilliant for catching this one.  His help was certainly vital to this project!  Once this conversion was made, the issue was resolved, and the cart began updating correctly when multiple identical photos were added.
 
-## Unfixed Bugs
+### Unfixed Bugs
 
-> [!NOTE]  
-> There are no remaining bugs that I am aware of, though even after thorough testing, I cannot rule out the possibility.
+There are currently none that I'm aware of.
+
+### Known Issues
+
+| Issue | Screenshot |
+| --- | --- |
+| On devices smaller than 375px, the page starts to have horizontal `overflow-x` scrolling. | ![screenshot](documentation/issues/overflow.png) |
+| Validation errors on "signup.html" coming from the Django Allauth package. | ![screenshot](documentation/issues/allauth.png) |
+| With a known order-number, users can brute-force "checkout_success.html" and see potentially sensitive information. | ![screenshot](documentation/issues/checkout-success.png) |
+| If a photo is in your cart, but then gets deleted from the database, it throws errors from the session storage memory. | ![screenshot](documentation/issues/session-storage.png) |
+
+> [!IMPORTANT]
+> There are no remaining bugs that I am aware of, though, even after thorough testing, I cannot rule out the possibility.
