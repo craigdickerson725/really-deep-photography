@@ -294,12 +294,14 @@ erDiagram
         int id PK
         int user_id FK
     }
+
     CartItem {
         int id PK
         int cart_id FK
         int photo_id FK
         int quantity
     }
+
     Photo {
         int id PK
         string title
@@ -344,6 +346,13 @@ erDiagram
         datetime date_sent
     }
 
+    FAQ {
+        int id PK
+        string question
+        text answer
+        boolean is_active
+    }
+
     User ||--o| Cart : "1 has"
     Cart ||--o| CartItem : "1 has many"
     CartItem ||--|| Photo : "1 refers to"
@@ -351,7 +360,7 @@ erDiagram
     OrderLineItem ||--|| Photo : "1 refers to"
 ```
 
-source: [Mermaid](https://mermaid.live/edit#pako:eNqdVFFv2jAQ_iuWnwGRkEKb106Tpm5apWkvU6ToGh9gLbEz-6KVAv99dgLUECqi5SXWfd99Z3939pYXWiBPOZpPElYGqkwx9_20aNi2W_tPKmJSsOen95AlI9WKNY6poMIegBXIsovuM9UtHsHQDVkf8pq5i39-OuUfs78QVgMUCkcNFY7xeq1JXwP-NKBI0uas4LNnD7PB5ZZ9DwTawsiapFY9zMq3IEFgISsoWW1kEYRftC4RFJM2XyJQY1BcWPrdiKGt0p6aq6Z6QdMDl01Z5rcaGUSdkwo_Eit0o8hs-knakh-4vn36r8q1yYtTC0KnyCBSDkIYtDa6gcfXdxPICiAkWWG76Legs4k0QdkH3RVR4hI8-StXUkGZ--m7tktZY17Lqx38KhUOnO1uf_8_3OFxSldWurLhid5vq1YEBX1zpsIKh83YkAkifCVWdaofdCW3qOhiO-2btNuNx3rXPSQpy3jE1mAzHjwvAaM19MRiFahNSG1hT9_tDle94xpcorFuJo_k7o4dhM_bdV39nHOrBB_xCo3zSLiHuHU547RGZyT3bAHmt6ftHQ8a0j82quApmQZHvKm9W4enm6dLKK2L1qB4uuWvPJ0l0eR-vojn0Wy6iKfTZDHiG56OZ5N5Es-SJL57WNzdxw_xYj_ib1o7jWgyjWZxkrg093NYq_erxbqiRjer9aHY_h-NUea4)
+source: [Mermaid](https://mermaid.live/edit#pako:eNqdVd9v2jAQ_lcsP1NEAqGQt2pTpamr1mnay4QUufEBlhw7tc9rKfC_z0mAGpKKaHly7r777ny_vKW55kBTCuarYCvDioUi_vttwZBtc64-oZAITp4ePkQWjVAr4jxSsQJaCiiYkI10v1DN4QszeIW2ElWcmZffP3TYf0MoenDkHhpyHOXlWqPuUrw4plDg5sLlU4XvlwpvLdt54GBzI0oUWrV0VrwHBhxyUTBJSiPyQPystQSmiLDZEhg6A_wixh-G9y2XrqCZcsUzmJZy6aTMrhUzkPpcKviMLNdOodm0jbTFquna6dOvKtMmy09FCDOFBgAzxrkBa6Mr-rg7moCWMwQUBdSHdgmaNKFGJttKPyaKXypP-RUroZjMqv7rilKUkJWis4LfhYKe3d3E9__tHV5HerfCuw1v9DFxWiHL8dEnla2gX4_16SCENyRFw_pJVTILCi_Cub_72S-GFwf2fORqj0zZ17BXg9nytxR_4cJfvQd3u5sbvWuWV0oWNCJrZhc0WGkBoi7gCUUKpjYhtFZX8N3usFoarIElGOtn4AhuZvpAfN4e3eznmGsu6IAWYHxNuF_-dUYXFNfgC0crNIclcxIr5N5DmUP9a6NymqJxMKBGu9Wapksmrf9zZVWuw_txhJRM0XRL32gaj6bDaJ7Mk1k0SabjSRwP6MaLo-E4iufjOEomszgaR_sBfdfaE4yGs-R2Op-Mk7m3jUa3NdufWteQAxeozWPzdNUv2P4fEmAQQA)
 
 I have also used `pygraphviz` and `django-extensions` to auto-generate an ERD, so that my models (CartItem, ContactMessage, Order, OrderLineItem, and Photo) are easier to visualize.
 
